@@ -1,0 +1,19 @@
+* {
+  padding: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.shedule::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.shedule {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  height: 835px;
+  width: 80%;
+  margin: 0px auto;
+  overflow: auto;
+}

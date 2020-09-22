@@ -1,0 +1,61 @@
+.nav-week {
+    width: 100%;
+    text-align: center;
+    justify-content: space-around;
+    height: 60px;
+    user-select: none;
+    position: relative;
+    z-index: 20;
+    
+    .last {
+        border: none !important;
+    }
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background: #EDEDED;
+        border-right: 1px solid #ADADAD;
+        color: #6F6F6F;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        .day {
+            width: 50px;
+            height: 22px;
+            font-size: 14px;
+            top: 45px;
+            color: #000;
+            margin-bottom: -20px;
+            margin-top: 5px;
+            font-weight: normal;
+            background: #C4C4C4;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+    }
+
+    .item-active {
+        background: #22539C !important;
+        color: #fff !important;
+
+        .day {
+            background: #FF6500 !important;
+            color: #fff !important;
+        }
+    }
+
+    .item:hover {
+        background: #496795;
+        color: #A4B3CA;
+
+        .day {
+            background: #ffa76d;
+            color: #EEEEEE;
+        }
+    }
+}

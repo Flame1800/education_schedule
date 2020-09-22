@@ -1,0 +1,198 @@
+.cab {
+    font-size: 13px;
+    color: #fff;
+    background: #22539C;
+    padding: 2px 7px;
+    border-radius: 3px;
+    height: 22px;
+    margin-left: 7px;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+.sign {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #81B4FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    color: #fff;
+}
+
+.icon-dinner {
+    width: 20px;
+    height: 20px;
+    background: url('../../assets/img/dinner-icon.png');
+    background-size: contain;
+}
+
+.shedule-day {
+    transition: 0.3s;
+}
+
+.content {
+    margin-top: 90px;
+    margin-left: 70px;
+    display: flex;
+
+    .couples {
+        margin-right: 80px;
+
+        .item {
+            display: flex;
+            transition: 0.4s;
+
+            .num {
+                font-size: 48px;
+                font-weight: bold;
+                width: 60px;
+                color: #9B9B9B;
+                border-right: 1px solid #ADADAD;
+                cursor: pointer;
+            }
+        }
+
+        .active-item {
+            transition: 0.4s;
+            
+            .num {
+                color: #22539C;
+            }
+
+            .couple {
+                background: #DFEEFF;
+                .name {
+                    color: #22539C;
+                }
+
+                .cab {
+                    color: #22539C;
+                    background: #fff;
+                }
+            }
+        }
+
+        .item:hover {
+            .couple {
+                box-shadow: 0px 7px 18px rgba(0, 0, 0, 0.39) !important;
+            }
+        }
+
+        .active-item .couple::after {
+            content: 'текущаяя пара';
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 10px;
+            padding-bottom: 8px;
+            font-size: 14px;
+            line-height: 0;
+            background: #22539C;
+            color: #fff;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .one-couple {
+            display: grid;
+
+            .time {
+                margin-bottom: 10px;
+            }
+        }
+
+        .couple {
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+            width: 329px;
+            height: 130px;
+            margin-bottom: 30px;
+            margin-left: 21px;
+            border-radius: 5px;
+            padding-left: 12px;
+            padding-right: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+
+            .sub-item {
+                height: 60px;
+
+                .cont {
+                    display: flex;
+                }
+
+
+            }
+
+            .sub-item:first-child {
+                border-bottom: 2px solid #ABCDFF;
+            }
+
+            .name {
+                color: #424242;
+                font-size: 14px;
+                transition: 0.3s;
+            }
+
+            .cont {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+
+            .head-card {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 12px;
+            }
+
+            .time {
+                margin-top: auto;
+            }
+        }
+    }
+    
+    .info-section {
+        width: 45%;
+
+        .board {
+            height: 260px;
+            background: #F1F7FF;
+            padding: 20px;
+            margin-bottom: 30px;
+
+            .name {
+                font-size: 24px;
+                margin-bottom: 30px;
+                color: #023580;
+            }
+
+            .text {
+                font-size: 18px;
+                color: #121212;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                .blue-color {
+                    color: #023580;
+                }
+            }
+
+            .time {
+                margin-top: 45px;
+                font-size: 24px;
+            }
+        }
+
+        .dinner {
+            display: flex;
+            
+            .title {
+                margin-left: 20px;
+            }
+        }
+    }
+}
