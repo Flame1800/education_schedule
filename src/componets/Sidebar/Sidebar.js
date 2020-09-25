@@ -3,8 +3,14 @@ import './sidebar.scss';
 import SheduleDay from '../SheduleDay';
 import SheduleWeek from '../SheduleWeek';
 import Filter from '../Filter';
+import { connect } from "react-redux";
+import * as actions from '../../actions';
 
-function Sidebar() {
+const actionsCreators = {
+  loadShedule: actions.loadShedule
+}
+
+function Sidebar(props) {
   const [filter, setFilter] = useState(false);
   const [mode, setMode] = useState('day');
 
@@ -17,6 +23,10 @@ function Sidebar() {
   const openFilter = (e) => {
     e.preventDefault();
     setFilter(!filter);
+    
+    if (!filter) {
+      props.loadShedule();
+    }
   }
 
   let filterClasses = 'btn-filter ';
@@ -36,17 +46,17 @@ function Sidebar() {
             </div>
             <div className={filterClasses} onClick={openFilter}>
               <div className="icon"></div>
-              <div className="text" >Фильтр</div>
+              <div className="text"  >Фильтр</div>
             </div>
             <div className="switch-week">
               <div className="title">Вся неделя</div>
-              <label class="label" onChange={changeSheduleMode}>
-                <div class="toggle">
-                  <input class="toggle-state" type="checkbox" name="check" value="check" />
-                  <div class="toggle-inner">
-                    <div class="indicator"></div>
+              <label className="label" onChange={changeSheduleMode}>
+                <div className="toggle">
+                  <input className="toggle-state" type="checkbox" name="check" value="check" />
+                  <div className="toggle-inner">
+                    <div className="indicator"></div>
                   </div>
-                  <div class="active-bg"></div>
+                  <div className="active-bg"></div>
                 </div>
               </label>
             </div>
@@ -63,4 +73,5 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+const connSidebar = connect(null, actionsCreators)(Sidebar)
+export default connSidebar;

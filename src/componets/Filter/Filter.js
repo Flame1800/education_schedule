@@ -1,7 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './filter.scss';
+import { connect } from "react-redux";
+import * as actions from '../../actions';
 
-function Filter() {
+const actionsCreators = {
+  loadShedule: actions.loadShedule,
+  loadFilterData: actions.loadFilterData,
+}
+
+const mapStateToProps = (state) => {
+  return { shedule: state.sheduleDay };
+}
+
+function Filter(props) {
+  const [filterList, setfilterList] = React.useState({});
+
+
+  const addFilterDiv = (num) => (e) => {
+    e.preventDefault();
+    setfilterList({ division: num })
+  }
+
+  const addFilterCourse = (num) => (e) => {
+    e.preventDefault();
+    setfilterList({...filterList, course: num});
+    const prop = {
+      data: props.shedule,
+      filter: {...filterList, course: num},
+    }
+
+    props.loadFilterData({ prop });
+  }
+
+  const divisions = ['СП-1', "СП-2", "СП-3", "СП-4", "СП-5"];
+  const courses = [1, 2, 3, 4];
+
   return (
     <div className="filter col-10">
       <div className="header">
@@ -16,31 +49,37 @@ function Filter() {
       </div>
       <div className="items-list">
         <div className="column">
-          <div className="item">СП-1</div>
-          <div className="item">СП-2</div>
-          <div className="item">СП-3</div>
-          <div className="item active">СП-4</div>
+          {divisions.map(item => {
+            let itemClasses = 'item';
+            if (item === filterList.division) {
+              itemClasses += " active";
+            }
+
+            return (
+              <div className={itemClasses} key={item} onClick={addFilterDiv(item)}>{item}</div>
+            )
+          })}
         </div>
         <div className="column">
-          <div className="item">1 Курс</div>
-          <div className="item">2 Курс</div>
-          <div className="item">3 Курс</div>
-          <div className="item active">4 Курс</div>
+          {filterList.division && courses.map(item => {
+            let itemClasses = 'item';
+            if (item === filterList.course) {
+              itemClasses += " active";
+            }
+
+            return (
+              <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
+            )
+          })}
         </div>
         <div className="column">
-          <div className="item">054 группа</div>
-          <div className="item">055 группа</div>
-          <div className="item">056 группа</div>
-          <div className="item">082 группа</div>
-          <div className="item">711 группа</div>
-          <div className="item">712 группа</div>
-          <div className="item">713 группа</div>
-          <div className="item">714 группа</div>
-          <div className="item active">715 группа</div>
+
         </div>
       </div>
     </div>
   );
 }
 
-export default Filter;
+
+const connFilter = connect(mapStateToProps, actionsCreators)(Filter)
+export default connFilter;
