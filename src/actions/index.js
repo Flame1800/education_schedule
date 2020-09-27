@@ -9,6 +9,8 @@ export const loadSheduleFailure = createAction("LOAD_SHEDULE_FAILURE");
 
 export const loadFilterData = createAction("LOAD_FILTER_LIST");
 export const filteredInDivisions = createAction("FILTERED_IN_DIVISONS");
+export const clearFilter = createAction("CLEAR_FILTER");
+export const switchFilter = createAction("SWITCH_FILTER");
 
 export const loadShedule = () => async (dispatch) => {
     dispatch(loadSheduleRequest());

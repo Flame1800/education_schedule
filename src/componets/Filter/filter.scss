@@ -71,6 +71,11 @@
     color: #777777;
     font-size: 21px;
 
+    .groups {
+      height: 50vh;
+      width: 120px;
+      overflow: auto;
+    }
     .column {
       margin-right: 50px;
 
@@ -92,3 +97,4 @@
       }
     }
   }
+  

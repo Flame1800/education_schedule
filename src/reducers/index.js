@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
 import filter from './handlers/filter'; 
-import sheduleDay from './handlers/sheduleDay'; 
+import shedule from './handlers/shedule'; 
+import sideBar from './handlers/sideBar';
 
 export default combineReducers({
     filter,
-    sheduleDay
+    shedule,
+    sideBar
 })

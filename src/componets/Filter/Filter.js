@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import './filter.scss';
 import { connect } from "react-redux";
 import * as actions from '../../actions';
+import _ from 'lodash';
 
 const actionsCreators = {
   loadShedule: actions.loadShedule,
   loadFilterData: actions.loadFilterData,
+  switchFilter: actions.switchFilter,
 }
 
 const mapStateToProps = (state) => {
-  return { shedule: state.sheduleDay };
+  return { groups: state.filter, shedule: state.sheduleDay };
 }
 
 function Filter(props) {
@@ -23,13 +25,18 @@ function Filter(props) {
 
   const addFilterCourse = (num) => (e) => {
     e.preventDefault();
-    setfilterList({...filterList, course: num});
+    setfilterList({ ...filterList, course: num });
     const prop = {
       data: props.shedule,
-      filter: {...filterList, course: num},
+      filter: { ...filterList, course: num },
     }
 
     props.loadFilterData({ prop });
+  }
+
+  const selectLastItem = () => {
+    props.switchFilter();
+    
   }
 
   const divisions = ['СП-1', "СП-2", "СП-3", "СП-4", "СП-5"];
@@ -72,8 +79,17 @@ function Filter(props) {
             )
           })}
         </div>
-        <div className="column">
+        <div className="column groups">
+          {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
+            let itemClasses = 'item';
+            if (item === filterList.course) {
+              itemClasses += " active";
+            }
 
+            return (
+              <div className={itemClasses} key={_.uniqueId()}  onClick={selectLastItem()}>{item}</div>
+            )
+          })}
         </div>
       </div>
     </div>

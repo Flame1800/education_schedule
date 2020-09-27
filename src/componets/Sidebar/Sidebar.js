@@ -7,31 +7,34 @@ import { connect } from "react-redux";
 import * as actions from '../../actions';
 
 const actionsCreators = {
-  loadShedule: actions.loadShedule
+  loadShedule: actions.loadShedule,
+  switchFilter: actions.switchFilter,
 }
 
+const mapStatetoProps = (state) => {
+  return { filter: state.sideBar.filter }
+} 
+
 function Sidebar(props) {
-  const [filter, setFilter] = useState(false);
   const [mode, setMode] = useState('day');
 
-  const changeSheduleMode = (e) => {
-    // e.preventDefault();
+  const changeSheduleMode = () => {
     const newMode = mode === 'day' ? 'week' : 'day'
     setMode(newMode);
   }
 
   const openFilter = (e) => {
     e.preventDefault();
-    setFilter(!filter);
+    props.switchFilter();
     
-    if (!filter) {
+    if (!props.filter) {
       props.loadShedule();
     }
   }
 
   let filterClasses = 'btn-filter ';
 
-  if (filter) {
+  if (props.filter) {
     filterClasses += 'btn-active';
   }
 
@@ -68,10 +71,10 @@ function Sidebar(props) {
           <div className="time">16:06</div>
         </div>
       </div>
-      {filter ? <Filter /> : (mode === 'day' ? <SheduleDay /> : <SheduleWeek />)}
+      {props.filter ? <Filter /> : (mode === 'day' ? <SheduleDay /> : <SheduleWeek />)}
     </div>
   );
 }
 
-const connSidebar = connect(null, actionsCreators)(Sidebar)
+const connSidebar = connect(mapStatetoProps, actionsCreators)(Sidebar)
 export default connSidebar;
