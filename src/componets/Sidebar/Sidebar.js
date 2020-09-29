@@ -26,10 +26,6 @@ function Sidebar(props) {
   const openFilter = (e) => {
     e.preventDefault();
     props.switchFilter();
-    
-    if (!props.filter) {
-      props.loadShedule();
-    }
   }
 
   let filterClasses = 'btn-filter ';
@@ -37,7 +33,6 @@ function Sidebar(props) {
   if (props.filter) {
     filterClasses += 'btn-active';
   }
-
   return (
     <div className="shedule mt-3 p-0 d-flex">
       <div className="sidebar col-2 p-0">

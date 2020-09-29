@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import reducers from './reducers/index';
 import thunk from 'redux-thunk';
+import * as actions from './actions/index';
 
 const store = createStore(
   reducers,
@@ -13,6 +14,8 @@ const store = createStore(
     applyMiddleware(thunk),
   )
 );
+
+store.dispatch(actions.loadShedule())
 
 ReactDOM.render(
   <Provider store={store}>

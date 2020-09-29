@@ -1,35 +1,39 @@
 import React from 'react';
 import './navWeek.scss';
+import { connect } from "react-redux";
+import { DateTime, Duration, Info, Interval, Settings } from 'luxon';
 
-function NawWeek() {
+const actionsCreators = {
+
+}
+
+const mapStatetoProps = (state) => {
+  return { days: state.currWeek };
+}
+
+function NavWeek(props) {
+
   return (
     <div className="nav-week d-flex">
-        <div className="item item-active">
-          <div className="num">31 августа</div>
-          <div className="day">Пн</div>
-        </div>
-        <div className="item">
-          <div className="num">1 сентября</div>
-          <div className="day">Вт</div>
-        </div>
-        <div className="item">
-          <div className="num">2 сентября</div>
-          <div className="day">Ср</div>
-        </div>
-        <div className="item">
-          <div className="num">3 сентября</div>
-          <div className="day">Чт</div>
-        </div>
-        <div className="item">
-          <div className="num">4 сентября</div>
-          <div className="day">Пт</div>
-        </div>
-        <div className="item last">
-          <div className="num">5 сентября</div>
-          <div className="day">Сб</div>
-        </div>
+
+      {props.days.map(day => {
+        let classes = 'item';
+
+        if (day.active) {
+          classes += ' item-active';
+        }
+
+        return (
+          <div className={classes} key={day.day}>
+            <div className="num">{day.day}</div>
+            <div className="day">{day.weekDay}</div>
+          </div>
+        )
+      })}
     </div>
   );
 }
 
-export default NawWeek;
+
+const connNavWeek = connect(mapStatetoProps, actionsCreators)(NavWeek)
+export default connNavWeek;

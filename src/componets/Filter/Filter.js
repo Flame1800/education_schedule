@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './filter.scss';
 import { connect } from "react-redux";
 import * as actions from '../../actions';
@@ -8,15 +8,15 @@ const actionsCreators = {
   loadShedule: actions.loadShedule,
   loadFilterData: actions.loadFilterData,
   switchFilter: actions.switchFilter,
+  loadCurrLessons: actions.loadCurrLessons,
 }
 
 const mapStateToProps = (state) => {
-  return { groups: state.filter, shedule: state.sheduleDay };
+  return { groups: state.filter, shedule: state.shedule };
 }
 
 function Filter(props) {
   const [filterList, setfilterList] = React.useState({});
-
 
   const addFilterDiv = (num) => (e) => {
     e.preventDefault();
@@ -34,8 +34,17 @@ function Filter(props) {
     props.loadFilterData({ prop });
   }
 
-  const selectLastItem = () => {
+  const selectLastItem = (num) => (e) => {
+    e.preventDefault();
     props.switchFilter();
+
+    setfilterList({ ...filterList, group: num });
+    const prop = {
+      data: props.shedule,
+      filter: { ...filterList, group: num },
+    }
+
+    props.loadCurrLessons({ prop });
     
   }
 
@@ -87,7 +96,7 @@ function Filter(props) {
             }
 
             return (
-              <div className={itemClasses} key={_.uniqueId()}  onClick={selectLastItem()}>{item}</div>
+              <div className={itemClasses} key={_.uniqueId()}  onClick={selectLastItem(item)}>{item}</div>
             )
           })}
         </div>

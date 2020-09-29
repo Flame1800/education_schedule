@@ -1,38 +1,83 @@
 import React from 'react';
 import './sheduleDay.scss';
 import NavWeek from '../NavWeek';
+import { connect } from "react-redux";
+import * as actions from '../../actions';
 
-function SheduleDay() {
+
+const actionsCreators = {
+
+}
+
+const mapStatetoProps = (state) => {
+  return { lessons: state.currLessons }
+}
+
+
+function SheduleDay(props) {
+  const [infoLesson, setInfoLesson] = React.useState(null);
+
+  const changeLesson = (lesson) => (e) => {
+    e.preventDefault();
+    setInfoLesson(lesson);
+  }
+
   return (
     <div className="shedule-day col-10 p-0">
       <NavWeek />
       <div className="content">
+
         <div className="couples">
-          <div className="item">
-            <div className="num">1</div>
-            <div className="couple">
-              <div className="sub-item">
-                <div className="head-card">
-                  <div className="name">УП.02 / Панасеня В.В</div>
-                  <div className="cont">
-                    <div className="sign">1</div>
-                    <div className="cab">32 каб</div>
+          {props.lessons.length === 0 ? "Пар нет" : props.lessons.map((lesson, i) => {
+            if (lesson.subgroup !== 0 && lesson.lessonNumber === props.lessons[i + 1].lessonNumber) {
+              return (
+                <div className="item" key={lesson._id} onClick={changeLesson(lesson)}>
+                  <div className="num">{lesson.lessonNumber}</div>
+                  <div className="couple">
+                    <div className="sub-item">
+                      <div className="head-card">
+                        <div className="name">{lesson.teacher.abb_name}</div>
+                        <div className="cont">
+                          <div className="sign">{lesson.subgroup}</div>
+                          <div className="cab">{lesson.cabinet.number} каб</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="sub-item">
+                      <div className="head-card">
+                        <div className="name">{props.lessons[i + 1].teacher.abb_name}</div>
+                        <div className="cont">
+                          <div className="sign">{props.lessons[i + 1].subgroup}</div>
+                          <div className="cab">{props.lessons[i + 1].cabinet.number} каб</div>
+                        </div>
+                      </div>
+                      {/* <div className="time">00:00 - 00:00</div> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="sub-item">
-                <div className="head-card">
-                  <div className="name">УП.02 / Хамзина Р.Р </div>
-                  <div className="cont">
-                    <div className="sign">2</div>
-                    <div className="cab">16 каб</div>
+              )
+            }
+            return (
+              <div className="item" key={lesson._id} onClick={changeLesson(lesson)}>
+                <div className="num">{lesson.lessonNumber}</div>
+                <div className="couple one-couple">
+                  <div className="head-card">
+                    <div className="name">{lesson.teacher.abb_name}</div>
+
+                    <div className="cont">
+                      {lesson.subgroup !== 0 ? <div className="sign">{lesson.subgroup}</div> : null}
+                      <div className="cab">{lesson.cabinet.number} каб</div>
+                      {/* <div className="icon-dinner"></div> */}
+                    </div>
                   </div>
+                  {/* <div className="time">00:00 - 00:00</div> */}
                 </div>
-                <div className="time">07:00 - 08:00</div>
               </div>
-            </div>
-          </div>
-          <div className="item active-item">
+            )
+
+          })}
+
+          {/* <div className="item active-item">
             <div className="num">2</div>
             <div className="couple one-couple">
               <div className="head-card">
@@ -55,22 +100,27 @@ function SheduleDay() {
               </div>
               <div className="time">09:40 - 10:20</div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="info-section">
           <div className="board">
-            <div className="name">2 ПАРА</div>
-            <div className="text">
-              <span className="blue-color">Предмет:</span> ОГСЭ.06 Основы деловых комм.
+            {infoLesson === null ? "Выберите пару для просмотра" : (
+              <div>
+                <div className="name">{infoLesson.lessonNumber} ПАРА</div>
+                <div className="text">
+                  <span className="blue-color">Предмет:</span> {infoLesson.cabinet.name}
+                </div>
+                <div className="text">
+                  <span className="blue-color">Преподаватель:</span> {infoLesson.teacher.name}
+                </div>
+                <div className="text">
+                  <span className="blue-color">Кабинет:</span> {infoLesson.cabinet.number}
+                </div>
+                <div className="time">08:10 - 09:20</div>
               </div>
-            <div className="text">
-              <span className="blue-color">Преподаватель:</span> Лепина К.А
-            </div>
-            <div className="text">
-              <span className="blue-color">Кабинет:</span> 32
-            </div>
-            <div className="time">08:10 - 09:20</div>
+            )}
           </div>
+
           <div className="dinner">
             <div className="icon-dinner"></div>
             <div className="title">- Разрываная пара с обедом с 10:50 по 11:10</div>
@@ -81,4 +131,5 @@ function SheduleDay() {
   );
 }
 
-export default SheduleDay;
+const connSheduleDay = connect(mapStatetoProps, actionsCreators)(SheduleDay)
+export default connSheduleDay;

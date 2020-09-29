@@ -6,4 +6,4 @@ export default handleActions({
     [actions.switchFilter](state) {
         return {filter: !state.filter};
     }
-}, {filter: false});
+}, {filter: true});
