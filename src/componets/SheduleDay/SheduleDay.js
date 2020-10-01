@@ -1,6 +1,5 @@
 import React from 'react';
 import './sheduleDay.scss';
-import NavWeek from '../NavWeek';
 import { connect } from "react-redux";
 import * as actions from '../../actions';
 
@@ -23,8 +22,7 @@ function SheduleDay(props) {
   }
 
   return (
-    <div className="shedule-day col-10 p-0">
-      <NavWeek />
+    <div className="shadow-container col-10 p-0">
       <div className="content">
 
         <div className="couples">

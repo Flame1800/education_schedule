@@ -14,7 +14,7 @@ export default handleActions({
             const date = propsDate.plus({days: i})
             const day = date.c.day;
             const month = date.toFormat('MMMM');
-            const weekDay =date.toFormat('EEE');
+            const weekDay =date.toFormat('EEEE');
             const res = {day: `${day} ${month}`, weekDay, active: day === currDay };
             days.push(res);
         }

@@ -1,3 +1,8 @@
+.filter {
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -73,8 +78,10 @@
 
     .groups {
       height: 50vh;
-      width: 120px;
-      overflow: auto;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      width: 60%;
     }
     .column {
       margin-right: 50px;

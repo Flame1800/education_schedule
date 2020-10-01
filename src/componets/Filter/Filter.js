@@ -45,60 +45,62 @@ function Filter(props) {
     }
 
     props.loadCurrLessons({ prop });
-    
+
   }
 
   const divisions = ['СП-1', "СП-2", "СП-3", "СП-4", "СП-5"];
   const courses = [1, 2, 3, 4];
 
   return (
-    <div className="filter col-10">
-      <div className="header">
-        <div className="switch-head">
-          <div className="active-item">Преподаватель</div>
-          <div className="passive-item">Студент</div>
+    <div className="shadow-container mt-3 p-0 d-flex">
+      <div className="filter col-10">
+        <div className="header">
+          <div className="switch-head">
+            <div className="active-item">Преподаватель</div>
+            <div className="passive-item">Студент</div>
+          </div>
+          <div className="search">
+            <label htmlFor="search" className="label-input">Введите группу:</label>
+            <input type="text" placeholder="Поиск" />
+          </div>
         </div>
-        <div className="search">
-          <label htmlFor="search" className="label-input">Введите группу:</label>
-          <input type="text" placeholder="Поиск" />
-        </div>
-      </div>
-      <div className="items-list">
-        <div className="column">
-          {divisions.map(item => {
-            let itemClasses = 'item';
-            if (item === filterList.division) {
-              itemClasses += " active";
-            }
+        <div className="items-list">
+          <div className="column">
+            {divisions.map(item => {
+              let itemClasses = 'item';
+              if (item === filterList.division) {
+                itemClasses += " active";
+              }
 
-            return (
-              <div className={itemClasses} key={item} onClick={addFilterDiv(item)}>{item}</div>
-            )
-          })}
-        </div>
-        <div className="column">
-          {filterList.division && courses.map(item => {
-            let itemClasses = 'item';
-            if (item === filterList.course) {
-              itemClasses += " active";
-            }
+              return (
+                <div className={itemClasses} key={item} onClick={addFilterDiv(item)}>{item}</div>
+              )
+            })}
+          </div>
+          <div className="column">
+            {filterList.division && courses.map(item => {
+              let itemClasses = 'item';
+              if (item === filterList.course) {
+                itemClasses += " active";
+              }
 
-            return (
-              <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
-            )
-          })}
-        </div>
-        <div className="column groups">
-          {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
-            let itemClasses = 'item';
-            if (item === filterList.course) {
-              itemClasses += " active";
-            }
+              return (
+                <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
+              )
+            })}
+          </div>
+          <div className="column groups">
+            {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
+              let itemClasses = 'item';
+              if (item === filterList.course) {
+                itemClasses += " active";
+              }
 
-            return (
-              <div className={itemClasses} key={_.uniqueId()}  onClick={selectLastItem(item)}>{item}</div>
-            )
-          })}
+              return (
+                <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>
