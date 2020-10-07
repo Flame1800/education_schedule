@@ -3,10 +3,11 @@
     width: 80%;
     margin: 0 auto;
     display: flex;
+    overflow: auto;
 
     .container-day {
         display: flex;
-        width: 268px;
+        min-width: 300px;
         height: 70vh;
         border-radius: 10px;
         border: 2px solid #F0F0F0;
@@ -18,7 +19,6 @@
         .row-items {
             margin: 0 auto;
             width: 95%;
-
         }
 
         .head {
@@ -30,8 +30,8 @@
             align-items: center;
 
             .day-week {
-                font-size: 13px;
-                font-weight: bold;
+                font-size: 15px;
+                margin-left: 4px;
             }
 
             .min-cont {
@@ -50,101 +50,5 @@
                 font-size: 15px;
             }
         }
-
-        .item {
-            width: 100%;
-            border: 1px solid #bebebe;
-            border-radius: 10px;
-            margin: 0 auto;
-            margin: 4px 0px;
-            height: 70px;
-            padding: 4px 0px;
-        }
-
-        .couple {
-            margin-left: 10px;
-            margin-right: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-
-            .teacher {
-                display: flex;
-                font-size: 11px;
-                align-items: center;
-                color: #AEAEAE;
-
-                .icon {
-                    background-image: url('../../assets/img/avatar\ 2.png');
-                    background-size: contain;
-                    width: 20px;
-                    height: 20px;
-                    margin-right: 5px;
-                }
-            }
-
-
-            .headers {
-                display: flex;
-
-                .name {
-                    width: 115px;
-                }
-            }
-
-            .name {
-                font-size: 13px !important;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap; 
-            }
-
-            .cont {
-                display: flex;
-                justify-content: space-between;
-                
-            }
-
-            .cab {
-                display: flex;
-                margin-right: 15px;
-                font-size: 12px;
-                color: #AEAEAE;
-            }
-
-            .time {
-                font-size: 12px;
-                color: #AEAEAE;
-            }
-
-            .flag-icon {
-                background-image: url('../../assets/img/flag.png');
-                background-size: contain;
-                background-repeat: no-repeat;
-                height: 15px;
-                width: 15px;
-                margin-right: 6px;
-            }
-
-            .min-cont {
-                display: flex;
-                align-items: center;
-            }
-
-            .current-couple {
-                color: #fff;
-                border-radius: 5px;
-                font-size: 12px;
-                padding: 0 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        }
-
     }
-
-
-
 }
