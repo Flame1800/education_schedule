@@ -10,6 +10,27 @@ const mapStatetoProps = (state) => {
 
 
 function SheduleWeek(props) {
+
+  const generateLessons = (dayLessons) => {
+    const result = dayLessons.map((lesson, i) => {
+
+      if (dayLessons[i + 1] !== undefined) {
+        if (lesson.lessonNumber === dayLessons[i + 1].lessonNumber) {
+          return (<Lesson mode="week" lesson={lesson} subLesson={dayLessons[i + 1]} key={lesson._id} />)
+        }
+      }
+      if (dayLessons[i - 1] !== undefined) {
+        if (lesson.subgroup === 2 && lesson.lessonNumber === dayLessons[i - 1].lessonNumber) {
+          return null;
+        }
+      }
+
+      return (<Lesson mode="week" lesson={lesson} subLesson={null} key={lesson._id} />)
+    });
+
+    return result;
+  }
+
   return (
     <div className="shedule-week col-10 p-0">
       {props.days.map(day => {
@@ -26,19 +47,8 @@ function SheduleWeek(props) {
                   <div className="day">{day.day}</div>
                 </div>
               </div>
-              {dayLessons.length === 0 ? null : dayLessons.map((lesson, i) => {
+              {dayLessons.length === 0 ? null : generateLessons(dayLessons)}
 
-                if (i !== dayLessons.length - 1) {
-                  if (lesson.subgroup !== 0 && lesson.lessonNumber === dayLessons[i + 1].lessonNumber) {
-                    return (<Lesson mode="week" lesson={lesson} subLesson={dayLessons[i + 1]} key={lesson._id} />)
-                  }
-                }
-                else {
-                console.log(lesson)
-
-                  return (<Lesson mode="week" lesson={lesson} subLesson={null} key={lesson._id} />)
-                }
-              })}
             </div>
           </div>
         )

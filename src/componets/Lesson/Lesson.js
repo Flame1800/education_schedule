@@ -15,7 +15,7 @@ export default function Lesson(props) {
                     <div className="couple">
                         <div className="headers">
                             <div className="head-card head-card-first head-card-min">
-                                <div className="name">{lesson.subject.abb_name}</div>
+                                <div className="name">{lesson.subject.name}</div>
                                 <div className="teacher">
                                     <div className="icon"></div>
                                     <div className="name name-min">
