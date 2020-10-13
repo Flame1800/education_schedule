@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-import {DateTime, Duration, Info, Interval, Settings} from 'luxon';
-
+import {DateTime} from 'luxon';
 
 export const loadSheduleRequest = createAction("LOAD_SHEDULE_REQUEST");
 export const loadSheduleSuccess = createAction("LOAD_SHEDULE_SUCCESS");
@@ -14,6 +13,7 @@ export const switchFilter = createAction("SWITCH_FILTER");
 
 export const loadDaysCurrWeek = createAction("LOAD_DAYS_CURR_WEEK");
 export const loadCurrLessons = createAction("LOAD_CURR_LESSONS");
+export const changeMode = createAction("CHANGE_MODE");
 
 export const loadShedule = () => async (dispatch) => {
     dispatch(loadSheduleRequest());

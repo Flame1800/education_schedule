@@ -6,14 +6,9 @@ import _ from 'lodash';
 
 export default handleActions({
     [actions.loadFilterData](state, {
-        payload: {
-            prop
-        }
+        payload: { prop }
     }) {
-        const {
-            filter,
-            data
-        } = prop;
+        const { filter, data } = prop;
 
         const filtered = data.filter((item) => {
             return (item.division.abb_name === filter.division && item.group.course === filter.course)
@@ -22,7 +17,7 @@ export default handleActions({
 
         function compareNumeric(a, b) {
             if (a > b) return 1;
-            if (a == b) return 0;
+            if (a === b) return 0;
             if (a < b) return -1;
         }
 

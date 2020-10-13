@@ -8,6 +8,7 @@
 
 .shedule-day {
     transition: 0.3s;
+    
 
     .cab {
         font-size: 13px;
@@ -130,12 +131,36 @@
 
             .sub-item:first-child {
                 border-bottom: 2px solid #ABCDFF;
+
+                .name {
+                    margin-bottom: 0px;
+                }
+            }
+
+            .sub-item:last-child {
+                .head-card {
+                    padding-top: 5px;
+                }
+
+                .name {
+                    margin-bottom: 0px;
+                }
             }
 
             .name {
                 color: #424242;
-                font-size: 14px;
+                font-size: 15px;
+                margin-bottom: 5px;
+                width: 220px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
                 transition: 0.3s;
+            }
+
+            .teacher {
+                color: #22539C;
+                font-size: 13px;
             }
 
             .cont {
@@ -152,6 +177,7 @@
 
             .time {
                 margin-top: auto;
+                color: #9B9B9B;
             }
         }
     }

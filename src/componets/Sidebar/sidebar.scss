@@ -3,6 +3,8 @@
     width: 80%;
     margin: 0 auto;
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
     
     .btn-filter {
         background: #E2EEFF;
@@ -35,18 +37,11 @@
         background: #b0d0fd;
     }
 
-    .switch-week {
-        height: 130px;
-        background: #E2EEFF;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        font-size: 18px;
-        color: #2F5672;
-
-        .title {
-            margin-bottom: 20px;
-        }
+    .group {
+        margin-left: 50px;
+        font-size: 23px;
+        color: #365d88;
+        font-weight: bold;
     }
+
 }
