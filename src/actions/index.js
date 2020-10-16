@@ -14,6 +14,7 @@ export const switchFilter = createAction("SWITCH_FILTER");
 export const loadDaysCurrWeek = createAction("LOAD_DAYS_CURR_WEEK");
 export const loadCurrLessons = createAction("LOAD_CURR_LESSONS");
 export const changeMode = createAction("CHANGE_MODE");
+export const selectDay = createAction("SELECT_DAY");
 
 export const loadShedule = () => async (dispatch) => {
     dispatch(loadSheduleRequest());

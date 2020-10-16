@@ -2,36 +2,62 @@ import React from 'react';
 import './sheduleDay.scss';
 import { connect } from "react-redux";
 import Lesson from '../Lesson/index';
+import NawWeek from '../NawWeek/index';
+import _ from 'lodash';
+
 
 const actionsCreators = {
 
 }
 
 const mapStatetoProps = (state) => {
-  return { lessons: state.sheduleMode.lessons }
+  return { lessons: state.currLessons, currDay: state.selectedDay }
 }
 
 function SheduleDay(props) {
-  const [infoLesson, setInfoLesson] = React.useState(null);
 
-  const changeLesson = (lesson) => (e) => {
-    e.preventDefault();
-    setInfoLesson(lesson);
+  const { lessons, currDay } = props;
+
+  const filterLessons = (dayLessons) => {
+
+    const newLessons = [];
+    const numbers = dayLessons.map(lesson => lesson.lessonNumber);
+
+    const findLesson = (num, lessons) => {
+      const currLessons = lessons.filter(lesson => lesson.lessonNumber === num);
+
+      if (currLessons.length === 1) {
+        return currLessons[0];
+      }
+      if (currLessons.length > 1) {
+        return currLessons;
+      }
+
+      return { subject: { name: "Нет пары" }, lessonNumber: num, _id: _.uniqueId() };
+    }
+
+    for (let i = 1; i <= numbers[numbers.length - 1]; i++) {
+      newLessons.push(findLesson(i, dayLessons));
+    }
+
+    return newLessons;
   }
 
-  const { lessons } = props;
-
+  const dayLessonsF = _.sortBy(lessons.filter(lesson => lesson.date === currDay), 'lessonNumber');
 
   const generateLessons = () => {
-    const result = lessons.map((lesson) => {
+
+    const dayLessons = filterLessons(dayLessonsF);
+
+    const result = dayLessons.map((lesson) => {
       if (Array.isArray(lesson)) {
-        return (<div className='lesson' onClick={changeLesson(lesson)} > 
+        return (<div className='lesson'>
           <Lesson mode="day" lesson={lesson[0]} subLesson={lesson[1]} key={lesson[0]._id} />
         </div>)
       }
       else {
-        return (<div className='lesson' onClick={changeLesson(lesson)} >
-          <Lesson mode="day" lesson={lesson} subLesson={null} key={lesson._id} onClick={changeLesson(lesson)} />
+        return (<div className='lesson'>
+          <Lesson mode="day" lesson={lesson} subLesson={null} key={lesson._id} />
         </div>)
       }
     });
@@ -42,35 +68,16 @@ function SheduleDay(props) {
 
   return (
     <div className="shadow-container shedule-day col-10 p-0">
-      <div className="content">
-
-        <div className="couples">
-          {generateLessons()}
-        </div>
-        <div className="info-section">
-          <div className="board">
-            {infoLesson === null ? "Выберите пару для просмотра" : (
-              <div>
-                <div className="name">{infoLesson.lessonNumber} ПАРА</div>
-                <div className="text">
-                  <span className="blue-color">Предмет:</span> {infoLesson.subject.name}
-                </div>
-                <div className="text">
-                  <span className="blue-color">Преподаватель:</span> {infoLesson.teacher ? infoLesson.teacher.name : null}
-                </div>
-                <div className="text">
-                  <span className="blue-color">Кабинет:</span> {infoLesson.cabinet ? infoLesson.cabinet.number : null}
-                </div>
-                <div className="time">08:10 - 09:20</div>
-              </div>
-            )}
+      <NawWeek />
+      <div className="cont">
+        {dayLessonsF.length !== 0 ? (
+          <div className="content">
+            <div className="couples">
+              {generateLessons()}
+            </div>
           </div>
+        ) : (<div className="no-lessons"> Пар нет </div>)}
 
-          {/* <div className="dinner">
-            <div className="icon-dinner"></div>
-            <div className="title">- Разрываная пара с обедом с 10:50 по 11:10</div>
-          </div> */}
-        </div>
       </div>
     </div >
   );

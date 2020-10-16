@@ -116,10 +116,8 @@ export default function Lesson(props) {
             return (
                 <div className="item">
                     <div className="num">{lesson.lessonNumber}</div>
-                    <div className="couple one-couple">
-                        <div className="head-card">
-                            <div className="name">{lesson.subject.name}</div>
-                        </div>
+                    <div className="couple one-couple no-lesson">
+                            <div className="text">{lesson.subject.name}</div>
                     </div>
                 </div>
             )

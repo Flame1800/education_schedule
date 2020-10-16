@@ -1,11 +1,19 @@
 .sidebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .main-container {
+        display: flex;
+    }
+
     user-select: none;
     width: 80%;
     margin: 0 auto;
     margin-bottom: 30px;
     display: flex;
     align-items: center;
-    
+
     .btn-filter {
         background: #E2EEFF;
         border-radius: 8px;
@@ -38,10 +46,82 @@
     }
 
     .group {
-        margin-left: 50px;
+        margin-left: 30px;
+        margin-right: 40px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 23px;
         color: #365d88;
-        font-weight: bold;
+    }
+
+    .mode-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .title {
+            font-size: 13px;
+            color: #A8A8A8;
+        }
+
+        .mode-button {
+            background: #a6c9ff;
+            border: 3px solid #7fb2ff;
+            font-size: 18px;
+            color: #1f4681;
+            font-weight: 500;
+            padding: 5px 0px;
+            width: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mode-button:hover {
+            background: #b7d4ff;
+        }
+    }
+
+    .weeks-button {
+        display: flex;
+
+        .btn-w {
+            cursor: pointer;
+            display: flex;
+        }
+
+        
+        .btn-w:hover {
+            .text {
+                color: #5d9bff;
+                border-bottom: 1px solid #5d9bff;
+            }
+        }
+        
+        .arrow-left {
+            background-image: url('../../assets/img/arrow-left.png');
+            width: 21px;
+            height: 21px;
+        }
+                   
+        .arrow-right {
+            background-image: url('../../assets/img/arrow-right.png');
+            width: 21px;
+            height: 21px;
+        } 
+
+        .text {
+            margin-right: 20px;
+            margin-left: 20px;
+            color: #496795;
+            transition: 0.3s;
+        }
     }
 
 }

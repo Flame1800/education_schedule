@@ -15,7 +15,7 @@ const actionCreators = {
 }
 
 function SheduleWeek(props) {
-
+  
   let { year, month, day } = DateTime.local();
   month = month < 10 ? `0${month}` : month;
   day = day < 10 ? `0${day}` : day;
@@ -63,19 +63,18 @@ function SheduleWeek(props) {
     return result;
   }
 
-  const openSheduleDay = (dayLessons) => (e) => {
-    e.preventDefault();
-    props.changeMode({ mode: 'day', lessons: filterLessons(dayLessons) });
-  }
 
   return (
     <div className="shedule-week col-10 p-0">
       {props.days.map(day => {
-
         const dayLessons = _.sortBy(props.lessons.filter(lesson => lesson.date === day.fullDate), 'lessonNumber');
 
+        if (day === props.days[props.days.length - 1] && dayLessons.length === 0) {
+          return null;
+        }
+
         return (
-          <div className="container-day" key={day.day}>
+          <div className={day.fullDate === currDate ? "container-day active-day" : "container-day"} key={day.day}>
             <div className="row-items">
               <div className="head">
                 <div className="main-cont">
@@ -83,9 +82,6 @@ function SheduleWeek(props) {
                   <div className="day-week">{day.weekDay}</div>
                 </div>
                 <div className="min-cont">
-                  <div className="cont-btn-more">
-                    <div className="btn-more" onClick={openSheduleDay(dayLessons)}></div>
-                  </div>
                   <div className="day">{day.day}</div>
                 </div>
               </div>

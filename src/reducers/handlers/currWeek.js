@@ -16,7 +16,6 @@ export default handleActions({
 
         const firstDayWeek = week.dateStart;
         const propsDate = DateTime.fromISO(firstDayWeek).setLocale('ru');
-        const currDay = DateTime.local().day;
 
         for (let i = 0; i < 6; i++) {
             const date = propsDate.plus({
@@ -25,6 +24,7 @@ export default handleActions({
             const day = date.c.day;
             const month = date.toFormat('MMMM');
             const weekDay = date.toFormat('EEEE').split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
+            const littleWeekDay = date.toFormat('EEE').split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
             
 
             const fyear = date.c.year;
@@ -36,7 +36,7 @@ export default handleActions({
             const res = {
                 day: `${day} ${month}`,
                 weekDay,
-                active: day === currDay,
+                littleWeekDay,
                 fullDate,
             };
             days.push(res);
