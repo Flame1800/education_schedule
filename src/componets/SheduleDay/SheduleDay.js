@@ -1,7 +1,6 @@
 import React from 'react';
 import './sheduleDay.scss';
 import { connect } from "react-redux";
-import * as actions from '../../actions';
 
 
 const actionsCreators = {
@@ -61,7 +60,6 @@ function SheduleDay(props) {
                 <div className="couple one-couple">
                   <div className="head-card">
                     <div className="name">{lesson.teacher.abb_name}</div>
-
                     <div className="cont">
                       {lesson.subgroup !== 0 ? <div className="sign">{lesson.subgroup}</div> : null}
                       <div className="cab">{lesson.cabinet.number} каб</div>

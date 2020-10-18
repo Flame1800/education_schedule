@@ -38,7 +38,7 @@ function Filter(props) {
     e.preventDefault();
     props.switchFilter();
 
-    setfilterList({ ...filterList, group: num });
+    setfilterList({});
     const prop = {
       data: props.shedule,
       filter: { ...filterList, group: num },
@@ -50,7 +50,6 @@ function Filter(props) {
 
   const divisions = ['СП-1', "СП-2", "СП-3", "СП-4", "СП-5"];
   const courses = [1, 2, 3, 4];
-
   return (
     <div className="shadow-container mt-3 p-0 d-flex">
       <div className="filter col-10">
@@ -89,7 +88,7 @@ function Filter(props) {
               )
             })}
           </div>
-          <div className="column groups">
+          {Object.keys(filterList).length > 1 && <div className="column groups">
             {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
               let itemClasses = 'item';
               if (item === filterList.course) {
@@ -100,7 +99,8 @@ function Filter(props) {
                 <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
               )
             })}
-          </div>
+          </div>}
+
         </div>
       </div>
     </div>
