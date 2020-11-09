@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6e1aabbae40041c11e18df82c78a7e68",
+    "revision": "d0290e5d0dee0bd1b93b57f933953a9a",
     "url": "/shedule-spk/index.html"
   },
   {
