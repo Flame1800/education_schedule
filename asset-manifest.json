@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/shedule-spk/static/css/main.e2c24769.chunk.css",
+    "main.js": "/shedule-spk/static/js/main.b78cf0f6.chunk.js",
+    "main.js.map": "/shedule-spk/static/js/main.b78cf0f6.chunk.js.map",
+    "runtime-main.js": "/shedule-spk/static/js/runtime-main.3830deaa.js",
+    "runtime-main.js.map": "/shedule-spk/static/js/runtime-main.3830deaa.js.map",
+    "static/js/2.7456db0a.chunk.js": "/shedule-spk/static/js/2.7456db0a.chunk.js",
+    "static/js/2.7456db0a.chunk.js.map": "/shedule-spk/static/js/2.7456db0a.chunk.js.map",
+    "index.html": "/shedule-spk/index.html",
+    "precache-manifest.fb1765180ca7bc90996453a1a9a5143c.js": "/shedule-spk/precache-manifest.fb1765180ca7bc90996453a1a9a5143c.js",
+    "service-worker.js": "/shedule-spk/service-worker.js",
+    "static/css/main.e2c24769.chunk.css.map": "/shedule-spk/static/css/main.e2c24769.chunk.css.map",
+    "static/js/2.7456db0a.chunk.js.LICENSE.txt": "/shedule-spk/static/js/2.7456db0a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3830deaa.js",
+    "static/js/2.7456db0a.chunk.js",
+    "static/css/main.e2c24769.chunk.css",
+    "static/js/main.b78cf0f6.chunk.js"
+  ]
+}
