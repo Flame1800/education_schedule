@@ -1,6 +1,7 @@
 {
   "name": "sheldue",
   "version": "0.1.0",
+  "homepage": "https://shedule-spk.herokuapp.com/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
