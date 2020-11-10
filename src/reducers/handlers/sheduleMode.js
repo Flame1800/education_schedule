@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import * as actions from '../../actions/index';
 
 export default handleActions({
-    [actions.switchFilter](state) {
-        return {filter: !state.filter};
+    [actions.changeMode](state) {
+        return { mode: state.mode === 'week' ? 'day' : 'week' };
     }
-}, {filter: true});
+}, { mode: 'week' });

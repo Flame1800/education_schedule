@@ -13,22 +13,15 @@ const actionsCreators = {
 }
 
 const mapStatetoProps = (state) => {
-  return { filter: state.sideBar.filter }
+  return { filter: state.sideBar.filter, sheduleMode: state.sheduleMode.mode };
 } 
 
 function App(props) {
-  const [mode, setMode] = React.useState('day');
-
-  const changeSheduleMode = () => {
-    const newMode = mode === 'day' ? 'week' : 'day'
-    setMode(newMode);
-  }
-
   return (
     <div className="App">
       <div className="main-container">
         {!props.filter && <Sidebar />}
-        {props.filter ? <Filter /> : (mode === 'day' ? <SheduleWeek /> : <SheduleDay />)}
+        {props.filter ? <Filter /> : (props.sheduleMode === 'week' ? <SheduleWeek /> : <SheduleDay />)}
       </div>
     </div>
   );

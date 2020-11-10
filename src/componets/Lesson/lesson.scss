@@ -1,23 +1,25 @@
 .container-day {
 
     .item {
-        width: 100%;
-        border: 1px solid #bebebe;
-        border-radius: 10px;
+        width: 98%;
+        border: 1px solid #dddddd;
+        box-shadow: 0px 0px 9px -5px;
+        border-radius: 6px;
         margin: 0 auto;
-        margin: 4px 0px;
+        margin: 15px 2px;
         height: 90px;
         padding: 4px 0px;
         overflow: hidden;
     }
+
 
     .num-lesson {
         font-size: 12px;
         margin-bottom: -20px;
         margin-top: -4px;
         padding-left: 5px;
-        border-radius: 7px 0 10px 0px;
-        border: 1px solid #bebebe;
+        border-radius: 4px 0 10px 0px;
+        border: 1px solid #dbdbdb;
         display: block;
         width: 20px;
     }
@@ -42,6 +44,7 @@
         .head-card-min {
             width: 50%;
             overflow: hidden;
+
             .teacher .name {
                 width: 90%;
                 text-overflow: ellipsis;
@@ -61,10 +64,6 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
-            }
-
-            .name-min {
-                // width: 70px !important;
             }
 
             .icon {
@@ -101,7 +100,7 @@
 
         .cab {
             display: flex;
-            margin-right: 15px;
+            margin-right: 8px;
             font-size: 12px;
             color: #AEAEAE;
         }

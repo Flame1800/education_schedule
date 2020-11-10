@@ -1,6 +1,5 @@
 import { handleActions } from 'redux-actions';
 import * as actions from '../../actions/index';
-import {DateTime, Duration, Info, Interval, Settings} from 'luxon';
 import _ from 'lodash';
 
 export default handleActions({

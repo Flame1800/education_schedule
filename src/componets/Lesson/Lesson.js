@@ -6,6 +6,34 @@ export default function Lesson(props) {
     const { lesson } = props;
 
     if (props.mode === 'week') {
+        if (lesson.subject.name === 'Нет пары') {
+            return (
+                <div className="item" >
+                    <div className="num-lesson">{lesson.lessonNumber}</div>
+                    <div className="couple">
+                        <div className="head-card">
+                            <div className="name">{lesson.subject.name}</div>
+                        </div>
+                        <div className="cont">
+                            <div className="teacher">
+                                <div className="icon"></div>
+                                <div className="name">
+                                </div>
+                            </div>
+                            <div className="min-cont">
+                                <div className="cab">
+                                    <div className="flag-icon"></div>
+                                </div>
+                                <div className="time">
+                                    00:00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
         if (props.subLesson !== null) {
             const { subLesson } = props;
 
@@ -84,6 +112,16 @@ export default function Lesson(props) {
 
     if (props.mode === 'day') {
 
+        if (lesson.subject.name === 'Нет пары') {
+            return (
+                <div className="item">
+                    <div className="num">{lesson.lessonNumber}</div>
+                    <div className="couple one-couple no-lesson">
+                            <div className="text">{lesson.subject.name}</div>
+                    </div>
+                </div>
+            )
+        }
         if (props.subLesson !== null) {
             const { subLesson } = props;
 
@@ -93,41 +131,50 @@ export default function Lesson(props) {
                     <div className="couple">
                         <div className="sub-item">
                             <div className="head-card">
-                                <div className="name">{lesson.teacher.abb_name}</div>
+                                <div className="titles">
+                                    <div className="name">{lesson.subject.name}</div>
+                                    <div className="teacher">{lesson.teacher.abb_name}</div>
+                                </div>
                                 <div className="cont">
                                     <div className="sign">{lesson.subgroup}</div>
-                                    <div className="cab">{lesson.cabinet.number} каб</div>
+                                    <div className="cab">{lesson.cabinet ? subLesson.cabinet.number : null} каб</div>
                                 </div>
                             </div>
                         </div>
                         <div className="sub-item">
                             <div className="head-card">
-                                <div className="name">{subLesson.teacher.abb_name}</div>
+                                <div className="titles">
+                                    <div className="name">{subLesson.subject.name}</div>
+                                    <div className="teacher">{subLesson.teacher.abb_name}</div>
+                                </div>
                                 <div className="cont">
                                     <div className="sign">{subLesson.subgroup}</div>
-                                    <div className="cab">{subLesson.cabinet.number} каб</div>
+                                    <div className="cab">{subLesson.cabinet ? subLesson.cabinet.number : null} каб</div>
                                 </div>
                             </div>
-                            {/* <div className="time">00:00 - 00:00</div> */}
+                            <div className="time">00:00 - 00:00</div>
                         </div>
                     </div>
                 </div>
             )
-        } else {
+        }
+        else {
             return (
                 <div className="item">
                     <div className="num">{lesson.lessonNumber}</div>
                     <div className="couple one-couple">
                         <div className="head-card">
-                            <div className="name">{lesson.teacher.abb_name}</div>
-
+                            <div className="titles">
+                                <div className="name">{lesson.subject.name}</div>
+                                <div className="teacher">{lesson.teacher.abb_name}</div>
+                            </div>
                             <div className="cont">
                                 {lesson.subgroup !== 0 ? <div className="sign">{lesson.subgroup}</div> : null}
-                                <div className="cab">{lesson.cabinet.number} каб</div>
+                                <div className="cab">{lesson.cabinet ? lesson.cabinet.number : null} каб</div>
                                 {/* <div className="icon-dinner"></div> */}
                             </div>
                         </div>
-                        {/* <div className="time">00:00 - 00:00</div> */}
+                        <div className="time">00:00 - 00:00</div>
                     </div>
                 </div>
             )
