@@ -20,13 +20,15 @@ export const selectDay = createAction("SELECT_DAY");
 export const loadShedule = () => async (dispatch) => {
     dispatch(loadSheduleRequest());
     try {
-        let { year, month, day } = DateTime.local();
+        let {year, month, day} = DateTime.local();
+
         month = month < 10 ? `0${month}` : month;
         day = day < 10 ? `0${day}` : day;
 
         const currDate = `${year}-${month}-${day}`;
 
-        const currWeek = await axios.get(`http://1c.surpk.ru/schedule/api/weeks/date/${currDate}`);
+        // const currWeek = await axios.get(`http://1c.surpk.ru/schedule/api/weeks/date/${currDate}`);
+        const currWeek = await axios.get(`http://1c.surpk.ru/schedule/api/weeks/date/2020-10-15`);
         const idCurrWeek = currWeek.data[0]._id;
         const responce = await axios.get(`http://1c.surpk.ru/schedule/api/lessons/week/${idCurrWeek}`);
         const { data } = responce;
