@@ -1,9 +1,9 @@
 .shedule-week {
     transition: 0.3s;
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
     display: flex;
-    overflow: auto;
+    justify-content: center;
+    flex-wrap: wrap;
 
     .active-day {
         box-shadow: 0px 0px 10px 5px #8cbbff;
@@ -13,11 +13,11 @@
     .container-day {
         min-height: 70vh;
         display: flex;
-        min-width: 280px;
+        max-width: 265px;
+        min-width: 262px;
         border-radius: 10px;
         border: 2px solid #F0F0F0;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin: 10px;
     }
 
     .today {
@@ -57,6 +57,7 @@
 
             .min-cont {
                 display: flex;
+                width: 50%;
                 align-items: center;
             }
 
@@ -88,18 +89,3 @@
     }
 }
 
-::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-    background-color: #d6d6d6;
-}
-
-::-webkit-scrollbar-thumb {
-    height: 10px;
-    background-image: -webkit-linear-gradient(45deg, rgb(108, 177, 255), #99c9ff);
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #F5F5F5;
-}

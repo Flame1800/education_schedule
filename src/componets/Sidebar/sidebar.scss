@@ -2,9 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 
     .main-container {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     user-select: none;
@@ -52,7 +55,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 23px;
+        font-size: 18px;
         color: #365d88;
     }
 
@@ -96,25 +99,25 @@
             display: flex;
         }
 
-        
+
         .btn-w:hover {
             .text {
                 color: #5d9bff;
                 border-bottom: 1px solid #5d9bff;
             }
         }
-        
+
         .arrow-left {
             background-image: url('../../assets/img/arrow-left.png');
             width: 21px;
             height: 21px;
         }
-                   
+
         .arrow-right {
             background-image: url('../../assets/img/arrow-right.png');
             width: 21px;
             height: 21px;
-        } 
+        }
 
         .text {
             margin-right: 20px;
@@ -125,3 +128,38 @@
     }
 
 }
+
+.switch-head {
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    color: #2D4F90;
+    border-radius: 3px;
+    max-width: 279px;
+    font-size: 13px;
+    cursor: pointer;
+
+    .active-item {
+      color: #FFFFFF;
+      background: #2D4F90;
+      border-radius: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 99%;
+      width: 200px;
+    }
+
+    .passive-item {
+      width: 200px;
+      padding: 3px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }

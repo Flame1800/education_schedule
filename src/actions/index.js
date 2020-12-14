@@ -14,20 +14,25 @@ export const switchFilter = createAction("SWITCH_FILTER");
 export const loadDaysCurrWeek = createAction("LOAD_DAYS_CURR_WEEK");
 export const loadCurrLessons = createAction("LOAD_CURR_LESSONS");
 export const changeMode = createAction("CHANGE_MODE");
+export const changeDataLoadMode = createAction("CHANGE_DATA_LOAD_MODE");
 export const selectDay = createAction("SELECT_DAY");
 
-export const loadShedule = () => async (dispatch) => {
+export const loadShedule = (mode = 'curr') => async (dispatch) => {
     dispatch(loadSheduleRequest());
     try {
-        let {year, month, day} = DateTime.local();
+        // let {year, month, day} = DateTime.local();
+        let {year, month, day} = {year: '2020', month: '11', day: '2'};
+
+        if (mode === 'next') {
+            day = Number(day) + 7 > 30 ? (Number(day) - 30) - 7 : Number(day) + 7;
+        }
 
         month = month < 10 ? `0${month}` : month;
         day = day < 10 ? `0${day}` : day;
-
         const currDate = `${year}-${month}-${day}`;
 
-        // const currWeek = await axios.get(`http://1c.surpk.ru/schedule/api/weeks/date/${currDate}`);
-        const currWeek = await axios.get(`http://1c.surpk.ru/schedule/api/weeks/date/2020-10-15`);
+        console.log(currDate);
+        const currWeek = await axios.get(`http://1c.surpk.ru/schedule/api/weeks/date/${currDate}`);
         const idCurrWeek = currWeek.data[0]._id;
         const responce = await axios.get(`http://1c.surpk.ru/schedule/api/lessons/week/${idCurrWeek}`);
         const { data } = responce;

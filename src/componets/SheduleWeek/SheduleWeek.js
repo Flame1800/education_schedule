@@ -65,7 +65,7 @@ function SheduleWeek(props) {
 
 
   return (
-    <div className="shedule-week col-10 p-0">
+    <div className="shedule-week p-0">
       {props.days.map(day => {
         const dayLessons = _.sortBy(props.lessons.filter(lesson => lesson.date === day.fullDate), 'lessonNumber');
 

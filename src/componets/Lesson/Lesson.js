@@ -56,7 +56,7 @@ export default function Lesson(props) {
                                 <div className="teacher">
                                     <div className="icon"></div>
                                     <div className="name name-min">
-                                        {subLesson.teacher.abb_name}
+                                        {subLesson.exhibitor}
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@ export default function Lesson(props) {
                             <div className="teacher">
                                 <div className="icon"></div>
                                 <div className="name">
-                                    {lesson.teacher.abb_name}
+                                    {lesson.exhibitor}
                                 </div>
                             </div>
                             <div className="min-cont">
@@ -133,7 +133,7 @@ export default function Lesson(props) {
                             <div className="head-card">
                                 <div className="titles">
                                     <div className="name">{lesson.subject.name}</div>
-                                    <div className="teacher">{lesson.teacher.abb_name}</div>
+                                    <div className="teacher">{lesson.teacher.name === lesson.exhibitor ? lesson.teacher.name : lesson.exhibitor}</div>
                                 </div>
                                 <div className="cont">
                                     <div className="sign">{lesson.subgroup}</div>
@@ -145,7 +145,7 @@ export default function Lesson(props) {
                             <div className="head-card">
                                 <div className="titles">
                                     <div className="name">{subLesson.subject.name}</div>
-                                    <div className="teacher">{subLesson.teacher.abb_name}</div>
+                                    <div className="teacher">{subLesson.teacher.name === subLesson.exhibitor ? subLesson.teacher.name : subLesson.exhibitor}</div>
                                 </div>
                                 <div className="cont">
                                     <div className="sign">{subLesson.subgroup}</div>
@@ -166,7 +166,7 @@ export default function Lesson(props) {
                         <div className="head-card">
                             <div className="titles">
                                 <div className="name">{lesson.subject.name}</div>
-                                <div className="teacher">{lesson.teacher.abb_name}</div>
+                                <div className="teacher">{lesson.teacher.name === lesson.exhibitor ? lesson.teacher.name : lesson.exhibitor}</div>
                             </div>
                             <div className="cont">
                                 {lesson.subgroup !== 0 ? <div className="sign">{lesson.subgroup}</div> : null}

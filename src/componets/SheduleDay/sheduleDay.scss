@@ -5,6 +5,10 @@
     background-size: contain;
 }
 
+.main-cont {
+    width: 100%;
+}
+
 .shedule-day {
     transition: 0.3s;
 
@@ -35,9 +39,16 @@
 
 }
 
+.sheldue-day-cont {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
 .content {
     margin-top: 50px;
     display: flex;
+    width: 100%;
     justify-content: center;
 
     .couples {
@@ -120,14 +131,13 @@
 
         .couple {
             box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-            height: 130px;
+            height: 150px;
             width: 90%;
             margin-bottom: 30px;
             margin-left: 21px;
             border-radius: 5px;
             padding-left: 12px;
             padding-right: 12px;
-            cursor: pointer;
             transition: 0.3s;
 
 
@@ -151,7 +161,7 @@
 
             .sub-item:last-child {
                 .head-card {
-                    padding-top: 5px;
+                    padding-bottom: 10px;
                 }
 
                 .name {

@@ -5,15 +5,16 @@ import * as actions from '../../actions/index';
 import _ from 'lodash';
 
 export default handleActions({
-    [actions.loadFilterData](state, {
-        payload: { prop }
-    }) {
-        const { filter, data } = prop;
+    [actions.loadFilterData](state, { payload: { prop } }) {
+        const { filter, data, mode } = prop;
 
         const filtered = data.filter((item) => {
-            return (item.division.abb_name === filter.division && item.group.course === filter.course)
+            if (mode === 'student') {
+                return (item.division.abb_name === filter.division && item.group.course === filter.course)
+            }
+            return (item.division.abb_name === prop.division)
         });
-        const groupsnNosorted = filtered.map(item => item.group.name);
+        const groupsNosorted = filtered.map(item => mode === 'teacher' ? item.teacher.abb_name : item.group.name);
 
         function compareNumeric(a, b) {
             if (a > b) return 1;
@@ -21,10 +22,11 @@ export default handleActions({
             if (a < b) return -1;
         }
 
-        groupsnNosorted.sort(compareNumeric);
-        const groups = _.sortedUniq(groupsnNosorted);
+        groupsNosorted.sort(compareNumeric);
+        const newData = _.sortedUniq(groupsNosorted);
 
-        return groups;
+        return newData;
+
     },
     [actions.clearFilter]() {
         return [];
