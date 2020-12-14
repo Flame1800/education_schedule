@@ -1,7 +1,11 @@
 {
   "name": "sheldue",
   "version": "0.1.0",
+<<<<<<< HEAD
   "homepage": "https://flame1800.github.io/shedule_spk/",
+=======
+  "homepage": ".",
+>>>>>>> 46869048628eb6f75138090767aea2cda16916c9
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",

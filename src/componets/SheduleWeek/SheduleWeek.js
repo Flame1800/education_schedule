@@ -3,89 +3,73 @@ import './sheduleWeek.scss';
 import { connect } from "react-redux";
 import _ from 'lodash';
 import Lesson from '../Lesson/index';
-import * as actions from '../../actions';
-import { DateTime } from 'luxon';
 
 const mapStatetoProps = (state) => {
   return { days: state.currWeek, lessons: state.currLessons };
 }
 
-const actionCreators = {
-  changeMode: actions.changeMode,
-}
 
 function SheduleWeek(props) {
-  
-  let { year, month, day } = DateTime.local();
-  month = month < 10 ? `0${month}` : month;
-  day = day < 10 ? `0${day}` : day;
 
-  const currDate = `${year}-${month}-${day}`;
-
-  const filterLessons = (dayLessons) => {
-
-    const newLessons = [];
-    const numbers = dayLessons.map(lesson => lesson.lessonNumber);
-
-    const findLesson = (num, lessons) => {
-      const currLessons = lessons.filter(lesson => lesson.lessonNumber === num);
-
-      if (currLessons.length === 1) {
-        return currLessons[0];
-      }
-      if (currLessons.length > 1) {
-        return currLessons;
-      }
-
-      return { subject: { name: "Нет пары" }, lessonNumber: num, _id: _.uniqueId() };
-    }
-
-    for (let i = 1; i <= numbers[numbers.length - 1]; i++) {
-      newLessons.push(findLesson(i, dayLessons));
-    }
-
-    return newLessons;
-  }
 
   const generateLessons = (dayLessons) => {
+    console.log(dayLessons[0].date);
 
-    const filteredLessons = filterLessons(dayLessons);
+    const mappingLessons = [];
+    // let lessonPoint = 0;
 
-    const result = filteredLessons.map((lesson, i) => {
-      if (Array.isArray(lesson)) {
-        return (<Lesson mode="week" lesson={lesson[0]} subLesson={lesson[1]} key={lesson[0]._id} />)
+    // for (let i = 1; i < dayLessons.length; i++) {
+    //   const lesson = dayLessons[i];
+    //   console.log(mappingLessons[i]);
+
+    //   if (lesson.lessonNumber !== i && mappingLessons[i] !== undefined) {
+    //     console.log(lesson.lessonNumber, i);
+    //     mappingLessons[i] = { mode: 'empty' };
+    //     i--;
+    //   } else {
+    //     mappingLessons[i] =  lesson;
+    //   }
+    // }
+
+    console.log(mappingLessons);
+
+    const result = dayLessons.map((lesson, i) => {
+
+      if (dayLessons[i + 1] !== undefined) {
+        if (lesson.lessonNumber === dayLessons[i + 1].lessonNumber) {
+          return (<Lesson mode="week" lesson={lesson} subLesson={dayLessons[i + 1]} key={lesson._id} />)
+        }
       }
-      else {
-        return (<Lesson mode="week" lesson={lesson} subLesson={null} key={lesson._id} />)
+      if (dayLessons[i - 1] !== undefined) {
+        if (lesson.subgroup === 2 && lesson.lessonNumber === dayLessons[i - 1].lessonNumber) {
+          return null;
+        }
       }
+
+      return (<Lesson mode="week" lesson={lesson} subLesson={null} key={lesson._id} />)
     });
 
     return result;
   }
 
-
   return (
     <div className="shedule-week p-0">
       {props.days.map(day => {
+
         const dayLessons = _.sortBy(props.lessons.filter(lesson => lesson.date === day.fullDate), 'lessonNumber');
 
-        if (day === props.days[props.days.length - 1] && dayLessons.length === 0) {
-          return null;
-        }
-
         return (
-          <div className={day.fullDate === currDate ? "container-day active-day" : "container-day"} key={day.day}>
+          <div className="container-day" key={day.day}>
             <div className="row-items">
               <div className="head">
-                <div className="main-cont">
-                  {day.fullDate === currDate && <div className="today">Cегодня</div>}
-                  <div className="day-week">{day.weekDay}</div>
-                </div>
+                <div className="day-week">{day.weekDay}</div>
                 <div className="min-cont">
+                  <div className="btn-more"></div>
                   <div className="day">{day.day}</div>
                 </div>
               </div>
               {dayLessons.length === 0 ? null : generateLessons(dayLessons)}
+
             </div>
           </div>
         )
@@ -95,5 +79,5 @@ function SheduleWeek(props) {
   );
 }
 
-const connSheduleWeek = connect(mapStatetoProps, actionCreators)(SheduleWeek)
+const connSheduleWeek = connect(mapStatetoProps, null)(SheduleWeek)
 export default connSheduleWeek;

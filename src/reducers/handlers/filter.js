@@ -5,9 +5,14 @@ import * as actions from '../../actions/index';
 import _ from 'lodash';
 
 export default handleActions({
+<<<<<<< HEAD
     [actions.loadFilterData](state, { payload: { prop } }) {
         const { filter, data, mode } = prop;
 
+=======
+    [actions.loadFilterData](state, {payload: { prop }}) {
+        const {filter, data} = prop;
+>>>>>>> 46869048628eb6f75138090767aea2cda16916c9
         const filtered = data.filter((item) => {
             if (mode === 'student') {
                 return (item.division.abb_name === filter.division && item.group.course === filter.course)

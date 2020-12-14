@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
+
 
 export const loadSheduleRequest = createAction("LOAD_SHEDULE_REQUEST");
 export const loadSheduleSuccess = createAction("LOAD_SHEDULE_SUCCESS");
@@ -36,8 +37,8 @@ export const loadShedule = (mode = 'curr') => async (dispatch) => {
         const idCurrWeek = currWeek.data[0]._id;
         const responce = await axios.get(`http://1c.surpk.ru/schedule/api/lessons/week/${idCurrWeek}`);
         const { data } = responce;
-        
-        dispatch(loadSheduleSuccess({data}));
+
+        dispatch(loadSheduleSuccess({ data }));
         dispatch(loadDaysCurrWeek({ week: currWeek.data[0] }));
     } catch (e) {
         dispatch(loadSheduleFailure());
