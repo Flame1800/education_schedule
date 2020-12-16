@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "59e149eb82e57a662c9ebe0bbab95eca",
+    "revision": "35a288ef105bfcf7e7e805a7b247917e",
     "url": "/shedule_spk/index.html"
   },
   {
-    "revision": "5c1f384a62f589dc4185",
+    "revision": "ddd323286ad7378b0848",
     "url": "/shedule_spk/static/css/main.c1a3f134.chunk.css"
   },
   {
-    "revision": "5fb35369c8bc8315dc53",
-    "url": "/shedule_spk/static/js/2.084a6070.chunk.js"
+    "revision": "d3e2cd1b55ec4d0b9595",
+    "url": "/shedule_spk/static/js/2.00e2f94c.chunk.js"
   },
   {
     "revision": "64bea2e190f27355a76963b8cb94bb7b",
-    "url": "/shedule_spk/static/js/2.084a6070.chunk.js.LICENSE.txt"
+    "url": "/shedule_spk/static/js/2.00e2f94c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "5c1f384a62f589dc4185",
-    "url": "/shedule_spk/static/js/main.04f40020.chunk.js"
+    "revision": "ddd323286ad7378b0848",
+    "url": "/shedule_spk/static/js/main.fa978364.chunk.js"
   },
   {
     "revision": "7af3344679c79d0807c8",
