@@ -11,6 +11,7 @@ const actionsCreators = {
   loadCurrLessons: actions.loadCurrLessons,
   changeMode: actions.changeDataLoadMode,
   clearFilter: actions.clearFilter,
+  pushPropFromLoadLessons: actions.pushProp,
 }
 
 const mapStateToProps = (state) => {
@@ -57,18 +58,27 @@ function Filter(props) {
     }
   }
 
-  const selectLastItem = (num) => (e) => {
+  const selectLastItem = (item) => (e) => {
     e.preventDefault();
     props.switchFilter();
     setfilterList({});
 
     const prop = {
       data: props.shedule,
-      filter: { ...filterList, group: num },
+      filter: { ...filterList, group: item },
       mode: props.mode,
     }
 
+    props.pushPropFromLoadLessons({ prop });
     props.loadCurrLessons({ prop });
+  }
+
+  const backFilterSelect = () => (e) => {
+    e.preventDefault();
+    const newFilter = filterList
+    delete newFilter.group;
+    delete newFilter.course;
+    setfilterList({ ...newFilter })
   }
 
   const search = () => (e) => {
@@ -152,12 +162,13 @@ function Filter(props) {
               }
 
               return (
-                <div className={itemClasses} onClick={selectLastItem(item)} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
+                <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
               )
             })}
           </div>
           {Object.keys(filterList).length > 1 && props.mode === 'student' &&
             <div className="column groups">
+              <div className="arrow-left" onClick={backFilterSelect()}></div>
               {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
                 let itemClasses = 'item';
                 if (item === filterList.course) {

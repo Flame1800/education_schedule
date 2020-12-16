@@ -51,13 +51,13 @@ function SheduleDay(props) {
 
     const result = dayLessons.map((lesson) => {
       if (Array.isArray(lesson)) {
-        return (<div className='lesson' key={lesson._id}>
-          <Lesson mode="day" lesson={lesson[0]} subLesson={lesson[1]} key={lesson[0]._id} />
+        return (<div className='lesson' key={lesson[0]._id}>
+          <Lesson mode="day" lesson={lesson[0]} subLesson={lesson[1]}  />
         </div>)
       }
       else {
         return (<div className='lesson' key={lesson._id}>
-          <Lesson mode="day" lesson={lesson} subLesson={null} key={lesson._id} />
+          <Lesson mode="day" lesson={lesson} subLesson={null} />
         </div>)
       }
     });

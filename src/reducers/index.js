@@ -7,6 +7,7 @@ import currWeek from './handlers/currWeek';
 import currLessons from './handlers/currLessons';
 import sheduleMode from './handlers/sheduleMode';
 import selectedDay from './handlers/selectedDay';
+import propFromLoad from './handlers/propFromLoad';
 
 export default combineReducers({
     filter,
@@ -15,5 +16,6 @@ export default combineReducers({
     currWeek,
     currLessons,
     sheduleMode,
-    selectedDay
+    selectedDay,
+    propFromLoad
 })

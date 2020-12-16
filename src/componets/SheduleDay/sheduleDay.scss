@@ -210,3 +210,17 @@
     color: #c0c0c0;
     font-weight: bold;
 }
+
+
+
+@media screen and (max-width: 550px) {
+    .content .couples {
+        width: 90%;
+        .item {
+            .num {
+                font-size: 30px;
+                width: 30px;
+            }
+        }
+    }
+}

@@ -1,5 +1,4 @@
 .sidebar {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
@@ -13,7 +12,6 @@
     user-select: none;
     width: 80%;
     margin: 0 auto;
-    margin-bottom: 30px;
     display: flex;
     align-items: center;
 
@@ -26,6 +24,7 @@
         padding: 10px 0px;
         cursor: pointer;
         transition: .4s;
+        margin-bottom: 20px;
         width: 140px;
 
         .icon {
@@ -49,7 +48,7 @@
     }
 
     .group {
-        margin-left: 30px;
+        margin-left: 20px;
         margin-right: 40px;
         width: 150px;
         display: flex;
@@ -57,6 +56,7 @@
         align-items: center;
         font-size: 18px;
         color: #365d88;
+        margin-bottom: 30px;
     }
 
     .mode-container {
@@ -64,6 +64,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin-bottom: 30px;
+
 
         .title {
             font-size: 13px;
@@ -93,6 +95,7 @@
 
     .weeks-button {
         display: flex;
+        margin-bottom: 20px;
 
         .btn-w {
             cursor: pointer;
@@ -131,6 +134,7 @@
 
 .switch-head {
     display: flex;
+    margin-bottom: 20px;
     background: #FFFFFF;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     height: 40px;

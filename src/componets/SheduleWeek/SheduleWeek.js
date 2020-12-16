@@ -13,26 +13,6 @@ function SheduleWeek(props) {
 
 
   const generateLessons = (dayLessons) => {
-    console.log(dayLessons[0].date);
-
-    const mappingLessons = [];
-    // let lessonPoint = 0;
-
-    // for (let i = 1; i < dayLessons.length; i++) {
-    //   const lesson = dayLessons[i];
-    //   console.log(mappingLessons[i]);
-
-    //   if (lesson.lessonNumber !== i && mappingLessons[i] !== undefined) {
-    //     console.log(lesson.lessonNumber, i);
-    //     mappingLessons[i] = { mode: 'empty' };
-    //     i--;
-    //   } else {
-    //     mappingLessons[i] =  lesson;
-    //   }
-    // }
-
-    console.log(mappingLessons);
-
     const result = dayLessons.map((lesson, i) => {
 
       if (dayLessons[i + 1] !== undefined) {
@@ -64,7 +44,6 @@ function SheduleWeek(props) {
               <div className="head">
                 <div className="day-week">{day.weekDay}</div>
                 <div className="min-cont">
-                  <div className="btn-more"></div>
                   <div className="day">{day.day}</div>
                 </div>
               </div>

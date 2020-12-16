@@ -8,6 +8,7 @@ const actionsCreators = {
   switchFilter: actions.switchFilter,
   clearFilter: actions.clearFilter,
   changeMode: actions.changeMode,
+  loadCurrLessons: actions.loadCurrLessons
 }
 
 const mapStateToProps = (state) => {
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => {
     sheduleMode: state.sheduleMode.mode,
     mode: state.sheduleMode.mode,
     loadMode: state.sheduleMode.dataLoadMode,
+    propFromLoad: state.propFromLoad
   };
 }
 
@@ -43,6 +45,10 @@ function Sidebar(props) {
   const changeWeek = (mode) => (e) => {
     e.preventDefault();
 
+    setWeekMode(mode);
+    props.loadShedule(mode);
+    props.loadCurrLessons({ prop: props.propFromLoad });
+
   }
 
 
@@ -61,12 +67,12 @@ function Sidebar(props) {
       </div>
       <div className="weeks-button">
         {weekMode === 'curr' ?
-          <div className="btn-w">
-            <div className="text" onClick={changeWeek()}>Следующая неделя</div>
+          <div className="btn-w" onClick={changeWeek('next')}>
+            <div className="text">Следующая неделя</div>
             <div className="arrow-right"></div>
           </div>
           :
-          <div className="btn-w">
+          <div className="btn-w" onClick={changeWeek('curr')}>
             <div className="arrow-left"></div>
             <div className="text">Текущая неделя</div>
           </div>
