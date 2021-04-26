@@ -11,7 +11,7 @@ const actionsCreators = {
 }
 
 const mapStatetoProps = (state) => {
-  return { lessons: state.currLessons, currDay: state.selectedDay }
+  return { lessons: state.currLessons, currDay: state.selectedDay, sheduleState: state.sheduleState }
 }
 
 function SheduleDay(props) {
@@ -19,13 +19,11 @@ function SheduleDay(props) {
   const { lessons, currDay } = props;
 
   const filterLessons = (dayLessons) => {
-
     const newLessons = [];
     const numbers = dayLessons.map(lesson => lesson.lessonNumber);
 
     const findLesson = (num, lessons) => {
       const currLessons = lessons.filter(lesson => lesson.lessonNumber === num);
-
       if (currLessons.length === 1) {
         return currLessons[0];
       }
@@ -46,18 +44,17 @@ function SheduleDay(props) {
   const dayLessonsF = _.sortBy(lessons.filter(lesson => lesson.date === currDay), 'lessonNumber');
 
   const generateLessons = () => {
-
     const dayLessons = filterLessons(dayLessonsF);
 
     const result = dayLessons.map((lesson) => {
       if (Array.isArray(lesson)) {
         return (<div className='lesson' key={lesson[0]._id}>
-          <Lesson mode="day" lesson={lesson[0]} subLesson={lesson[1]}  />
+          <Lesson mode="day" lesson={lesson[0]} subLesson={lesson[1]} key={lesson[0]._id} />
         </div>)
       }
       else {
         return (<div className='lesson' key={lesson._id}>
-          <Lesson mode="day" lesson={lesson} subLesson={null} />
+          <Lesson mode="day" lesson={lesson} subLesson={null} key={lesson._id} />
         </div>)
       }
     });
@@ -65,6 +62,24 @@ function SheduleDay(props) {
     return result;
   }
 
+  if (props.sheduleState === 'loading') {
+    return (
+      <div className="App">
+        <div className="main-container">
+          <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+      </div>
+    )
+  }
+  if (props.sheduleState === 'empty') {
+    return (
+      <div className="App">
+        <div className="main-container">
+          <div className="no-lessons"> Нет данных </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="shadow-container shedule-day col-10 p-0">

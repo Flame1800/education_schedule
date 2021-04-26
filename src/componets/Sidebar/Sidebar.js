@@ -8,7 +8,8 @@ const actionsCreators = {
   switchFilter: actions.switchFilter,
   clearFilter: actions.clearFilter,
   changeMode: actions.changeMode,
-  loadCurrLessons: actions.loadCurrLessons
+  loadCurrLessons: actions.loadCurrLessons,
+  changeDateLoad: actions.changeDateLoad
 }
 
 const mapStateToProps = (state) => {
@@ -16,15 +17,16 @@ const mapStateToProps = (state) => {
     currGroup: state.currLessons[0].group.name,
     currTeacher: state.currLessons[0].teacher.abb_name,
     sheduleMode: state.sheduleMode.mode,
+    shedule: state.shedule,
     mode: state.sheduleMode.mode,
     loadMode: state.sheduleMode.dataLoadMode,
-    propFromLoad: state.propFromLoad
+    propFromLoad: state.propFromLoad,
+    dateLoad: state.sheduleMode.dateLoad
   };
 }
 
 function Sidebar(props) {
 
-  const [weekMode, setWeekMode] = React.useState('curr');
   const openFilter = (e) => {
     e.preventDefault();
     props.clearFilter();
@@ -45,19 +47,16 @@ function Sidebar(props) {
   const changeWeek = (mode) => (e) => {
     e.preventDefault();
 
-    setWeekMode(mode);
+    props.changeDateLoad();
     props.loadShedule(mode);
-    props.loadCurrLessons({ prop: props.propFromLoad });
-
   }
-
 
   return (
     <div className="sidebar">
       <div className="main-container">
         <div className={filterClasses} onClick={openFilter}>
           <div className="icon"></div>
-          <div className="text">Фильтр</div>
+          <div className="text">Поиск</div>
         </div>
         <div className="group">{props.loadMode !== 'teacher' ? props.currGroup + " группа" : props.currTeacher} </div>
         <div className="switch-head" onClick={changeMode()} >
@@ -65,21 +64,19 @@ function Sidebar(props) {
           <div className={props.mode === 'week' ? 'active-item' : 'passive-item'}>Неделя</div>
         </div>
       </div>
-      <div className="weeks-button">
-        {weekMode === 'curr' ?
+      {/* <div className="weeks-button">
+        {props.dateLoad === 'curr' ?
           <div className="btn-w" onClick={changeWeek('next')}>
             <div className="text">Следующая неделя</div>
-            <div className="arrow-right"></div>
+            <div className="arrow-right-sidebar"></div>
           </div>
           :
           <div className="btn-w" onClick={changeWeek('curr')}>
-            <div className="arrow-left"></div>
+            <div className="arrow-left-sidebar"></div>
             <div className="text">Текущая неделя</div>
           </div>
         }
-
-
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -12,10 +12,18 @@ const actionsCreators = {
   changeMode: actions.changeDataLoadMode,
   clearFilter: actions.clearFilter,
   pushPropFromLoadLessons: actions.pushProp,
+  changeDateLoad: actions.changeDateLoad,
 }
 
 const mapStateToProps = (state) => {
-  return { groups: state.filter, shedule: state.shedule, mode: state.sheduleMode.dataLoadMode };
+  return {
+    groups: state.filter,
+    shedule: state.shedule,
+    mode: state.sheduleMode.dataLoadMode,
+    dateLoad: state.sheduleMode.dateLoad,
+    dateCurrWeek: state.sideBar.dateCurrWeek,
+    sheduleState: state.sheduleState,
+  };
 }
 
 function Filter(props) {
@@ -58,15 +66,18 @@ function Filter(props) {
     }
   }
 
-  const selectLastItem = (item) => (e) => {
+  const selectLastItem = (item, mode = props.mode) => (e) => {
     e.preventDefault();
     props.switchFilter();
     setfilterList({});
 
+    window.localStorage.item = item;
+    window.localStorage.mode = mode;
+
     const prop = {
       data: props.shedule,
       filter: { ...filterList, group: item },
-      mode: props.mode,
+      mode,
     }
 
     props.pushPropFromLoadLessons({ prop });
@@ -109,17 +120,20 @@ function Filter(props) {
       res.sort(compareNumeric);
       const newData = _.sortedUniq(res);
       setSearchResults(newData);
-
-      document.addEventListener('keydown', (e => {
-        if (e.code === "Enter") {
-          selectLastItem(newData[0]);
-        }
-      }))
     }
   }
 
-  const divisions = ['СП-1', "СП-2", "СП-3", "СП-4", "СП-5"];
+
+  const changeWeek = (mode) => (e) => {
+    e.preventDefault();
+    props.changeDateLoad();
+    props.loadShedule(mode);
+  }
+
+  const divisions = ['СП-1', "СП-2", "СП-3", "СП-4"];
   const courses = [1, 2, 3, 4];
+
+
   return (
     <div className="shadow-container">
       <div className="filter">
@@ -129,7 +143,9 @@ function Filter(props) {
             <div className={props.mode === 'student' ? 'active-item' : 'passive-item'}>Студент</div>
           </div>
           <div className="search">
-            <label htmlFor="search" className="label-input">{props.mode === 'student' ? "Введите номер группы:" : "Введите фамилию:"}</label>
+            <label htmlFor="search" className="label-input">
+              {props.mode === 'student' ? "Введите номер группы:" : "Введите фамилию:"}
+            </label>
             <div className="search-cont">
               <input type="text" placeholder="Поиск" onInput={search()} />
               {searchValue.length > 0 && <div className="search-results">{
@@ -140,59 +156,97 @@ function Filter(props) {
             </div>
           </div>
         </div>
-        <div className="items-list">
-          <div className="column">
-            {divisions.map(item => {
-              let itemClasses = 'item';
-              if (item === filterList.division) {
-                itemClasses += " active";
-              }
-
-              return (
-                <div className={itemClasses} key={item}
-                  onClick={addFilterDiv(item)}>{item}</div>
-              )
-            })}
-          </div>
-          <div className="column">
-            {filterList.division && props.mode === 'student' && courses.map(item => {
-              let itemClasses = 'item';
-              if (item === filterList.course) {
-                itemClasses += " active";
-              }
-
-              return (
-                <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
-              )
-            })}
-          </div>
-          {Object.keys(filterList).length > 1 && props.mode === 'student' &&
-            <div className="column groups">
-              <div className="arrow-left" onClick={backFilterSelect()}></div>
-              {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
+        {props.sheduleState === 'empty' || props.shedule.length === 0 ?
+          <div className="no-lessons"> Нет данных </div> :
+          <div className="items-list">
+            <div className="column">
+              {divisions.map(division => {
                 let itemClasses = 'item';
-                if (item === filterList.course) {
+                if (division === filterList.division) {
                   itemClasses += " active";
                 }
 
                 return (
-                  <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
+                  <div className={itemClasses} key={division}
+                    onClick={addFilterDiv(division)}>{division}</div>
                 )
               })}
-            </div>}
-          {props.mode === 'teacher' &&
-            <div className="column teacher-groups">
-              {props.groups.length === 0 && filterList.division ? "Преподаватели не найдены" : props.groups.map(item => {
-                let itemClasses = 'item item-teacher';
-                if (item === filterList.course) {
-                  itemClasses += " active";
-                }
+            </div>
+            <div className="column">
+              {filterList.division && props.mode === 'student'
+                && filterList.division !== 'СП-1'
+                && courses.map(item => {
+                  let itemClasses = 'item';
+                  if (item === filterList.course) {
+                    itemClasses += " active";
+                  }
 
-                return (
-                  <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
-                )
-              })}
-            </div>}
+                  return (
+                    <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
+                  )
+                })}
+              {filterList.division && props.mode === 'student' && filterList.division === 'СП-1' && [1].map(item => {
+                  let itemClasses = 'item';
+                  if (item === filterList.course) {
+                    itemClasses += " active";
+                  }
+
+                  return (
+                    <div className={itemClasses} key={1} onClick={addFilterCourse(1)}>{1} Курс</div>
+                  )
+                })}
+            </div>
+            {Object.keys(filterList).length > 1 && props.mode === 'student' &&
+              <div className="column groups">
+                <div className="arrow-left" onClick={backFilterSelect()}></div>
+                {props.groups.length === 0 && filterList.course ? "Группы не найдены" : props.groups.map(item => {
+                  let itemClasses = 'item';
+                  if (item === filterList.course) {
+                    itemClasses += " active";
+                  }
+
+                  return (
+                    <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
+                  )
+                })}
+              </div>}
+            {props.mode === 'teacher' &&
+              <div className="column teacher-groups">
+                {props.groups.length === 0 && filterList.division ? "Преподаватели не найдены" : props.groups.map(item => {
+                  let itemClasses = 'item item-teacher';
+                  if (item === filterList.course) {
+                    itemClasses += " active";
+                  }
+
+                  return (
+                    <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
+                  )
+                })}
+              </div>}
+          </div>
+        }
+
+
+
+        <div className="block-info">
+          {props.sheduleState === 'ready' && <div className='info'>Расписание занятий на {props.dateCurrWeek}</div>}
+          <div className="weeks-button">
+            {props.dateLoad === 'curr' ?
+              <div className="btn-w" onClick={changeWeek('next')}>
+                <div className="text">Следующая неделя</div>
+                <div className="arrow-right-sidebar"></div>
+              </div>
+              :
+              <div className="btn-w" onClick={changeWeek('curr')}>
+                <div className="arrow-left-sidebar"></div>
+                <div className="text">Текущая неделя</div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div className="copyright">
+        © 2021 HelloPeople, Ruslan Shaficov 
         </div>
       </div>
     </div>

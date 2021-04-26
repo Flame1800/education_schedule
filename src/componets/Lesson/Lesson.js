@@ -5,14 +5,20 @@ export default function Lesson(props) {
 
     const { lesson } = props;
 
+
+
+    const getSubjectName = (lesson) => {
+        return lesson.subject ? lesson.subject.name : ''
+    } 
+
     if (props.mode === 'week') {
-        if (lesson.subject.name === 'Нет пары') {
+        if (getSubjectName(lesson) === 'Нет пары') {
             return (
                 <div className="item" >
                     <div className="num-lesson">{lesson.lessonNumber}</div>
                     <div className="couple">
                         <div className="head-card">
-                            <div className="name">{lesson.subject.name}</div>
+                            <div className="name">{getSubjectName(lesson)}</div>
                         </div>
                         <div className="cont">
                             <div className="teacher">
@@ -43,7 +49,7 @@ export default function Lesson(props) {
                     <div className="couple">
                         <div className="headers">
                             <div className="head-card head-card-first head-card-min">
-                                <div className="name">{lesson.subject.name}</div>
+                                <div className="name">{getSubjectName(lesson)}</div>
                                 <div className="teacher">
                                     <div className="icon"></div>
                                     <div className="name name-min">
@@ -52,7 +58,7 @@ export default function Lesson(props) {
                                 </div>
                             </div>
                             <div className="head-card head-card-second head-card-min">
-                                <div className="name">{subLesson.subject.name}</div>
+                                <div className="name">{getSubjectName(subLesson)}</div>
                                 <div className="teacher">
                                     <div className="icon"></div>
                                     <div className="name name-min">
@@ -84,7 +90,7 @@ export default function Lesson(props) {
                     <div className="num-lesson">{lesson.lessonNumber}</div>
                     <div className="couple">
                         <div className="head-card">
-                            <div className="name">{lesson.subject.name}</div>
+                            <div className="name">{getSubjectName(lesson)}</div>
                         </div>
                         <div className="cont">
                             <div className="teacher">
@@ -110,14 +116,13 @@ export default function Lesson(props) {
 
     }
 
-    if (props.mode === 'day') {
-
-        if (lesson.subject.name === 'Нет пары') {
+    if (props.mode === 'day') {        
+        if (getSubjectName(lesson)=== 'Нет пары') {
             return (
                 <div className="item">
                     <div className="num">{lesson.lessonNumber}</div>
                     <div className="couple one-couple no-lesson">
-                            <div className="text">{lesson.subject.name}</div>
+                        <div className="text">{getSubjectName(lesson)}</div>
                     </div>
                 </div>
             )
@@ -132,7 +137,7 @@ export default function Lesson(props) {
                         <div className="sub-item">
                             <div className="head-card">
                                 <div className="titles">
-                                    <div className="name">{lesson.subject.name}</div>
+                                    <div className="name">{getSubjectName(lesson)}</div>
                                     <div className="teacher">{lesson.teacher.name === lesson.exhibitor ? lesson.teacher.name : lesson.exhibitor}</div>
                                 </div>
                                 <div className="cont">
@@ -144,7 +149,7 @@ export default function Lesson(props) {
                         <div className="sub-item">
                             <div className="head-card">
                                 <div className="titles">
-                                    <div className="name">{subLesson.subject.name}</div>
+                                    <div className="name">{getSubjectName(subLesson)}</div>
                                     <div className="teacher">{subLesson.teacher.name === subLesson.exhibitor ? subLesson.teacher.name : subLesson.exhibitor}</div>
                                 </div>
                                 <div className="cont">
@@ -165,7 +170,7 @@ export default function Lesson(props) {
                     <div className="couple one-couple">
                         <div className="head-card">
                             <div className="titles">
-                                <div className="name">{lesson.subject.name}</div>
+                                <div className="name">{getSubjectName(lesson)}</div>
                                 <div className="teacher">{lesson.teacher.name === lesson.exhibitor ? lesson.teacher.name : lesson.exhibitor}</div>
                             </div>
                             <div className="cont">

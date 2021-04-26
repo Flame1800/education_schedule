@@ -126,6 +126,7 @@
   color: #777777;
   font-size: 21px;
   width: 100%;
+  padding-bottom: 100px;
 
   .groups {
     height: 50vh;
@@ -165,6 +166,63 @@
   display: none;
 }
 
+.block-info {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  font-size: 18px;
+  color: rgb(102, 102, 102);
+  bottom: 40px;
+
+  .info {
+    margin-right: 20px;
+  }
+}
+.weeks-button {
+  display: flex;
+  margin-bottom: 20px;
+
+  .btn-w {
+      cursor: pointer;
+      display: flex;
+  }
+
+
+  .btn-w:hover {
+      .text {
+          color: #5d9bff;
+          border-bottom: 1px solid #5d9bff;
+      }
+  }
+
+  .arrow-left-sidebar {
+      background-image: url('../../assets/img/arrow-left.png');
+      width: 21px;
+      height: 21px;
+  }
+
+  .arrow-right-sidebar {
+      background-image: url('../../assets/img/arrow-right.png');
+      width: 21px;
+      height: 21px;
+  }
+
+  .text {
+      margin-right: 20px;
+      margin-left: 20px;
+      color: #496795;
+      transition: 0.3s;
+  }
+}
+
+.copyright {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #727272;
+  font-size: 15px;
+}
+
 @media screen and (max-width: 550px) {
 
   .arrow-left {
@@ -178,6 +236,7 @@
 
   .items-list {
     position: relative;
+    padding-bottom: 100px;
   }
 
   .items-list .groups {

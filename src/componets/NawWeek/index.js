@@ -1,2 +1,2 @@
-import NawWeek from './NawWeek.jsx';
+import NawWeek from './NawWeek.js';
 export default NawWeek;

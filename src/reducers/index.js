@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import filter from './handlers/filter'; 
 import shedule from './handlers/shedule'; 
+import sheduleState from './handlers/sheduleState'; 
 import sideBar from './handlers/sideBar';
 import currWeek from './handlers/currWeek';
 import currLessons from './handlers/currLessons';
@@ -17,5 +18,6 @@ export default combineReducers({
     currLessons,
     sheduleMode,
     selectedDay,
-    propFromLoad
+    propFromLoad,
+    sheduleState
 })

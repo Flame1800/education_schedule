@@ -1,7 +1,7 @@
 import React from 'react';
 import './nawWeek.scss';
 import { connect } from "react-redux";
-import * as actions from '../../actions/index'
+import * as actions from '../../actions/index';
 
 const actionsCreators = {
   selectDay: actions.selectDay,
@@ -17,7 +17,7 @@ function NavWeek(props) {
     e.preventDefault();
     props.selectDay({ day });
   }
-
+  
   return (
     <div className="nav-week d-flex">
 
