@@ -47,7 +47,7 @@ function Filter(props) {
       filter: { ...filterList, course: num },
       mode: props.mode
     }
-
+    console.log(prop)
     props.loadFilterData({ prop });
   }
 
@@ -130,7 +130,7 @@ function Filter(props) {
     props.loadShedule(mode);
   }
 
-  const divisions = ['СП-1', "СП-2", "СП-3", "СП-4"];
+  const divisions = ["№1, Маяковского 16/1", "№2, Рабочая 43/1", "№3, Ивана Захарова 12", "№4, Мелик-Карамова 18/1"];
   const courses = [1, 2, 3, 4];
 
 
@@ -183,16 +183,6 @@ function Filter(props) {
 
                   return (
                     <div className={itemClasses} key={item} onClick={addFilterCourse(item)}>{item} Курс</div>
-                  )
-                })}
-              {filterList.division && props.mode === 'student' && filterList.division === 'СП-1' && [1].map(item => {
-                  let itemClasses = 'item';
-                  if (item === filterList.course) {
-                    itemClasses += " active";
-                  }
-
-                  return (
-                    <div className={itemClasses} key={1} onClick={addFilterCourse(1)}>{1} Курс</div>
                   )
                 })}
             </div>

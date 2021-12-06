@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import * as actions from './actions';
 
 const actionsCreators = {
-  loadShedule: actions.loadShedule,
   switchFilter: actions.switchFilter,
   pushPropFromLoadLessons: actions.pushProp,
   loadCurrLessons: actions.loadCurrLessons,
