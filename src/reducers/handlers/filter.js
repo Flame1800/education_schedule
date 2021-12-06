@@ -10,9 +10,9 @@ export default handleActions({
 
         const filtered = data.filter((item) => {
             if (mode === 'student') {
-                return (item.division.abb_name === filter.division && item.group.course === filter.course)
+                return (item.division.name === filter.division && item.group.course === filter.course)
             }
-            return (item.division.abb_name === prop.division)
+            return (item.division.name === prop.division)
         });
         const groupsNosorted = filtered.map(item => mode === 'teacher' ? item.teacher.abb_name : item.group.name);
 
