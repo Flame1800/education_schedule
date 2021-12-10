@@ -14,7 +14,17 @@ export default handleActions({
             }
             return (item.division.name === prop.division)
         });
-        const groupsNosorted = filtered.map(item => mode === 'teacher' ? item.teacher.abb_name : item.group.name);
+        const groupsNosorted = filtered.map(item => {
+            if (mode === 'teacher') {
+                return item.teacher.abb_name
+            }
+            if (mode === 'cabinet' && item.cabinet) {
+                return item.cabinet.name
+            }
+
+            return item.group.name
+
+        });
 
         function compareNumeric(a, b) {
             if (a > b) return 1;

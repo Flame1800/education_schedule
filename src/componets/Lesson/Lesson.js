@@ -30,9 +30,6 @@ export default function Lesson(props) {
                                 <div className="cab">
                                     <div className="flag-icon"></div>
                                 </div>
-                                <div className="time">
-                                    00:00
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,9 +101,6 @@ export default function Lesson(props) {
                                     <div className="flag-icon"></div>
                                     {lesson.cabinet ? lesson.cabinet.number : null}
                                 </div>
-                                <div className="time">
-                                    00:00
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -153,11 +147,10 @@ export default function Lesson(props) {
                                     <div className="teacher">{subLesson.teacher.name === subLesson.exhibitor ? subLesson.teacher.name : subLesson.exhibitor}</div>
                                 </div>
                                 <div className="cont">
-                                    <div className="sign">{subLesson.subgroup}</div>
+                                    <div className="sign">{subLesson.subgroup} </div>
                                     <div className="cab">{subLesson.cabinet ? subLesson.cabinet.number : null} каб</div>
                                 </div>
                             </div>
-                            <div className="time">00:00 - 00:00</div>
                         </div>
                     </div>
                 </div>
@@ -176,10 +169,8 @@ export default function Lesson(props) {
                             <div className="cont">
                                 {lesson.subgroup !== 0 ? <div className="sign">{lesson.subgroup}</div> : null}
                                 <div className="cab">{lesson.cabinet ? lesson.cabinet.number : null} каб</div>
-                                {/* <div className="icon-dinner"></div> */}
                             </div>
                         </div>
-                        <div className="time">00:00 - 00:00</div>
                     </div>
                 </div>
             )

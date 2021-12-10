@@ -7,18 +7,9 @@
 
     .active-day {
         box-shadow: 0px 0px 10px 5px #8cbbff;
-        border: 2px solid #8cbbff !important;
+        border: 1px solid #8cbbff !important;
     }
 
-    .container-day {
-        min-height: 70vh;
-        display: flex;
-        max-width: 265px;
-        min-width: 262px;
-        border-radius: 10px;
-        border: 2px solid #F0F0F0;
-        margin: 10px;
-    }
 
     .today {
         font-size: 11px;
@@ -27,7 +18,13 @@
     }
 
     .container-day {
-        background: #fff;
+        min-height: 70vh;
+        display: flex;
+        max-width: 265px;
+        min-width: 262px;
+        border-radius: 10px;
+        border: 1px solid #9b9b9b;
+        margin: 5px;
 
         .row-items {
             margin: 0 auto;
@@ -68,8 +65,7 @@
                 padding: 5px;
                 border-radius: 10px;
                 margin-right: 10px;
-                background: rgb(158 205 255 / 25%);
-                border: 1px solid #a4b3ff;
+                border: 1px solid #b9b9b9;
                 cursor: pointer;
             }
 
@@ -83,9 +79,17 @@
 
             .day {
                 font-size: 15px;
-                color: rgb(113 150 224);
+                color: #373737;
             }
         }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .container-day {
+        max-width: none !important;
+        margin: 15px !important;
+        width: 100%;
     }
 }
 

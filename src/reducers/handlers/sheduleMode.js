@@ -9,9 +9,9 @@ export default handleActions({
             dateLoad: state.dateLoad
         };
     },
-    [actions.changeDataLoadMode](state) {
+    [actions.changeDataLoadMode](state, { payload: {mode} }) {
         return {
-            dataLoadMode: state.dataLoadMode === 'student' ? 'teacher' : 'student', 
+            dataLoadMode: mode,
             mode: state.mode,
             dateLoad: state.dateLoad
         };

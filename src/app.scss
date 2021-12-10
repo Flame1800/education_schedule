@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #F6F7F9;
+  background: #F6F6FB;
 }
 
 .shedule::-webkit-scrollbar {
@@ -15,19 +15,19 @@ body {
 }
 
 .shadow-container {
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-  width: 80%;
-  min-height: 70vh;
-  margin: 0px auto;
-  background: #fff;
+  border: 1px solid #9B9B9B;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
   position: relative;
   min-height: 80vh;
 }
 
 .App {
+  //max-width: 1200px;
+  margin: 50px auto;
   width: 100%;
-  margin-top: 40px;
-  margin-bottom: 140px;
 }
 
 

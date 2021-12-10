@@ -19,7 +19,6 @@ export const changeMode = createAction("CHANGE_MODE");
 export const changeDataLoadMode = createAction("CHANGE_DATA_LOAD_MODE");
 export const changeDateLoad = createAction("CHANGE_DATE_LOAD");
 export const selectDay = createAction("SELECT_DAY");
-export const filterCurrLessons = createAction("FILTER_CURR_LESSONS");
 export const setDateWeek = createAction("SET_DATE_WEEK");
 
 export const loadShedule = (mode = 'curr') => async (dispatch) => {

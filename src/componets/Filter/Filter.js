@@ -31,9 +31,9 @@ function Filter(props) {
   const [searchResults, setSearchResults] = React.useState({});
   const [searchValue, setSearchValue] = React.useState({});
 
-  const changeMode = () => (e) => {
+  const changeMode = (mode) => (e) => {
     e.preventDefault();
-    props.changeMode();
+    props.changeMode({ mode });
     props.clearFilter();
     setfilterList({});
   }
@@ -47,14 +47,14 @@ function Filter(props) {
       filter: { ...filterList, course: num },
       mode: props.mode
     }
-    console.log(prop)
+
     props.loadFilterData({ prop });
   }
 
   const addFilterDiv = (num) => (e) => {
     e.preventDefault();
     setfilterList({ division: num });
-    if (props.mode === 'teacher') {
+    if (props.mode === 'teacher' || props.mode === 'cabinet') {
       const prop = {
         data: props.shedule,
         filter: { ...filterList },
@@ -110,6 +110,11 @@ function Filter(props) {
           return item.teacher.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase());
         }).map(item => item.teacher.abb_name);
       }
+      if (props.mode === 'cabinet') {
+        res = props.shedule.filter(item => {
+          return item.cabinet.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase());
+        }).map(item => item.cabinet.name);
+      }
 
       function compareNumeric(a, b) {
         if (a > b) return 1;
@@ -138,9 +143,22 @@ function Filter(props) {
     <div className="shadow-container">
       <div className="filter">
         <div className="header">
-          <div className="switch-head" onClick={changeMode()}>
-            <div className={props.mode === 'teacher' ? 'active-item' : 'passive-item'}>Преподаватель</div>
-            <div className={props.mode === 'student' ? 'active-item' : 'passive-item'}>Студент</div>
+          <div className="switch-head">
+            <div
+                onClick={changeMode("teacher")}
+                className={props.mode === 'teacher' ? 'active-item' : 'passive-item'}>
+              Преподаватель
+            </div>
+            <div
+                onClick={changeMode("student")}
+                className={props.mode === 'student' ? 'active-item' : 'passive-item'}>
+              Группа
+            </div>
+            <div
+                onClick={changeMode("cabinet")}
+                className={props.mode === 'cabinet' ? 'active-item' : 'passive-item'}>
+              Кабинет
+            </div>
           </div>
           <div className="search">
             <label htmlFor="search" className="label-input">
@@ -161,7 +179,7 @@ function Filter(props) {
           <div className="items-list">
             <div className="column">
               {divisions.map(division => {
-                let itemClasses = 'item';
+                let itemClasses = 'item division';
                 if (division === filterList.division) {
                   itemClasses += " active";
                 }
@@ -213,6 +231,19 @@ function Filter(props) {
                   )
                 })}
               </div>}
+            {props.mode === 'cabinet' &&
+            <div className="column teacher-groups">
+              {props.groups.length === 0 && filterList.division ? "Кабинеты не найдены" : props.groups.map(item => {
+                let itemClasses = 'item item-teacher';
+                if (item === filterList.course) {
+                  itemClasses += " active";
+                }
+
+                return (
+                    <div className={itemClasses} key={_.uniqueId()} onClick={selectLastItem(item)}>{item}</div>
+                )
+              })}
+            </div>}
           </div>
         }
 
@@ -235,9 +266,6 @@ function Filter(props) {
           </div>
         </div>
 
-        <div className="copyright">
-        © 2021 HelloPeople, Ruslan Shaficov 
-        </div>
       </div>
     </div>
   );
