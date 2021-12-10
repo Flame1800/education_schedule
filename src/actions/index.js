@@ -70,3 +70,28 @@ export const loadShedule = (mode = 'curr') => async (dispatch) => {
         throw e;
     }
 }
+
+export const checkSchedule = (mode = 'curr') => async (dispatch) => {
+        let { year, month, day } = DateTime.local();
+
+        if (mode === 'next') {
+            day = Number(day) + 7 > 30 ? (Number(day) - 30) - 7 : Number(day) + 7;
+        }
+
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+        const currDate = `${year}-${month}-${day}`;
+
+        const currWeek = await axios.get(`${process.env.REACT_APP_API_URL}/schedule/api/weeks/date/${currDate}`);
+
+     dispatch(setDateWeek({ date: currWeek.data[0].dateStart }));
+            const idCurrWeek = currWeek.data[0]._id;
+            const responce = await axios.get(`${process.env.REACT_APP_API_URL}/schedule/api/lessons/week/${idCurrWeek}`);
+            const { data } = responce;
+
+            const targetData = data.filter(item => item.teacher.abb_name === "Мухаметшафтиков Р.Р.")
+            console.log(targetData)
+
+}
+
+

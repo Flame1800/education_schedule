@@ -17,6 +17,8 @@ const store = createStore(
 );
 
 store.dispatch(actions.loadShedule());
+store.dispatch(actions.checkSchedule());
+
 
 ReactDOM.render(
   <Provider store={store}>
