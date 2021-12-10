@@ -21,10 +21,12 @@ export default handleActions({
             if (mode === 'cabinet' && item.cabinet) {
                 return item.cabinet.name
             }
+            if (mode === 'student') {
+                return item.group.name
+            }
 
-            return item.group.name
-
-        });
+            return null
+        }).filter(item => item);
 
         function compareNumeric(a, b) {
             if (a > b) return 1;

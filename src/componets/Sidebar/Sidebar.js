@@ -14,8 +14,7 @@ const actionsCreators = {
 
 const mapStateToProps = (state) => {
   return {
-    currGroup: state.currLessons[0].group.name,
-    currTeacher: state.currLessons[0].teacher.abb_name,
+    currLessons: state.currLessons,
     sheduleMode: state.sheduleMode.mode,
     shedule: state.shedule,
     mode: state.sheduleMode.mode,
@@ -51,6 +50,12 @@ function Sidebar(props) {
     props.loadShedule(mode);
   }
 
+  const currEntity = {
+    "student": `${props.currLessons[0].group.name} группа`,
+    "teacher": props.currLessons[0].teacher.abb_name,
+    "cabinet": props.currLessons[0]?.cabinet?.name
+  }
+
   return (
     <div className="sidebar">
       <div className="main-container">
@@ -58,7 +63,7 @@ function Sidebar(props) {
           <div className="icon"></div>
           <div className="text">Поиск</div>
         </div>
-        <div className="group">{props.loadMode !== 'teacher' ? props.currGroup + " группа" : props.currTeacher} </div>
+        <div className="group">{currEntity[props.loadMode]}</div>
         <div className="switch-head" onClick={changeMode()} >
           <div className={props.mode === 'day' ? 'active-item' : 'passive-item'}>День</div>
           <div className={props.mode === 'week' ? 'active-item' : 'passive-item'}>Неделя</div>

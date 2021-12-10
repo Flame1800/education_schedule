@@ -26,6 +26,20 @@ export default handleActions({
             const sortedLessons = _.sortBy(filtered, ['lessonNumber']);
             return sortedLessons;
         }
+        if (mode === 'cabinet') {
+            const filtered = data.filter((item) => {
+                if (!item?.cabinet?.name) {
+                    return false;
+                }
+
+                return item.cabinet.name === filter.group;
+            }).map(item => {
+                return { ...item, exhibitor: item.group.name };
+            });
+
+            const sortedLessons = _.sortBy(filtered, ['lessonNumber']);
+            return sortedLessons;
+        }
     }
 }, {});
 
