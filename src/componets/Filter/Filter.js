@@ -112,8 +112,8 @@ function Filter(props) {
       }
       if (props.mode === 'cabinet') {
         res = props.shedule.filter(item => {
-          return item.cabinet.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase());
-        }).map(item => item.cabinet.name);
+          return item.cabinet.number.toLocaleLowerCase().startsWith(value.toLocaleLowerCase());
+        }).map(item => item.cabinet.number);
       }
 
       function compareNumeric(a, b) {

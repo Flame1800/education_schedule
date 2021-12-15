@@ -34,9 +34,8 @@ export default handleActions({
 
                 return item.cabinet.name === filter.group;
             }).map(item => {
-                return { ...item, exhibitor: item.group.name };
-            });
-
+                return { ...item, exhibitor: item.cabinet.name, cabinet: item.teacher.abb_name };
+            })
             const sortedLessons = _.sortBy(filtered, ['lessonNumber']);
             return sortedLessons;
         }

@@ -14,13 +14,8 @@ export default function Lesson(props) {
     if (props.mode === 'week') {
         if (getSubjectName(lesson) === 'Нет пары') {
             return (
-                <div className="item" >
-                    <div className="num-lesson">{lesson.lessonNumber}</div>
-                    <div className="couple">
-                        <div className="head-card">
-                            <div className="name">{getSubjectName(lesson)}</div>
-                        </div>
-                    </div>
+                <div className="item none" >
+                    <div className="num">{lesson.lessonNumber}</div>
                 </div>
             )
         }
@@ -29,7 +24,7 @@ export default function Lesson(props) {
             const { subLesson } = props;
 
             return (
-                <div className="item">
+                <div className="item active">
                     <div className="num-lesson">{lesson.lessonNumber}</div>
                     <div className="couple">
                         <div className="headers">
@@ -71,7 +66,7 @@ export default function Lesson(props) {
             )
         } else {
             return (
-                <div className="item" >
+                <div className="item active" >
                     <div className="num-lesson">{lesson.lessonNumber}</div>
                     <div className="couple">
                         <div className="head-card">
@@ -124,7 +119,7 @@ export default function Lesson(props) {
                                 </div>
                                 <div className="cont">
                                     <div className="sign">{lesson.subgroup}</div>
-                                    <div className="cab">{lesson.cabinet ? subLesson.cabinet.number : null} каб</div>
+                                    <div className="cab">{lesson.cabinet ? subLesson.cabinet.number : null}</div>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +131,7 @@ export default function Lesson(props) {
                                 </div>
                                 <div className="cont">
                                     <div className="sign">{subLesson.subgroup} </div>
-                                    <div className="cab">{subLesson.cabinet ? subLesson.cabinet.number : null} каб</div>
+                                    <div className="cab">{subLesson.cabinet ? subLesson.cabinet.number : null}</div>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +151,7 @@ export default function Lesson(props) {
                             </div>
                             <div className="cont">
                                 {lesson.subgroup !== 0 ? <div className="sign">{lesson.subgroup}</div> : null}
-                                <div className="cab">{lesson.cabinet ? lesson.cabinet.number : null} каб</div>
+                                <div className="cab">{lesson.cabinet ? lesson.cabinet.number : null}</div>
                             </div>
                         </div>
                     </div>

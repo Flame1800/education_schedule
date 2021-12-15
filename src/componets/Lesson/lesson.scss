@@ -1,21 +1,40 @@
 .container-day {
 
+    .active {
+        background: #000;
+    }
+    .none {
+        background: none !important;
+
+        .num {
+            font-size: 48px;
+            font-weight: bold;
+            color: rgba(189, 189, 189, 0.27);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
+        }
+    }
+
     .item {
-        border: 1px solid #cbcbcb;
-        border-radius: 6px;
-        margin-bottom: 10px;
         height: 90px;
         padding: 4px 0;
         overflow: hidden;
+        border-top: 1px solid #cbcbcb;
+        border-bottom: 1px solid #cbcbcb;
+        margin-bottom: -1px;
     }
+
 
     .num-lesson {
         font-size: 12px;
         margin-bottom: -20px;
         margin-top: -4px;
         padding-left: 5px;
-        border-radius: 4px 0 10px 0px;
-        border: 1px solid #dbdbdb;
+        border-right: 1px solid #dbdbdb;
+        border-bottom: 1px solid #dbdbdb;
         display: block;
         width: 20px;
     }
