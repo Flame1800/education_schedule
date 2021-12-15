@@ -20,18 +20,6 @@ export default function Lesson(props) {
                         <div className="head-card">
                             <div className="name">{getSubjectName(lesson)}</div>
                         </div>
-                        <div className="cont">
-                            <div className="teacher">
-                                <div className="icon"></div>
-                                <div className="name">
-                                </div>
-                            </div>
-                            <div className="min-cont">
-                                <div className="cab">
-                                    <div className="flag-icon"></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             )

@@ -4,6 +4,15 @@ import { connect } from "react-redux";
 import _ from 'lodash';
 import Lesson from '../Lesson/index';
 import * as actions from '../../actions/index';
+import 'swiper/swiper.scss'
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+
+// install Swiper modules
+SwiperCore.use([Pagination, Navigation]);
 
 const mapStatetoProps = (state) => {
   return { days: state.currWeek, lessons: state.currLessons, sheduleState: state.sheduleState };
@@ -86,33 +95,34 @@ function SheduleWeek(props) {
     )
   }
 
-  return (
-    <div className="shedule-week p-0">
-      {props.days.map(day => {
 
-        const dayLessons = _.sortBy(props.lessons.filter(lesson => lesson.date === day.fullDate), 'lessonNumber');
 
-        return (
-          <div className="container-day" key={day.day}>
-            <div className="row-items">
-              <div className="head">
-                <div className="day-week">{day.weekDay}</div>
-                <div className="min-cont">
-                  <div className="cont-btn-more">
-                    <div className="btn-more" onClick={openDay(day.fullDate)}></div>
+    return  (
+        <div className="shedule-week p-0">
+            {props.days.map(day => {
+              const dayLessons = _.sortBy(props.lessons.filter(lesson => lesson.date === day.fullDate), 'lessonNumber');
+
+              return (
+                  <div className="container-day" key={day.day}>
+                    <div className="row-items">
+                      <div className="head">
+                        <div className="day-week">{day.weekDay}</div>
+                        <div className="min-cont">
+                          <div className="cont-btn-more">
+                            <div className="btn-more" onClick={openDay(day.fullDate)}></div>
+                          </div>
+                          <div className="day">{day.day}</div>
+                        </div>
+                      </div>
+                      {dayLessons.length === 0 ? (<div className="no-lessons"> Пар нет </div>) : generateLessons(dayLessons)}
+
+                    </div>
                   </div>
-                  <div className="day">{day.day}</div>
-                </div>
-              </div>
-              {dayLessons.length === 0 ? (<div className="no-lessons"> Пар нет </div>) : generateLessons(dayLessons)}
+              )
+            })}
+        </div>
+    );
 
-            </div>
-          </div>
-        )
-      })}
-
-    </div >
-  );
 }
 
 const connSheduleWeek = connect(mapStatetoProps, actionsCreators)(SheduleWeek)

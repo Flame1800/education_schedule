@@ -1,15 +1,15 @@
 .shedule-week {
-    transition: 0.3s;
-    width: 100%;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
+    user-select: none;
+    border-radius: 10px;
 
     .active-day {
         box-shadow: 0px 0px 10px 5px #8cbbff;
         border: 1px solid #8cbbff !important;
     }
-
 
     .today {
         font-size: 11px;
@@ -17,14 +17,19 @@
         font-weight: bold;
     }
 
+    .swiper-slide:last-child .container-day {
+        border-right: none;
+    }
+    
     .container-day {
         min-height: 70vh;
-        display: flex;
         max-width: 265px;
         min-width: 262px;
+        border: 1px solid #c2c2c2;
         border-radius: 10px;
-        border: 1px solid #9b9b9b;
-        margin: 5px;
+        padding-right: 3px;
+        margin: 15px;
+
 
         .row-items {
             margin: 0 auto;
@@ -93,3 +98,8 @@
     }
 }
 
+.swiper-button-next, .swiper-button-prev {
+    color: #4b4b4b !important;
+    opacity: 0.8;
+    opacity: 0.8;
+}

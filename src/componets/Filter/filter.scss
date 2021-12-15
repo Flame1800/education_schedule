@@ -137,15 +137,22 @@
 
   .info {
     margin-right: 20px;
+    margin-top: 7px;
   }
 }
 .weeks-button {
   display: flex;
+  align-items: center;
   margin-bottom: 20px;
 
   .btn-w {
       cursor: pointer;
       display: flex;
+      align-items: center;
+    border: 1px solid #4b4b4b;
+    padding: 5px;
+    border-radius: 10px;
+    margin-left: 20px;
   }
 
 
@@ -156,22 +163,29 @@
   }
 
   .arrow-left-sidebar {
-      background-image: url('../../assets/img/arrow-left.png');
-      width: 21px;
-      height: 21px;
+      background: url('../../assets/img/arrow-left.png');
+    width: 19px;
+    height: 19px;
+    opacity: 0.6;
+    background-size: contain;
+    margin-left: 20px;
   }
 
   .arrow-right-sidebar {
-      background-image: url('../../assets/img/arrow-right.png');
-      width: 21px;
-      height: 21px;
+      background: url('../../assets/img/arrow-right.png');
+      width: 19px;
+      height: 19px;
+      opacity: 0.6;
+      background-size: contain;
+    margin-right: 20px;
+
   }
 
   .text {
       margin-right: 20px;
       margin-left: 20px;
-      color: #0a0a0a;
-      transition: 0.3s;
+    color: #565656;
+    transition: 0.3s;
   }
 }
 
