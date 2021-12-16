@@ -102,7 +102,7 @@ function Filter(props) {
 
       if (props.mode === 'student') {
         res = props.shedule.filter(item => {
-          return item.group.name.startsWith(value);
+          return item.group.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase());
         }).map(item => item.group.name);
       }
       if (props.mode === 'teacher') {
@@ -112,8 +112,8 @@ function Filter(props) {
       }
       if (props.mode === 'cabinet') {
         res = props.shedule.filter(item => {
-          return item.cabinet.number.toLocaleLowerCase().startsWith(value.toLocaleLowerCase());
-        }).map(item => item.cabinet.number);
+          return item.cabinet?.name.toLocaleLowerCase().startsWith(value.toLocaleLowerCase()) || null;
+        }).map(item => item.cabinet.name);
       }
 
       function compareNumeric(a, b) {
@@ -137,6 +137,12 @@ function Filter(props) {
 
   const divisions = ["№1, Маяковского 16/1", "№2, Рабочая 43/1", "№3, Ивана Захарова 12", "№4, Мелик-Карамова 18/1"];
   const courses = [1, 2, 3, 4];
+
+  const currEntity = {
+    "student": "Введите номер группы:",
+    "teacher": "Введите фамилию:",
+    "cabinet": "Введите номер кабинета:"
+  }
 
 
   return (
@@ -162,7 +168,7 @@ function Filter(props) {
           </div>
           <div className="search">
             <label htmlFor="search" className="label-input">
-              {props.mode === 'student' ? "Введите номер группы:" : "Введите фамилию:"}
+              {currEntity[props.mode]}
             </label>
             <div className="search-cont">
               <input type="text" placeholder="Поиск" onInput={search()} />
