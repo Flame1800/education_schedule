@@ -31,7 +31,6 @@ export default function Lesson(props) {
                             <div className="head-card head-card-first head-card-min">
                                 <div className="name">{getSubjectName(lesson)}</div>
                                 <div className="teacher">
-                                    <div className="icon"></div>
                                     <div className="name name-min">
                                         {lesson.teacher.abb_name}
                                     </div>
@@ -40,7 +39,6 @@ export default function Lesson(props) {
                             <div className="head-card head-card-second head-card-min">
                                 <div className="name">{getSubjectName(subLesson)}</div>
                                 <div className="teacher">
-                                    <div className="icon"></div>
                                     <div className="name name-min">
                                         {subLesson.exhibitor}
                                     </div>
@@ -74,7 +72,6 @@ export default function Lesson(props) {
                         </div>
                         <div className="cont">
                             <div className="teacher">
-                                <div className="icon"></div>
                                 <div className="name">
                                     {lesson.exhibitor}
                                 </div>

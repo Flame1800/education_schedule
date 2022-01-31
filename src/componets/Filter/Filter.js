@@ -257,19 +257,19 @@ function Filter(props) {
 
         <div className="block-info">
           <div className='info'>{props.sheduleState === 'ready' ? `Расписание занятий на ${props.dateCurrWeek}` :''}</div>
-          <div className="weeks-button">
-            {props.dateLoad === 'curr' ?
-              <div className="btn-w" onClick={changeWeek('next')}>
-                <div className="text">Следующая неделя</div>
-                <div className="arrow-right-sidebar" />
-              </div>
-              :
-              <div className="btn-w" onClick={changeWeek('curr')}>
-                <div className="arrow-left-sidebar" />
-                <div className="text">Текущая неделя</div>
-              </div>
-            }
-          </div>
+          {/*<div className="weeks-button">*/}
+          {/*  {props.dateLoad === 'curr' ?*/}
+          {/*    <div className="btn-w" onClick={changeWeek('next')}>*/}
+          {/*      <div className="text">Следующая неделя</div>*/}
+          {/*      <div className="arrow-right-sidebar" />*/}
+          {/*    </div>*/}
+          {/*    :*/}
+          {/*    <div className="btn-w" onClick={changeWeek('curr')}>*/}
+          {/*      <div className="arrow-left-sidebar" />*/}
+          {/*      <div className="text">Текущая неделя</div>*/}
+          {/*    </div>*/}
+          {/*  }*/}
+          {/*</div>*/}
         </div>
 
       </div>

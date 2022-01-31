@@ -1,7 +1,7 @@
 .container-day {
 
     .active {
-        background: #00000005;
+        background: #eabc5d14;
     }
     .none {
         background: none !important;
@@ -10,7 +10,6 @@
             font-size: 48px;
             font-weight: bold;
             color: rgba(189, 189, 189, 0.27);
-            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,9 +21,7 @@
         height: 90px;
         padding: 4px 0;
         overflow: hidden;
-        border-top: 1px solid #cbcbcb;
         border-bottom: 1px solid #cbcbcb;
-        margin-bottom: -1px;
     }
 
 
@@ -97,7 +94,7 @@
         }
 
         .name {
-            font-size: 13px !important;
+            font-size: 12px !important;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;

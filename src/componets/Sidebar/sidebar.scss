@@ -83,9 +83,6 @@
             display: flex;
         }
 
-
-
-
         .text {
             margin-right: 20px;
             margin-left: 20px;
@@ -104,17 +101,17 @@
     align-items: center;
     padding: 5px;
     color: #1e1e1e;
-    border-radius: 15px;
-    border: 1px solid #9B9B9B;
+    border-radius: 35px;
+    border: 1px solid #3E3E3E;
     max-width: 290px;
     font-size: 15px;
     cursor: pointer;
 
     .active-item {
         color: #4b4b4b;
-        font-weight: 600;
-      background: #FAC145;
-      border-radius: 20px;
+        font-weight: 500;
+      background: #EABC5D;
+      border-radius: 30px;
         padding: 10px;
       display: flex;
       justify-content: center;
