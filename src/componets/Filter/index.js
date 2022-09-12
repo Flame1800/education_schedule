@@ -1,2 +1,1 @@
-import Filter from './Filter.js';
-export default Filter;
+export { default } from './Filter'

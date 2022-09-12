@@ -1,102 +1,46 @@
-import React from 'react';
-import './sheduleDay.scss';
-import { connect } from "react-redux";
-import Lesson from '../Lesson/index';
-import NawWeek from '../NawWeek/index';
-import _ from 'lodash';
+import React from "react";
+import "./sheduleDay.scss";
+import {observer} from "mobx-react-lite";
+import scheduleStore from "../../store/scheduleStore";
+import NavWeek from "../NawWeek/NawWeek";
+import datesStore from "../../store/datesStore";
+import DayLesson from "../Lesson/DayLesson/DayLesson";
+import filterLessons from "../../utils/filterLessons";
+
+function ScheduleDay() {
+    const {currDay} = datesStore
+
+    const [dayLessons, setDayLessons] = React.useState([])
+
+    React.useEffect(() => {
+        const newLessons = scheduleStore.currLessons.filter((lesson) => {
+            return lesson.date === currDay
+        })
+        setDayLessons(newLessons)
+    }, [currDay])
 
 
-const actionsCreators = {
-
-}
-
-const mapStatetoProps = (state) => {
-  return { lessons: state.currLessons, currDay: state.selectedDay, sheduleState: state.sheduleState }
-}
-
-function SheduleDay(props) {
-
-  const { lessons, currDay } = props;
-
-  const filterLessons = (dayLessons) => {
-    const newLessons = [];
-    const numbers = dayLessons.map(lesson => lesson.lessonNumber);
-
-    const findLesson = (num, lessons) => {
-      const currLessons = lessons.filter(lesson => lesson.lessonNumber === num);
-      if (currLessons.length === 1) {
-        return currLessons[0];
-      }
-      if (currLessons.length > 1) {
-        return currLessons;
-      }
-
-      return { subject: { name: "Нет пары" }, lessonNumber: num, _id: _.uniqueId() };
-    }
-
-    for (let i = 1; i <= numbers[numbers.length - 1]; i++) {
-      newLessons.push(findLesson(i, dayLessons));
-    }
-
-    return newLessons;
-  }
-
-  const dayLessonsF = _.sortBy(lessons.filter(lesson => lesson.date === currDay), 'lessonNumber');
-
-  const generateLessons = () => {
-    const dayLessons = filterLessons(dayLessonsF);
-
-    const result = dayLessons.map((lesson) => {
-      if (Array.isArray(lesson)) {
-        return (<div className='lesson' key={lesson[0]._id}>
-          <Lesson mode="day" lesson={lesson[0]} subLesson={lesson[1]} key={lesson[0]._id} />
-        </div>)
-      }
-      else {
-        return (<div className='lesson' key={lesson._id}>
-          <Lesson mode="day" lesson={lesson} subLesson={null} key={lesson._id} />
-        </div>)
-      }
+    const generateLessons = filterLessons(dayLessons).map((lesson) => {
+        return <DayLesson key={lesson._id} lesson={lesson}/>;
     });
 
-    return result;
-  }
-
-  if (props.sheduleState === 'loading') {
-    return (
-      <div className="App">
-        <div className="main-container">
-          <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-        </div>
-      </div>
-    )
-  }
-  if (props.sheduleState === 'empty') {
-    return (
-      <div className="App">
-        <div className="main-container">
-          <div className="no-lessons"> Нет данных </div>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="shadow-container shedule-day col-10 p-0">
-      <NawWeek />
-      <div className="sheldue-day-cont main-cont">
-        {dayLessonsF.length !== 0 ? (
-          <div className="content">
+    const lessons = (
+        <div className="content">
             <div className="couples">
-              {generateLessons()}
+                {generateLessons}
             </div>
-          </div>
-        ) : (<div className="no-lessons"> Пар нет </div>)}
+        </div>
+    );
+    const emptyLessons = <div className="no-lessons">Нет пар</div>;
 
-      </div>
-    </div >
-  );
+    return (
+        <div className="shadow-container shedule-day col-10 p-0">
+            <NavWeek/>
+            <div className="sheldue-day-cont main-cont">
+                {dayLessons.length !== 0 ? lessons : emptyLessons}
+            </div>
+        </div>
+    );
 }
 
-const connSheduleDay = connect(mapStatetoProps, actionsCreators)(SheduleDay)
-export default connSheduleDay;
+export default observer(ScheduleDay);

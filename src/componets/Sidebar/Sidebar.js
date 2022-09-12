@@ -1,90 +1,59 @@
-import React from 'react';
-import './sidebar.scss';
-import { connect } from "react-redux";
-import * as actions from '../../actions';
+import React from "react";
+import "./sidebar.scss";
+import {observer} from "mobx-react-lite";
+import scheduleStore from "../../store/scheduleStore";
+import filterStore from "../../store/filterStore";
+import viewModeStore from "../../store/viewModeStore";
+import {DateTime} from "luxon";
 
-const actionsCreators = {
-  loadShedule: actions.loadShedule,
-  switchFilter: actions.switchFilter,
-  clearFilter: actions.clearFilter,
-  changeMode: actions.changeMode,
-  loadCurrLessons: actions.loadCurrLessons,
-  changeDateLoad: actions.changeDateLoad
-}
+function Sidebar() {
+    const {currLessons, setLessons} = scheduleStore;
+    const {view, setView} = viewModeStore;
+    const {mode, setMode} = filterStore;
 
-const mapStateToProps = (state) => {
-  return {
-    currLessons: state.currLessons,
-    sheduleMode: state.sheduleMode.mode,
-    shedule: state.shedule,
-    mode: state.sheduleMode.mode,
-    loadMode: state.sheduleMode.dataLoadMode,
-    propFromLoad: state.propFromLoad,
-    dateLoad: state.sheduleMode.dateLoad
-  };
-}
+    const openFilterHandle = () => {
+        setLessons([])
+        setMode('group')
+    };
+    const changeModeHandle = () => setView(view === "day" ? "week" : "day");
 
-function Sidebar(props) {
+    const currEntity = {
+        group: `${currLessons[0].group.name} группа`,
+        teacher: currLessons[0].teacher.abb_name,
+        cabinet: currLessons[0]?.cabinet?.name,
+    };
 
-  const openFilter = (e) => {
-    e.preventDefault();
-    props.clearFilter();
-    props.switchFilter();
-  }
-
-  let filterClasses = 'btn-filter ';
-
-  if (props.filter) {
-    filterClasses += 'btn-active';
-  }
-
-  const changeMode = () => (e) => {
-    e.preventDefault();
-    props.changeMode();
-  }
-
-  const changeWeek = (mode) => (e) => {
-    e.preventDefault();
-
-    props.changeDateLoad();
-    props.loadShedule(mode);
-  }
-
-  const currEntity = {
-    "student": `${props.currLessons[0].group.name} группа`,
-    "teacher": props.currLessons[0].teacher.abb_name,
-    "cabinet": props.currLessons[0]?.cabinet?.name
-  }
-
-  return (
-    <div className="sidebar">
-      <div className="main-container">
-        <div className={filterClasses} onClick={openFilter}>
-          <div className="icon"></div>
-          <div className="text">Поиск</div>
+    const filterButton = (
+        <div className="btn-filter" onClick={openFilterHandle}>
+            <div className="icon"></div>
+            <div className="text">Поиск</div>
         </div>
-        <div className="group">{currEntity[props.loadMode]}</div>
-        <div className="switch-head" onClick={changeMode()} >
-          <div className={props.mode === 'day' ? 'active-item' : 'passive-item'}>День</div>
-          <div className={props.mode === 'week' ? 'active-item' : 'passive-item'}>Неделя</div>
+    );
+
+    const group = <div className="group">{currEntity[mode]}</div>;
+
+    const changeModeComponent = (
+        <div className="switch-head" onClick={changeModeHandle}>
+            <div className={view === "day" ? "active-item" : "passive-item"}>
+                День
+            </div>
+            <div className={view === "week" ? "active-item" : "passive-item"}>
+                Неделя
+            </div>
         </div>
-      </div>
-      {/* <div className="weeks-button">
-        {props.dateLoad === 'curr' ?
-          <div className="btn-w" onClick={changeWeek('next')}>
-            <div className="text">Следующая неделя</div>
-            <div className="arrow-right-sidebar"></div>
-          </div>
-          :
-          <div className="btn-w" onClick={changeWeek('curr')}>
-            <div className="arrow-left-sidebar"></div>
-            <div className="text">Текущая неделя</div>
-          </div>
-        }
-      </div> */}
-    </div>
-  );
+    );
+
+    return (
+        <div className="sidebar">
+            <div className="main-container">
+                {filterButton}
+                {group}
+                {mode === 'allGroups'
+                    ? <div className='today-date'>{DateTime.now().toISODate()}</div>
+                    : changeModeComponent}
+            </div>
+        </div>
+    );
 }
 
-const connSidebar = connect(mapStateToProps, actionsCreators)(Sidebar)
-export default connSidebar;
+export default observer(Sidebar);

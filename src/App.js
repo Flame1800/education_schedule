@@ -1,66 +1,35 @@
-import React from 'react';
-import './app.scss';
-import Filter from './componets/Filter';
-import Sidebar from './componets/Sidebar';
-import SheduleDay from './componets/SheduleDay';
-import SheduleWeek from './componets/SheduleWeek';
-import { connect } from "react-redux";
-import * as actions from './actions';
+import React from "react";
+import "./app.scss";
+import Filter from "./componets/Filter";
+import schedule from "./store/scheduleStore";
+import {observer} from "mobx-react-lite";
+import Schedule from "./componets/Schedule";
+import {Route, Routes} from "react-router-dom";
+import AllGroupsFilter from "./componets/Filter/AllGroupsFilter";
 
-const actionsCreators = {
-  switchFilter: actions.switchFilter,
-  pushPropFromLoadLessons: actions.pushProp,
-  loadCurrLessons: actions.loadCurrLessons,
-  loadShedule: actions.loadShedule,
-}
-
-const mapStatetoProps = (state) => {
-  return {
-    filter: state.sideBar.filter, sheduleMode: state.sheduleMode.mode, shedule: state.shedule,
-    sheduleState: state.sheduleState
-  };
-}
-
-function App(props) {
-  const [startUser, setStartUser] = React.useState(true);
-
-  React.useEffect(() => {
-    if (window.localStorage.item && window.localStorage.mode && props.shedule.length > 0 && startUser) {
-      const { item, mode } = window.localStorage;
-
-      const prop = {
-        data: props.shedule,
-        filter: { group: item },
-        mode,
-      }
+function App() {
+    React.useEffect(() => {
+        schedule.getLessons();
+    }, []);
 
 
-      setStartUser(false);
-      props.switchFilter();
-      props.pushPropFromLoadLessons({ prop });
-      props.loadCurrLessons({ prop });
-    }
-  }, [props.sheduleState]);
+    const wrap = (component) => {
+        return <div className="shadow-container">{component}</div>;
+    };
 
-  if (props.sheduleState === 'failed') {
+    const empty = wrap(<div className="no-lessons">Нет данных</div>);
+    const loading = wrap(<div className="no-lessons">Загрузка...</div>);
+
+    const lessonsIsSelect = schedule.currLessons.length === 0;
+
+    const view = lessonsIsSelect ? wrap(<Filter/>) : <Schedule/>;
+    const content = schedule.allLessons.length === 0 ? empty : view;
+
     return (
-      <div className="App">
-        <div className="main-container">
-        <div class="no-lessons"> Что то пошло не так... </div>
+        <div className="App">
+            {schedule.loading ? loading : content}
         </div>
-      </div>
-    )
-  }
-  return (
-    <div className="App">
-      <div className="main-container">
-        {!props.filter && <Sidebar />}
-        {props.filter ? <Filter /> : (props.sheduleMode === 'week' ? <SheduleWeek /> : <SheduleDay />)}
-      </div>
-    </div>
-  );
+    );
 }
 
-
-const ConnectApp = connect(mapStatetoProps, actionsCreators)(App)
-export default ConnectApp;
+export default observer(App);

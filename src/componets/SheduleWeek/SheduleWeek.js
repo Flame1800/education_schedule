@@ -1,129 +1,65 @@
 import React from 'react';
 import './sheduleWeek.scss';
-import { connect } from "react-redux";
-import _ from 'lodash';
-import Lesson from '../Lesson/index';
-import * as actions from '../../actions/index';
-import 'swiper/swiper.scss'
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import filterLessons from "../../utils/filterLessons";
+import {observer} from "mobx-react-lite";
+import datesStore from "../../store/datesStore";
+import viewModeStore from "../../store/viewModeStore";
+import sortLessons from "../../utils/sortLessons";
+import scheduleStore from "../../store/scheduleStore";
+import WeekLesson from "../Lesson/WeekLesson/WeekLesson";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
 
-// install Swiper modules
-SwiperCore.use([Pagination, Navigation]);
+function ScheduleWeek() {
+    const {setDay, datesWeek} = datesStore
+    const {setView} = viewModeStore
+    const {currLessons} = scheduleStore
 
-const mapStatetoProps = (state) => {
-  return { days: state.currWeek, lessons: state.currLessons, sheduleState: state.sheduleState };
-}
-
-const actionsCreators = {
-  selectDay: actions.selectDay,
-  changeMode: actions.changeMode,
-}
-
-function SheduleWeek(props) {
-
-  const filterLessons = (dayLessons) => {
-
-    const newLessons = [];
-    const numbers = dayLessons.map(lesson => lesson.lessonNumber);
-
-    const findLesson = (num, lessons) => {
-      const currLessons = lessons.filter(lesson => lesson.lessonNumber === num);
-
-      if (currLessons.length === 1) {
-        return currLessons[0];
-      }
-      if (currLessons.length > 1) {
-        return currLessons;
-      }
-
-      return { subject: { name: "Нет пары" }, lessonNumber: num, _id: _.uniqueId() };
+    const generateLessons = (dayLessons) => {
+        const fLessons = filterLessons(dayLessons);
+        return fLessons.map((lesson) => <WeekLesson key={lesson._id} lesson={lesson}/>);
     }
 
-    for (let i = 1; i <= numbers[numbers.length - 1]; i++) {
-      newLessons.push(findLesson(i, dayLessons));
+
+    const changeViewHandle = (date) => {
+        setDay(date.toISODate())
+        setView('day')
     }
+    const emptyLessons = <div className="no-lessons"> Пар нет </div>
 
-    return newLessons;
-  }
-
-  const generateLessons = (dayLessons) => {
-    const fLessons = filterLessons(dayLessons);
-
-    const result = fLessons.map((lesson) => {
-
-      if (Array.isArray(lesson)) {
-        return (<div className='lesson' key={lesson[0]._id}>
-          <Lesson mode="week" lesson={lesson[0]} subLesson={lesson[1]} key={lesson[0]._id} />
-        </div>)
-      }
-      else {
-        return (<div className='lesson' key={lesson._id}>
-          <Lesson mode="week" lesson={lesson} subLesson={null} key={lesson._id} />
-        </div>)
-      }
-    });
-
-    return result;
-  }
-
-  const openDay = (day) => (e) => {
-    e.preventDefault();
-    props.changeMode();
-    props.selectDay({ day });
-  }
-
-  if (props.sheduleState === 'loading') {
     return (
-      <div className="App">
-        <div className="main-container">
-          <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-        </div>
-      </div>
-    )
-  }
-  if (props.sheduleState === 'empty') {
-    return (
-      <div className="App">
-        <div className="main-container">
-          <div className="no-lessons"> Нет данных </div>
-        </div>
-      </div>
-    )
-  }
-
-
-
-    return  (
         <div className="shedule-week p-0">
-            {props.days.map(day => {
-              const dayLessons = _.sortBy(props.lessons.filter(lesson => lesson.date === day.fullDate), 'lessonNumber');
+            {datesWeek.map(day => {
+                const dayLessons = sortLessons(currLessons.filter(lesson => lesson.date === day.toISODate()));
+                const dayLessonsComponent = dayLessons.length === 0 ? emptyLessons : generateLessons(dayLessons)
 
-              return (
-                  <div className="container-day" key={day.day}>
-                    <div className="row-items">
-                      <div className="head">
-                        <div className="day-week">{day.weekDay}</div>
-                        <div className="min-cont">
-                          <div className="cont-btn-more">
-                            <div className="btn-more" onClick={openDay(day.fullDate)}></div>
-                          </div>
-                          <div className="day">{day.day}</div>
-                        </div>
-                      </div>
-                      {dayLessons.length === 0 ? (<div className="no-lessons"> Пар нет </div>) : generateLessons(dayLessons)}
-
+                const dayWeek = <div className="day-week">{day.toFormat('EEEE')}</div>
+                const dayMonth = <div className="day">{day.toFormat("d LLL")}</div>
+                const changeViewButton = (
+                    <div className="cont-btn-more" onClick={() => changeViewHandle(day)}>
+                        <div className="btn-more"/>
                     </div>
-                  </div>
-              )
+                )
+
+                return (
+                    <div className="container-day" key={day.day}>
+                        <div className="row-items">
+                            <div className="head">
+                                {dayWeek}
+                                <div className="min-cont">
+                                    {dayMonth}
+                                    {changeViewButton}
+                                </div>
+                            </div>
+                            <div className="lesson-cont">
+                                {dayLessonsComponent}
+                            </div>
+                        </div>
+                    </div>
+                )
             })}
         </div>
     );
 
 }
 
-const connSheduleWeek = connect(mapStatetoProps, actionsCreators)(SheduleWeek)
-export default connSheduleWeek;
+export default observer(ScheduleWeek);

@@ -1,0 +1,35 @@
+.switch-head {
+  display: flex;
+  margin-bottom: 20px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: #1e1e1e;
+  border-radius: 35px;
+  border: 1px solid #3E3E3E;
+  max-width: 370px;
+  font-size: 15px;
+  cursor: pointer;
+
+  .active-item {
+    color: #4b4b4b;
+    font-weight: 500;
+    background: #EABC5D;
+    border-radius: 30px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 99%;
+    width: 200px;
+  }
+
+  .passive-item {
+    width: 200px;
+    padding: 3px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
