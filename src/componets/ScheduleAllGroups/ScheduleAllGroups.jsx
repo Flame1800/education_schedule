@@ -22,32 +22,62 @@ function ScheduleAllGroups() {
     const groupLessons = _.groupBy(lessonsToday, 'group.name')
     const lessonsGroupPairs = Object.entries(groupLessons)
 
+    const firstHalf = lessonsGroupPairs.filter((_, i) => i <= lessonsGroupPairs.length / 2)
+    const secondHalf = lessonsGroupPairs.filter((_, i) => i >= lessonsGroupPairs.length / 2)
+
 
     return (
-        <div className="schedule-all">
-            <Marquee speed={80} pauseOnHover={true}>
-                {lessonsGroupPairs.map(pair => {
-                    const [groupName, groupLessons] = pair
-                    const groupNameComponent = <div className="day-week">{groupName}</div>
+        <>
+            <div className="schedule-all">
+                <Marquee speed={120}>
+                    {firstHalf.map(pair => {
+                        const [groupName, groupLessons] = pair
+                        const groupNameComponent = <div className="day-week">{groupName}</div>
 
-                    return (
-                        <div className="container-day" key={groupName}>
-                            <div className="row-items">
-                                <div className="head">
-                                    {groupNameComponent}
-                                    <div className="min-cont">
-                                        <div className="day">{groupLessons[0].date}</div>
+                        return (
+                            <div className="container-day" key={groupName}>
+                                <div className="row-items">
+                                    <div className="head">
+                                        {groupNameComponent}
+                                        <div className="min-cont">
+                                            <div className="day">{groupLessons[0].date}</div>
+                                        </div>
+                                    </div>
+                                    <div className="lesson-cont">
+                                        {generateLessons(groupLessons)}
                                     </div>
                                 </div>
-                                <div className="lesson-cont">
-                                    {generateLessons(groupLessons)}
+                            </div>
+                        )
+                    })}
+                </Marquee>
+            </div>
+            <div className="schedule-all">
+                <Marquee speed={120}>
+                    {secondHalf.map(pair => {
+                        const [groupName, groupLessons] = pair
+                        const groupNameComponent = <div className="day-week">{groupName}</div>
+
+                        return (
+                            <div className="container-day" key={groupName}>
+                                <div className="row-items">
+                                    <div className="head">
+                                        {groupNameComponent}
+                                        <div className="min-cont">
+                                            <div className="day">{groupLessons[0].date}</div>
+                                        </div>
+                                    </div>
+                                    <div className="lesson-cont">
+                                        {generateLessons(groupLessons)}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                })}
-            </Marquee>
-        </div>
+                        )
+                    })}
+                </Marquee>
+            </div>
+        </>
+
     );
 
 }
