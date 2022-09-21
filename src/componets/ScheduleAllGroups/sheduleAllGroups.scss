@@ -21,20 +21,54 @@
   }
 
   .container-day {
-    width: 100%;
-    max-width: 241px;
-    min-width: 245px;
-    margin-right: 15px;
+    width: 230px;
+    margin-right: 8px;
     border-radius: 10px 10px 0 0;
     padding-bottom: 10px;
-    margin-top: 15px;
+    margin-bottom: 20px;
+
+    .active {
+      background: #f3f3f3 !important;
+    }
 
     .lesson-cont {
-      border-radius: 10px;
+      border-radius: 0 0 10px 10px;
       overflow: hidden;
-      margin-top: 10px;
       border: 1px solid #c2c2c2;
-      height: 541px;
+      height: 451px;
+
+      .couple {
+        padding-top: 10px;
+      }
+
+      .item {
+        height: 75px !important;
+
+        .name {
+          font-size: 11px !important;
+          font-weight: 600;
+          letter-spacing: 0.8px;
+          color: #363636;
+        }
+
+        .teacher {
+          font-size: 11px !important;
+        }
+
+        .num-lesson {
+          border-radius: 0;
+        }
+
+        .num {
+          font-size: 38px;
+        }
+
+        .cab {
+          font-weight: 500;
+          font-size: 11px;
+          color: #676767;
+        }
+      }
     }
 
     .row-items {
@@ -43,58 +77,20 @@
 
     .head {
       display: flex;
-      padding-top: 14px;
-      padding-bottom: 18px;
-      border-radius: 10px;
-      background: #414050;
+      border-radius: 10px 10px 0 0;
+      background: #2a2a2a;
       width: 100%;
-      justify-content: space-between;
       align-items: center;
+      justify-content: center;
 
-      .day-week {
+      .group {
         text-transform: capitalize;
-        font-size: 13px;
+        font-size: 20px;
         margin-left: 15px;
-        font-weight: 600;
-        color: #fff;
+        font-weight: 700;
+        color: #e8e8e8;
       }
 
-      .main-cont {
-        display: flex;
-        flex-direction: column;
-        margin-top: -9px;
-      }
-
-      .min-cont {
-        margin-right: 10px;
-        margin-left: 10px;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        width: 55%;
-        align-items: end;
-      }
-
-      .cont-btn-more {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 5px;
-        border-radius: 10px;
-        margin-right: 10px;
-        margin-left: 10px;
-        background: #FAC145;
-        cursor: pointer;
-      }
-
-      .btn-more {
-        background: url('../../assets/img/arrows-expand-right.png') no-repeat;
-        height: 16px;
-        width: 16px;
-        background-size: contain;
-        margin-right: 5px;
-        margin-left: 5px;
-      }
 
       .day {
         font-size: 14px;

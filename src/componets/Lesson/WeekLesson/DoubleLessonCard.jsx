@@ -19,7 +19,7 @@ const DoubleLessonCard = ({lesson}) => {
             <div className="head-card head-card-min">
                 <div className="name">{getSubjectName(couple)}</div>
                 <div className="teacher">
-                    <div className="name name-min">{couple.teacher.abb_name}</div>
+                    <div className="name-min">{couple.teacher.abb_name}</div>
                 </div>
                 {getCab(couple)}
             </div>

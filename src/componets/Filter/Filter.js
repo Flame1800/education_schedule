@@ -9,7 +9,6 @@ import GroupsFilter from "./GroupsFilter";
 import TeachersFilter from "./TeachersFilter";
 import filterStore from "../../store/filterStore";
 import AllGroupsFilter from "./AllGroupsFilter";
-import {Route, Link} from "react-router-dom";
 
 function Filter() {
     const currDate = DateTime.now().toISODate();

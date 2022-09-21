@@ -18,65 +18,45 @@ function ScheduleAllGroups() {
 
 
     const today = DateTime.now().toISODate()
-    const lessonsToday = currLessons.filter(lesson => lesson.date === today)
+    const lessonsToday = _.sortBy(currLessons.filter(lesson => lesson.date === today), 'group.name')
     const groupLessons = _.groupBy(lessonsToday, 'group.name')
     const lessonsGroupPairs = Object.entries(groupLessons)
 
     const firstHalf = lessonsGroupPairs.filter((_, i) => i <= lessonsGroupPairs.length / 2)
     const secondHalf = lessonsGroupPairs.filter((_, i) => i >= lessonsGroupPairs.length / 2)
 
+    const getMarqueeLessons = (lessons, speed) => {
+        return (
+            <div className="schedule-all">
+                <Marquee speed={speed}>
+                    {lessons.map(pair => {
+                        const [groupName, groupLessons] = pair
+                        const groupNameComponent = <div className="group">{groupName}</div>
+
+                        return (
+                            <div className="container-day" key={groupName}>
+                                <div className="row-items">
+                                    <div className="head">
+                                        {groupNameComponent}
+                                    </div>
+                                    <div className="lesson-cont">
+                                        {generateLessons(groupLessons)}
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </Marquee>
+            </div>
+        )
+    }
+
 
     return (
-        <>
-            <div className="schedule-all">
-                <Marquee speed={120}>
-                    {firstHalf.map(pair => {
-                        const [groupName, groupLessons] = pair
-                        const groupNameComponent = <div className="day-week">{groupName}</div>
-
-                        return (
-                            <div className="container-day" key={groupName}>
-                                <div className="row-items">
-                                    <div className="head">
-                                        {groupNameComponent}
-                                        <div className="min-cont">
-                                            <div className="day">{groupLessons[0].date}</div>
-                                        </div>
-                                    </div>
-                                    <div className="lesson-cont">
-                                        {generateLessons(groupLessons)}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </Marquee>
-            </div>
-            <div className="schedule-all">
-                <Marquee speed={120}>
-                    {secondHalf.map(pair => {
-                        const [groupName, groupLessons] = pair
-                        const groupNameComponent = <div className="day-week">{groupName}</div>
-
-                        return (
-                            <div className="container-day" key={groupName}>
-                                <div className="row-items">
-                                    <div className="head">
-                                        {groupNameComponent}
-                                        <div className="min-cont">
-                                            <div className="day">{groupLessons[0].date}</div>
-                                        </div>
-                                    </div>
-                                    <div className="lesson-cont">
-                                        {generateLessons(groupLessons)}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </Marquee>
-            </div>
-        </>
+        <div className='container-all'>
+            {getMarqueeLessons(firstHalf, 65)}
+            {getMarqueeLessons(secondHalf, 75)}
+        </div>
 
     );
 
