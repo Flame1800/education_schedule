@@ -1,7 +1,6 @@
 .schedule-all {
-  margin: 0 auto;
+  margin: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   width: 100%;
 
@@ -55,9 +54,6 @@
           font-size: 11px !important;
         }
 
-        .num-lesson {
-          border-radius: 0;
-        }
 
         .num {
           font-size: 38px;

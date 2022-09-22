@@ -7,6 +7,35 @@ import filterLessons from "../../utils/filterLessons";
 import {DateTime} from "luxon";
 import _ from "lodash";
 import Marquee from "react-fast-marquee";
+import {Swiper, SwiperSlide} from 'swiper/react';
+import {Autoplay} from "swiper";
+import 'swiper/swiper.scss';
+
+const breakpoints = {
+    // when window width is >= 320px
+    320: {
+        slidesPerView: 1,
+        spaceBetween: 20
+    },
+    // when window width is >= 480px
+    480: {
+        slidesPerView: 2,
+        spaceBetween: 10
+    },
+    // when window width is >= 640px
+    640: {
+        slidesPerView: 3,
+        spaceBetween: 10
+    },
+    1600: {
+        slidesPerView: 6,
+        spaceBetween: 10
+    },
+    2000: {
+        slidesPerView: 10,
+        spaceBetween: 10
+    }
+}
 
 function ScheduleAllGroups() {
     const {currLessons} = scheduleStore
@@ -28,25 +57,38 @@ function ScheduleAllGroups() {
     const getMarqueeLessons = (lessons, speed) => {
         return (
             <div className="schedule-all">
-                <Marquee speed={speed}>
+                {/*<Marquee speed={speed}>*/}
+                <Swiper
+                    modules={[Autoplay]}
+                    spaceBetween={0}
+                    slidesPerView={10}
+                    slidesPerGroup={10}
+                    speed={6000}
+                    breakpoints={breakpoints}
+                    autoplay={{delay: 12000}}
+                    loop={true}
+                >
                     {lessons.map(pair => {
                         const [groupName, groupLessons] = pair
                         const groupNameComponent = <div className="group">{groupName}</div>
 
                         return (
-                            <div className="container-day" key={groupName}>
-                                <div className="row-items">
-                                    <div className="head">
-                                        {groupNameComponent}
-                                    </div>
-                                    <div className="lesson-cont">
-                                        {generateLessons(groupLessons)}
+                            <SwiperSlide>
+                                <div className="container-day" key={groupName}>
+                                    <div className="row-items">
+                                        <div className="head">
+                                            {groupNameComponent}
+                                        </div>
+                                        <div className="lesson-cont">
+                                            {generateLessons(groupLessons)}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </SwiperSlide>
                         )
                     })}
-                </Marquee>
+                </Swiper>
+                {/*</Marquee>*/}
             </div>
         )
     }
@@ -57,9 +99,7 @@ function ScheduleAllGroups() {
             {getMarqueeLessons(firstHalf, 65)}
             {getMarqueeLessons(secondHalf, 75)}
         </div>
-
     );
-
 }
 
 export default observer(ScheduleAllGroups);
