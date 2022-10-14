@@ -10,13 +10,15 @@ import ScheduleAllGroups from "./ScheduleAllGroups/ScheduleAllGroups";
 const Schedule = () => {
     const {view} = viewModeStore;
     const {mode} = filterStore
-    const scheduleComponent = view === "day" ? <ScheduleDay/> : <ScheduleWeek/>;
 
+    if (mode === "allGroups") {
+        return <ScheduleAllGroups/>
+    }
 
     return (
         <>
             <Sidebar/>
-            {mode === "allGroups" ? <ScheduleAllGroups/> : scheduleComponent}
+            {view === "day" ? <ScheduleDay/> : <ScheduleWeek/>}
         </>
     );
 };

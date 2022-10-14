@@ -6,10 +6,10 @@ import WeekLesson from "../Lesson/WeekLesson/WeekLesson";
 import filterLessons from "../../utils/filterLessons";
 import {DateTime} from "luxon";
 import _ from "lodash";
-import Marquee from "react-fast-marquee";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Autoplay} from "swiper";
 import 'swiper/swiper.scss';
+import Banner from '../../assets/img/banner.png'
 
 const breakpoints = {
     // when window width is >= 320px
@@ -54,10 +54,9 @@ function ScheduleAllGroups() {
     const firstHalf = lessonsGroupPairs.filter((_, i) => i <= lessonsGroupPairs.length / 2)
     const secondHalf = lessonsGroupPairs.filter((_, i) => i >= lessonsGroupPairs.length / 2)
 
-    const getMarqueeLessons = (lessons, speed) => {
+    const getMarqueeLessons = (lessons) => {
         return (
             <div className="schedule-all">
-                {/*<Marquee speed={speed}>*/}
                 <Swiper
                     modules={[Autoplay]}
                     spaceBetween={0}
@@ -73,8 +72,8 @@ function ScheduleAllGroups() {
                         const groupNameComponent = <div className="group">{groupName}</div>
 
                         return (
-                            <SwiperSlide>
-                                <div className="container-day" key={groupName}>
+                            <SwiperSlide key={groupName}>
+                                <div className="container-day">
                                     <div className="row-items">
                                         <div className="head">
                                             {groupNameComponent}
@@ -88,17 +87,20 @@ function ScheduleAllGroups() {
                         )
                     })}
                 </Swiper>
-                {/*</Marquee>*/}
             </div>
         )
     }
 
 
     return (
-        <div className='container-all'>
-            {getMarqueeLessons(firstHalf, 65)}
-            {getMarqueeLessons(secondHalf, 75)}
-        </div>
+        <>
+            <img src={Banner} alt="banner" className="add-banner"/>
+            <div className='container-all'>
+                {getMarqueeLessons(firstHalf, 65)}
+                {getMarqueeLessons(secondHalf, 75)}
+            </div>
+        </>
+
     );
 }
 

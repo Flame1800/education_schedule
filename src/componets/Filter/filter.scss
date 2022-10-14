@@ -255,8 +255,9 @@
 
   .items-list {
     position: relative;
-    flex-wrap: wrap;
+    flex-direction: column;
     margin: 0;
+    height: 80vh;
   }
 
   .items-list .groups {
@@ -266,9 +267,11 @@
     width: 100%;
     background: #fff;
     font-size: 16px;
+    min-height: 80vh !important;
   }
 
   .items-list .column {
     margin-right: 20px;
+    height: fit-content;
   }
 }
