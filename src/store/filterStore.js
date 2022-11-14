@@ -1,16 +1,40 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, toJS} from "mobx";
 import _ from "lodash";
 import sortArr from "../utils/sortArr";
+import API from "../utils/API";
+import scheduleStore from "./scheduleStore";
+import division from "../componets/Filter/FilterParams/Division";
 
 class FilterStore {
     division = "";
     course = "";
-    mode = "teacher"; // group | teacher | allGroups
+    divisions = []
+    groups = []
+    teachers = []
+    mode = "group"; // group | teacher | allGroups
     data = [];
 
     constructor() {
         makeAutoObservable(this);
     }
+
+    getGroups = async () => {
+        const req = await API.getGroups()
+        this.groups = req.data
+    }
+
+    getDivisions = async () => {
+        const req = await API.getDivisions()
+        this.divisions = req.data
+    }
+
+    getTeachers = async (divisionId) => {
+        const filteredLessons = await API.getDivisionLessonsForWeek(scheduleStore.currWeek._id, divisionId)
+
+        return _.sortedUniq(
+            sortArr(filteredLessons.data.map((lesson) => lesson.teacher.abb_name))
+        );
+    };
 
     setDivision = (division) => {
         this.division = division;
@@ -28,27 +52,6 @@ class FilterStore {
         this.mode = mode;
         this.course = "";
         this.division = "";
-    };
-
-    getGroups = (division, course) => {
-        const filteredLessons = this.data.filter(
-            (lesson) =>
-                lesson.division.name === division && lesson.group.course === course
-        );
-
-        return _.sortedUniq(
-            sortArr(filteredLessons.map((lesson) => lesson.group.name))
-        );
-    };
-
-    getTeachers = () => {
-        const filteredLessons = this.data.filter(
-            (lesson) => lesson.division.name === this.division
-        );
-
-        return _.sortedUniq(
-            sortArr(filteredLessons.map((lesson) => lesson.teacher.name))
-        );
     };
 }
 

@@ -23,7 +23,7 @@ function Filter() {
     const head = (
         <div className="header">
             <Switch/>
-            <Search/>
+            {/*<Search/>*/}
         </div>
     );
 
@@ -41,7 +41,7 @@ function Filter() {
             {mode !== 'allGroups' && head}
             {mode === "group" && <GroupsFilter/>}
             {mode === "teacher" && <TeachersFilter/>}
-            {mode === 'allGroups' && <AllGroupsFilter/>}
+            {(mode === 'allGroups' || mode === 'cabs') && <AllGroupsFilter/>}
             {info}
         </div>
     );

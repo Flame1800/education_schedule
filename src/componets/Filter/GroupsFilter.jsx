@@ -2,15 +2,14 @@ import React from "react";
 import Division from "./FilterParams/Division";
 import Course from "./FilterParams/Course";
 import FilterStore from "../../store/filterStore";
-import {divisions, courses} from "../../assets/filterParamsData";
+import {courses} from "../../assets/filterParamsData";
 import schedule from "../../store/scheduleStore";
-import _ from "lodash";
 import {observer} from "mobx-react-lite";
 import backImg from "../../assets/img/arrow-left.png";
+import {toJS} from "mobx";
 
 const GroupsFilter = () => {
-    const [groups, setGroups] = React.useState([]);
-    const {division, course, setCourse, setDivision, getGroups} = FilterStore;
+    const {division, course, setCourse, setDivision, divisions, groups} = FilterStore;
     const {setLessonsByGroup} = schedule;
 
     const changeDivisionHandle = (division) => {
@@ -20,51 +19,46 @@ const GroupsFilter = () => {
 
     const findGroupsHandle = (course) => {
         setCourse(course);
-        setGroups(getGroups(division, course));
     };
 
-    const divisionComponents = (
-        <div className="column">
-            {divisions.map((item) => (
-                <Division
-                    key={item}
-                    item={item}
-                    activeDivision={division}
-                    onClick={changeDivisionHandle}
-                />
-            ))}
-        </div>
-    );
 
-    const courseComponents = (
-        <div className="column">
-            {courses.map((item) => (
-                <Course
-                    key={item}
-                    item={item}
-                    activeCourse={course}
-                    onClick={() => findGroupsHandle(item)}
-                />
-            ))}
-        </div>
-    );
+    const divisionComponents = divisions.map((item) => (
+        <Division
+            key={item._id}
+            item={item}
+            activeDivision={division}
+            onClick={changeDivisionHandle}
+        />
+    ))
 
-    const groupComponents = groups.map((group) => {
-        return (
-            <div
-                className={"item"}
-                key={_.uniqueId()}
-                onClick={() => setLessonsByGroup(group)}
-            >
-                {group}
-            </div>
-        );
-    });
+    const courseComponents = courses.map((item) => (
+        <Course
+            key={item}
+            item={item}
+            activeCourse={course}
+            onClick={() => findGroupsHandle(item)}
+        />
+    ))
+
+
+    const groupComponents = groups ? groups
+        .filter(group => group.course === course && group.divisionId === division?.id_1c)
+        .map((group) => {
+            return (
+                <div className={"item"} key={group._id} onClick={() => setLessonsByGroup(group.id_1c)}>
+                    {group.name}
+                </div>
+            );
+        }) : null;
 
     return (
         <div className="items-list">
-            {divisionComponents}
-            {division && courseComponents}
+            <div className="column">
+                {divisionComponents}
+            </div>
+            <div className="column">
+                {division && courseComponents}
+            </div>
             {division && course && (
                 <div className="column groups">
                     <img

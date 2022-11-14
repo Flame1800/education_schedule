@@ -12,7 +12,7 @@ class ScheduleStore {
         makeAutoObservable(this);
     }
 
-    getLessons = async () => {
+    getCurrentWeek = async () => {
         this.loading = true;
 
         try {
@@ -24,10 +24,6 @@ class ScheduleStore {
             }
 
             this.currWeek = currWeek.data[0]
-            const idCurrWeek = currWeek.data[0]._id;
-            const lessons = await API.getLessonsForWeek(idCurrWeek);
-
-            this.allLessons = lessons.data;
         } catch (e) {
             console.error(e);
         } finally {
@@ -35,22 +31,20 @@ class ScheduleStore {
         }
     };
 
-    setLessonsByGroup = (group) => {
-        this.currLessons = this.allLessons.filter(
-            (lesson) => lesson.group.name === group
-        );
+
+    setLessonsByGroup = async (groupId) => {
+        const reqLessons = await API.getGroupLessonsForWeek(this.currWeek._id, groupId)
+        this.currLessons = reqLessons.data
     };
 
-    setLessonsByTeacher = (teacher) => {
-        this.currLessons = this.allLessons.filter(
-            (lesson) => lesson.teacher.name === teacher
-        );
+    setLessonsByTeacher = async (teacherName) => {
+        const reqLessons = await API.getTeacherLessonsForWeek(this.currWeek._id, teacherName)
+        this.currLessons = reqLessons.data
     };
 
-    setLessonsByDivison = (division) => {
-        this.currLessons = this.allLessons.filter(
-            (lesson) => lesson.division.name === division
-        );
+    setLessonsByDivison = async (divisionId) => {
+        const reqLessons = await API.getDivisionLessonsForWeek(this.currWeek._id, divisionId)
+        this.currLessons = reqLessons.data
     }
 
     setLessons = (value) => {

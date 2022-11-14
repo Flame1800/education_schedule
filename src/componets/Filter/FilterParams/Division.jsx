@@ -1,17 +1,17 @@
 import React from "react";
 
-const Division = ({ item, activeDivision, onClick }) => {
-  let itemClasses = "item division";
+const Division = ({item, activeDivision, onClick}) => {
+    let itemClasses = "item division";
 
-  if (item === activeDivision) {
-    itemClasses += " active";
-  }
+    if (item === activeDivision) {
+        itemClasses += " active";
+    }
 
-  return (
-    <div className={itemClasses} key={item} onClick={() => onClick(item)}>
-      {item}
-    </div>
-  );
+    return (
+        <div className={itemClasses} onClick={() => onClick(item)}>
+            {item.name}
+        </div>
+    );
 };
 
 export default Division;

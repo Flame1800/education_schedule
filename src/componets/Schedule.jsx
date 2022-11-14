@@ -11,7 +11,7 @@ const Schedule = () => {
     const {view} = viewModeStore;
     const {mode} = filterStore
 
-    if (mode === "allGroups") {
+    if (mode === "allGroups" || mode === 'cabs') {
         return <ScheduleAllGroups/>
     }
 

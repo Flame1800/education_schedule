@@ -4,6 +4,14 @@
   align-items: center;
   width: 100%;
 
+  .cabs {
+    margin: 0 auto;
+    max-width: 1600px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .active-day {
     box-shadow: 0 0 10px 5px #8cbbff;
     border: 1px solid #8cbbff !important;
@@ -19,12 +27,18 @@
     border-right: none;
   }
 
+  .swiper-pagination {
+    text-align: center;
+    font-size: 18px;
+  }
+
   .container-day {
     width: 230px;
     margin-right: 8px;
     border-radius: 10px 10px 0 0;
     padding-bottom: 10px;
     margin-bottom: 20px;
+
 
     .active {
       background: #f3f3f3 !important;

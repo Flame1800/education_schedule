@@ -1,20 +1,19 @@
 import React from "react";
 import Division from "./FilterParams/Division";
 import FilterStore from "../../store/filterStore";
-import {divisions} from "../../assets/filterParamsData";
 import ScheduleStore from "../../store/scheduleStore";
-import _ from "lodash";
 import {observer} from "mobx-react-lite";
 import backImg from "../../assets/img/arrow-left.png";
 
 const TeachersFilter = () => {
     const [teachers, setTeachers] = React.useState([]);
-    const {division, setDivision, getTeachers} = FilterStore;
+    const {division, setDivision, getTeachers, divisions} = FilterStore;
     const {setLessonsByTeacher} = ScheduleStore;
 
-    const changeDivisionHandle = (division) => {
-        setDivision(division);
-        setTeachers(getTeachers());
+
+    const changeDivisionHandle = async (item) => {
+        setDivision(item);
+        setTeachers(await getTeachers(item.name));
     };
 
     const divisionComponents = (
@@ -22,9 +21,9 @@ const TeachersFilter = () => {
             {divisions.map((item) => (
                 <Division
                     item={item}
-                    key={item}
+                    key={item._id}
                     activeDivision={division}
-                    onClick={changeDivisionHandle}
+                    onClick={() => changeDivisionHandle(item)}
                 />
             ))}
         </div>
@@ -42,7 +41,7 @@ const TeachersFilter = () => {
                 return (
                     <div
                         className={"item item-teacher"}
-                        key={_.uniqueId()}
+                        key={teacher}
                         onClick={() => setLessonsByTeacher(teacher)}
                     >
                         {teacher}
