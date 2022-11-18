@@ -5,7 +5,6 @@ import scheduleStore from "../../store/scheduleStore";
 import filterStore from "../../store/filterStore";
 import viewModeStore from "../../store/viewModeStore";
 import {DateTime} from "luxon";
-import Banner from "../../assets/img/banner.png";
 
 function Sidebar() {
     const {currLessons, setLessons} = scheduleStore;

@@ -12,8 +12,8 @@ import NawWeek from "../NawWeek/NawWeek";
 import datesStore from "../../store/datesStore";
 
 function ScheduleAllGroups() {
-    const {currLessons} = scheduleStore
-    const {mode} = filterStore
+    const {currLessons, setLessons} = scheduleStore
+    const {mode, setMode} = filterStore
     const {currDay} = datesStore
     const [dayLessons, setDayLessons] = useState([])
 
@@ -36,10 +36,15 @@ function ScheduleAllGroups() {
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2)
     const secondHalf = dayLessons.filter((_, i) => i >= dayLessons.length / 2)
 
+    const openFilterHandle = () => {
+        setLessons([])
+        setMode('group')
+    }
 
     if (mode === 'cabs') {
         return (
             <div className='container-all'>
+                <div className="back-btn" onClick={openFilterHandle}>Назад</div>
                 <div className="schedule-all">
                     <div className="cabs">
                         <NawWeek/>

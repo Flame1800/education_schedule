@@ -7,6 +7,8 @@ import schedule from "../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
 import backImg from "../../assets/img/arrow-left.png";
 import {toJS} from "mobx";
+import _ from "lodash"
+
 
 const GroupsFilter = () => {
     const {division, course, setCourse, setDivision, divisions, groups} = FilterStore;
@@ -20,7 +22,6 @@ const GroupsFilter = () => {
     const findGroupsHandle = (course) => {
         setCourse(course);
     };
-
 
     const divisionComponents = divisions.map((item) => (
         <Division

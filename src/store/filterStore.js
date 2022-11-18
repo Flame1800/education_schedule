@@ -20,12 +20,18 @@ class FilterStore {
 
     getGroups = async () => {
         const req = await API.getGroups()
-        this.groups = req.data
+        this.groups = _.sortBy(req.data, ["name"]).filter(item => item.name.slice(0, 1) !== "З")
     }
 
     getDivisions = async () => {
         const req = await API.getDivisions()
-        this.divisions = req.data
+
+        this.divisions = _.sortBy(req.data.map(item => {
+            return {
+                ...item,
+                num: Number(item.abb_name.slice(1, 2))
+            }
+        }), ["num"])
     }
 
     getTeachers = async (divisionId) => {

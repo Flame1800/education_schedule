@@ -5,6 +5,7 @@ import schedule from "./store/scheduleStore";
 import {observer} from "mobx-react-lite";
 import Schedule from "./componets/Schedule";
 import filterStore from "./store/filterStore";
+import {browserName, isBrowser, isMobile} from 'react-device-detect';
 
 function App() {
     React.useEffect(() => {
@@ -13,6 +14,8 @@ function App() {
         filterStore.getGroups()
     }, []);
 
+    //document.body.style.zoom = 1.1;
+    
 
     const wrap = (component) => {
         return <div className="shadow-container">{component}</div>;
