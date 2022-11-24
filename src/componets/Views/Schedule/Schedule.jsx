@@ -26,7 +26,7 @@ const Schedule = ({mode}) => {
             }
         }
         load()
-    }, [])
+    }, [id])
 
 
     return (

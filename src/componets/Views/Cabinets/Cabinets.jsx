@@ -6,8 +6,6 @@ import WeekLesson from "../../Lesson/WeekLesson/WeekLesson";
 import scheduleStore from "../../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
 import datesStore from "../../../store/datesStore";
-import {toJS} from "mobx";
-import groupLessons from "../../../lib/groupLessons";
 import _ from "lodash";
 
 const Cabinets = () => {

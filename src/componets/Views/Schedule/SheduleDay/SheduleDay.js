@@ -6,17 +6,19 @@ import NavWeek from "../../../NawWeek/NawWeek";
 import datesStore from "../../../../store/datesStore";
 import DayLesson from "../../../Lesson/DayLesson/DayLesson";
 import filterLessons from "../../../../lib/filterLessons";
+import {useParams} from "react-router-dom";
 
 function ScheduleDay() {
     const {currDay} = datesStore
     const [dayLessons, setDayLessons] = React.useState([])
 
     React.useEffect(() => {
+        console.log('render')
         const newLessons = scheduleStore.currLessons.filter((lesson) => {
             return lesson.date === currDay
         })
         setDayLessons(newLessons)
-    }, [currDay])
+    }, [currDay, scheduleStore.currLessons])
 
     const isEmptyLessons = scheduleStore.currLessons.length !== 0
 
