@@ -1,5 +1,5 @@
 import React from 'react';
-import getSubjectName from "../../../utils/getSubjectName";
+import getSubjectName from "../../../lib/getSubjectName";
 
 const DoubleLessonCard = ({lesson}) => {
     const [firstCouple, secondCouple] = lesson

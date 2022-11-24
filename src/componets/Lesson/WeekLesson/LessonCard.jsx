@@ -1,5 +1,5 @@
 import React from 'react';
-import getSubjectName from "../../../utils/getSubjectName";
+import getSubjectName from "../../../lib/getSubjectName";
 import filterStore from "../../../store/filterStore";
 
 const LessonCard = ({lesson}) => {

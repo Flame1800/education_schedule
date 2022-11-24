@@ -1,6 +1,6 @@
 import React from 'react';
 import LessonCard from "./LessonCard";
-import getSubjectName from "../../../utils/getSubjectName";
+import getSubjectName from "../../../lib/getSubjectName";
 import EmptyLesson from "./EmptyLesson";
 import DoubleLessonCard from './DoubleLessonCard'
 import '../lesson.scss'

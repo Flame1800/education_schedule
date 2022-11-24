@@ -1,9 +1,9 @@
 import {makeAutoObservable, toJS} from "mobx";
 import _ from "lodash";
-import sortArr from "../utils/sortArr";
-import API from "../utils/API";
+import sortArr from "../lib/sortArr";
+import API from "../lib/API";
 import scheduleStore from "./scheduleStore";
-import division from "../componets/Filter/FilterParams/Division";
+import division from "../componets/Views/Filter/FillterTabs/FilterParams/Division";
 
 class FilterStore {
     division = "";
