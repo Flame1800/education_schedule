@@ -10,7 +10,6 @@ class FilterStore {
     course = "";
     divisions = []
     groups = []
-    teachers = []
     mode = "group"; // group | teacher | allGroups
     data = [];
 

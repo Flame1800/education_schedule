@@ -1,6 +1,6 @@
 import React from "react";
 
-const Division = ({item, activeDivision, onClick}) => {
+const Division = ({item, activeDivision, onClick = () => null}) => {
     let itemClasses = "item division";
 
     if (item === activeDivision) {

@@ -5,32 +5,31 @@ import scheduleStore from "../../store/scheduleStore";
 import filterStore from "../../store/filterStore";
 import viewModeStore from "../../store/viewModeStore";
 import {DateTime} from "luxon";
+import {Link} from "react-router-dom";
 
 function Sidebar() {
-    const {currLessons, setLessons} = scheduleStore;
+    const {currLessons} = scheduleStore;
     const {view, setView} = viewModeStore;
-    const {mode, setMode} = filterStore;
+    const {mode} = filterStore;
 
-    const openFilterHandle = () => {
-        setLessons([])
-        setMode('group')
-    };
     const changeModeHandle = () => setView(view === "day" ? "week" : "day");
 
     const currEntity = {
-        group: `${currLessons[0].group.name} группа`,
-        teacher: currLessons[0].teacher.abb_name,
+        group: `${currLessons[0]?.group.name} группа`,
+        teacher: currLessons[0]?.teacher.abb_name,
         cabinet: currLessons[0]?.cabinet?.name,
     };
 
     const filterButton = (
-        <div className="btn-filter" onClick={openFilterHandle}>
-            <div className="icon"></div>
-            <div className="text">Поиск</div>
-        </div>
+        <Link to="/">
+            <div className="btn-filter">
+                <div className="icon"/>
+                <div className="text">Поиск</div>
+            </div>
+        </Link>
     );
 
-    const group = <div className="group">{currEntity[mode]}</div>;
+    const group = <div className="group">{currLessons.length ? currEntity[mode] : "загрузка..."}</div>;
 
     const changeModeComponent = (
         <div className="switch-head" onClick={changeModeHandle}>
@@ -48,9 +47,7 @@ function Sidebar() {
             <div className="main-container">
                 {filterButton}
                 {group}
-                {mode === 'allGroups'
-                    ? <div className='today-date'>{DateTime.now().toISODate()}</div>
-                    : changeModeComponent}
+                {changeModeComponent}
             </div>
         </div>
     );

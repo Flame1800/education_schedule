@@ -5,13 +5,19 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.flex {
-  display: flex;
+
+.state-banner {
+  margin: 100px auto;
+  font-size: 30px;
+  font-weight: 600;
+  width: 100%;
+  color: #9B9B9B;
+  text-align: center;
 }
 
-.shedule::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+
+.flex {
+  display: flex;
 }
 
 .shadow-container {
@@ -36,52 +42,3 @@
   width: 100%;
 }
 
-// add banner
-.add-banner {
-  position: relative;
-  margin: 0 auto;
-  display: flex;
-  bottom: -50px;
-}
-
-// loading ring
-.lds-ring {
-  position: relative;
-  width: 80px;
-  height: 30vh;
-  display: flex;
-  margin: 0 auto;
-}
-
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}

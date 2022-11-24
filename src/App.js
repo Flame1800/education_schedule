@@ -1,11 +1,13 @@
 import React from "react";
 import "./app.scss";
-import Filter from "./componets/Filter";
+import Filter from "./componets/Filter/Filter";
 import schedule from "./store/scheduleStore";
 import {observer} from "mobx-react-lite";
-import Schedule from "./componets/Schedule";
 import filterStore from "./store/filterStore";
-import {browserName, isBrowser, isMobile} from 'react-device-detect';
+import {Routes, Route} from 'react-router-dom';
+import Schedule from "./componets/Schedule";
+import ScheduleByDivision from "./componets/ScheduleAllGroups/ScheduleByDivision";
+import DivisionLessonsFilter from "./componets/Filter/DivisionLessonsFilter";
 
 function App() {
     React.useEffect(() => {
@@ -14,22 +16,17 @@ function App() {
         filterStore.getGroups()
     }, []);
 
-    //document.body.style.zoom = 1.1;
-    
-
-    const wrap = (component) => {
-        return <div className="shadow-container">{component}</div>;
-    };
-
-    const loading = wrap(<div className="no-lessons">Загрузка...</div>);
-
-    const lessonsIsSelect = schedule.currLessons.length === 0;
-    const view = lessonsIsSelect ? wrap(<Filter/>) : <Schedule/>;
-
     return (
-        <div className="App">
-            {schedule.loading ? loading : view}
-        </div>
+        <Routes>
+            <Route index element={<Filter/>}/>
+            <Route path='/group/:id' element={<Schedule mode="group"/>}/>
+            <Route path='/teacher/:id' element={<Schedule mode="teacher"/>}/>
+            <Route path='/cabinet/:id' element={<ScheduleByDivision mode="cabs"/>}/>
+            <Route path='tv'>
+                <Route path='' element={<DivisionLessonsFilter/>}/>
+                <Route path=':id' element={<ScheduleByDivision mode="allGroups"/>}/>
+            </Route>
+        </Routes>
     );
 }
 

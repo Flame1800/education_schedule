@@ -1,18 +1,16 @@
 import React from "react";
-import Division from "./FilterParams/Division";
-import Course from "./FilterParams/Course";
-import FilterStore from "../../store/filterStore";
-import {courses} from "../../assets/filterParamsData";
-import schedule from "../../store/scheduleStore";
+import Division from "../FilterParams/Division";
+import Course from "../FilterParams/Course";
+import FilterStore from "../../../store/filterStore";
+import {courses} from "../../../assets/filterParamsData";
+import schedule from "../../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
-import backImg from "../../assets/img/arrow-left.png";
-import {toJS} from "mobx";
-import _ from "lodash"
+import backImg from "../../../assets/img/arrow-left.png";
+import {Link} from "react-router-dom";
 
 
 const GroupsFilter = () => {
     const {division, course, setCourse, setDivision, divisions, groups} = FilterStore;
-    const {setLessonsByGroup} = schedule;
 
     const changeDivisionHandle = (division) => {
         setCourse(null);
@@ -46,9 +44,9 @@ const GroupsFilter = () => {
         .filter(group => group.course === course && group.divisionId === division?.id_1c)
         .map((group) => {
             return (
-                <div className={"item"} key={group._id} onClick={() => setLessonsByGroup(group.id_1c)}>
-                    {group.name}
-                </div>
+                <Link to={`/group/${group.id_1c}`} key={group._id}>
+                    <div className={"item"}>{group.name}</div>
+                </Link>
             );
         }) : null;
 

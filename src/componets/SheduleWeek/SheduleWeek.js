@@ -7,6 +7,7 @@ import viewModeStore from "../../store/viewModeStore";
 import sortLessons from "../../utils/sortLessons";
 import scheduleStore from "../../store/scheduleStore";
 import WeekLesson from "../Lesson/WeekLesson/WeekLesson";
+import {toJS} from "mobx";
 
 
 function ScheduleWeek() {
@@ -25,6 +26,10 @@ function ScheduleWeek() {
         setView('day')
     }
     const emptyLessons = <div className="no-lessons"> Пар нет </div>
+
+    if (currLessons.length === 0) {
+        return emptyLessons
+    }
 
     return (
         <div className="shedule-week p-0">

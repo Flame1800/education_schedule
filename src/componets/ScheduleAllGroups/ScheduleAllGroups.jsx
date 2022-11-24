@@ -10,14 +10,17 @@ import filterStore from "../../store/filterStore";
 import LessonsSlider from "./LessonsSlider";
 import NawWeek from "../NawWeek/NawWeek";
 import datesStore from "../../store/datesStore";
+import {Link} from "react-router-dom";
 
 function ScheduleAllGroups() {
-    const {currLessons, setLessons} = scheduleStore
-    const {mode, setMode} = filterStore
+    const {currLessons} = scheduleStore
+    const {mode} = filterStore
     const {currDay} = datesStore
     const [dayLessons, setDayLessons] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        setLoading(true)
         const value = mode === "allGroups" ? "group.name" : "cabinet.number";
 
         const lessonsToday = _.sortBy(currLessons.filter(lesson => lesson.date === currDay), value)
@@ -25,37 +28,43 @@ function ScheduleAllGroups() {
         const lessonsGroupPairs = Object.entries(groupLessons)
 
         setDayLessons(lessonsGroupPairs)
+        setLoading(false)
     }, [currDay, currLessons, mode])
+
+    useEffect(() => {
+        document.body.style.zoom = 0.7
+    }, [])
 
     const generateLessons = (dayLessons) => {
         const fLessons = filterLessons(dayLessons);
-        return fLessons.map((lesson) => <WeekLesson key={lesson._id} lesson={lesson}/>);
+        return fLessons.map((lesson) => {
+            return <WeekLesson key={lesson._id} lesson={lesson}/>
+        });
     }
 
 
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2)
     const secondHalf = dayLessons.filter((_, i) => i >= dayLessons.length / 2)
 
-    const openFilterHandle = () => {
-        setLessons([])
-        setMode('group')
-    }
 
     if (mode === 'cabs') {
         return (
             <div className='container-all'>
-                <div className="back-btn" onClick={openFilterHandle}>Назад</div>
+                <Link to="/">
+                    <div className="back-btn">Назад</div>
+                </Link>
                 <div className="schedule-all">
                     <div className="cabs">
                         <NawWeek/>
+                        {dayLessons.length === 0 && <div className='empty-lesson'>Нет пар</div>}
                         <div className="cab-items">
-                            {dayLessons.map(pair => {
+                            {dayLessons.length > 0 && dayLessons.map(pair => {
                                 const [groupName, groupLessons] = pair
                                 const groupNameComponent = <div
                                     className="group">{groupName === "undefined" ? "***" : groupName}</div>
 
                                 return (
-                                    <div className="container-day">
+                                    <div className="container-day" key={groupName}>
                                         <div className="row-items">
                                             <div className="head">
                                                 {groupNameComponent}
@@ -74,14 +83,19 @@ function ScheduleAllGroups() {
         )
     }
 
+    if (loading) {
+        return <div className="state-banner">Загрзка</div>
+    }
+
+    if (dayLessons.length === 0 && !loading) {
+        return <div className="state-banner">Нет пар</div>
+    }
+
     return (
-        <>
-            <div className='container-all'>
-                <LessonsSlider lessons={firstHalf}/>
-                <LessonsSlider lessons={secondHalf} pagination={true}/>
-            </div>
-            {false && <img src={""} alt="banner" className="add-banner"/>}
-        </>
+        <div className='container-all'>
+            {firstHalf.length > 0 && <LessonsSlider lessons={firstHalf}/>}
+            {secondHalf.length > 0 && <LessonsSlider lessons={secondHalf} pagination={true}/>}
+        </div>
     );
 }
 

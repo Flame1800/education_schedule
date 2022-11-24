@@ -1,10 +1,7 @@
 import _ from "lodash";
 
 export default (dayLessons) => {
-
     const newLessons = [];
-    const numbers = dayLessons.map(lesson => lesson.lessonNumber);
-
     const findLesson = (num, lessons) => {
         const currLessons = lessons.filter(lesson => lesson.lessonNumber === num);
 

@@ -1,18 +1,17 @@
 import React from "react";
 import "./filter.scss";
 import Switch from "./Switch/Switch";
-import Search from "./Search/Search";
 import schedule from "../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
 import {DateTime} from "luxon";
-import GroupsFilter from "./GroupsFilter";
-import TeachersFilter from "./TeachersFilter";
+import GroupsFilter from "./FillterTabs/GroupsFilter";
+import TeachersFilter from "./FillterTabs/TeachersFilter";
 import filterStore from "../../store/filterStore";
-import AllGroupsFilter from "./AllGroupsFilter";
+import CabinetsFilter from "./FillterTabs/CabinetsFilter";
 
 function Filter() {
     const currDate = DateTime.now().toISODate();
-    const {mode, setMode} = filterStore;
+    const {mode} = filterStore;
 
     React.useEffect(() => {
         filterStore.setData(schedule.allLessons);
@@ -20,29 +19,26 @@ function Filter() {
         filterStore.setCourse('')
     }, []);
 
-    const head = (
-        <div className="header">
-            <Switch/>
-            {/*<Search/>*/}
-        </div>
-    );
 
     const info = (
         <div className="block-info">
             <div className="info">Расписание занятий на {currDate}</div>
-            <div className="all-groups-btn" onClick={() => setMode('allGroups')}>
-                Все группы
-            </div>
         </div>
     );
 
+    const filterScreens = {
+        group: <GroupsFilter/>,
+        teacher: <TeachersFilter/>,
+        cabs: <CabinetsFilter/>
+    }
+
     return (
         <div className="filter">
-            {mode !== 'allGroups' && head}
-            {mode === "group" && <GroupsFilter/>}
-            {mode === "teacher" && <TeachersFilter/>}
-            {(mode === 'allGroups' || mode === 'cabs') && <AllGroupsFilter/>}
-            {info}
+            <div className="header">
+                <Switch/>
+                {/*<Search/>*/}
+            </div>
+            {filterScreens[mode]}
         </div>
     );
 }

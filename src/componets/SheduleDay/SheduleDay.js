@@ -9,7 +9,6 @@ import filterLessons from "../../utils/filterLessons";
 
 function ScheduleDay() {
     const {currDay} = datesStore
-
     const [dayLessons, setDayLessons] = React.useState([])
 
     React.useEffect(() => {
@@ -19,25 +18,24 @@ function ScheduleDay() {
         setDayLessons(newLessons)
     }, [currDay])
 
+    const isEmptyLessons = scheduleStore.currLessons.length !== 0
 
-    const generateLessons = filterLessons(dayLessons).map((lesson) => {
-        return <DayLesson key={lesson._id} lesson={lesson}/>;
-    });
 
     const lessons = (
         <div className="content">
             <div className="couples">
-                {generateLessons}
+                {filterLessons(dayLessons).map((lesson) => {
+                    return <DayLesson key={lesson._id} lesson={lesson}/>;
+                })}
             </div>
         </div>
     );
-    const emptyLessons = <div className="no-lessons">Нет пар</div>;
 
     return (
         <div className="shadow-container shedule-day col-10 p-0">
-            <NavWeek/>
+            {isEmptyLessons && <NavWeek/>}
             <div className="sheldue-day-cont main-cont">
-                {dayLessons.length !== 0 ? lessons : emptyLessons}
+                {isEmptyLessons ? lessons : <div className="no-lessons">Нет пар</div>}
             </div>
         </div>
     );

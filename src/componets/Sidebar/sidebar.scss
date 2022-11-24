@@ -1,14 +1,17 @@
 .sidebar {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   max-width: 1120px;
   user-select: none;
-  margin: 0 auto;
   display: flex;
 
   .main-container {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -25,14 +28,13 @@
 
   .btn-filter {
     border: 1px solid #9B9B9B;
-    border-radius: 8px;
+    border-radius: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0px;
+    padding: 10px 0;
     cursor: pointer;
-    transition: .4s;
-    margin-bottom: 20px;
+    transition: .2s;
     width: 140px;
 
     .icon {
@@ -52,18 +54,17 @@
   }
 
   .btn-filter:hover {
-    background: #d7d7d7;
+    background: rgba(215, 215, 215, 0.4);
   }
 
   .group {
-    margin-left: 20px;
-    margin-right: 40px;
+    width: 200px;
+    margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 18px;
     color: #525252;
-    margin-bottom: 20px;
   }
 
   .mode-container {

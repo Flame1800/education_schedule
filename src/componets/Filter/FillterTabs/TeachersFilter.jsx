@@ -1,14 +1,13 @@
 import React from "react";
-import Division from "./FilterParams/Division";
-import FilterStore from "../../store/filterStore";
-import ScheduleStore from "../../store/scheduleStore";
+import Division from "../FilterParams/Division";
+import FilterStore from "../../../store/filterStore";
 import {observer} from "mobx-react-lite";
-import backImg from "../../assets/img/arrow-left.png";
+import backImg from "../../../assets/img/arrow-left.png";
+import {Link} from "react-router-dom";
 
 const TeachersFilter = () => {
     const [teachers, setTeachers] = React.useState([]);
     const {division, setDivision, getTeachers, divisions} = FilterStore;
-    const {setLessonsByTeacher} = ScheduleStore;
 
 
     const changeDivisionHandle = async (item) => {
@@ -39,13 +38,11 @@ const TeachersFilter = () => {
             />
             {teachers.map((teacher) => {
                 return (
-                    <div
-                        className={"item item-teacher"}
-                        key={teacher}
-                        onClick={() => setLessonsByTeacher(teacher)}
-                    >
-                        {teacher}
-                    </div>
+                    <Link to={`/teacher/${teacher}`} key={teacher}>
+                        <div className={"item item-teacher"}>
+                            {teacher}
+                        </div>
+                    </Link>
                 );
             })}
         </div>

@@ -18,7 +18,6 @@ class ScheduleStore {
         try {
             const currDate = DateTime.now().toISODate();
             const currWeek = await getWeek(currDate);
-
             if (currWeek.data.length === 0) {
                 return;
             }
@@ -33,18 +32,41 @@ class ScheduleStore {
 
 
     setLessonsByGroup = async (groupId) => {
-        const reqLessons = await API.getGroupLessonsForWeek(this.currWeek._id, groupId)
-        this.currLessons = reqLessons.data
+        this.loading = true;
+        try {
+            const reqLessons = await API.getGroupLessonsForWeek(this.currWeek._id, groupId)
+            this.currLessons = reqLessons.data
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.loading = false;
+        }
     };
 
     setLessonsByTeacher = async (teacherName) => {
-        const reqLessons = await API.getTeacherLessonsForWeek(this.currWeek._id, teacherName)
-        this.currLessons = reqLessons.data
+        this.loading = true;
+        try {
+            const reqLessons = await API.getTeacherLessonsForWeek(this.currWeek._id, teacherName)
+            this.currLessons = reqLessons.data
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.loading = false;
+        }
     };
 
-    setLessonsByDivison = async (divisionId) => {
-        const reqLessons = await API.getDivisionLessonsForWeek(this.currWeek._id, divisionId)
-        this.currLessons = reqLessons.data
+    setLessonsByDivision = async (divisionName) => {
+
+        this.loading = true;
+        try {
+            await this.getCurrentWeek()
+            const reqLessons = await API.getDivisionLessonsForWeek(this.currWeek._id, divisionName)
+            this.currLessons = reqLessons.data
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.loading = false;
+        }
     }
 
     setLessons = (value) => {
