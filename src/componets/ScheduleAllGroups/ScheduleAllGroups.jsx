@@ -50,7 +50,7 @@ function ScheduleAllGroups() {
     if (mode === 'cabs') {
         return (
             <div className='container-all'>
-                <Link to="/">
+                <Link to="/timetable">
                     <div className="back-btn">Назад</div>
                 </Link>
                 <div className="schedule-all">

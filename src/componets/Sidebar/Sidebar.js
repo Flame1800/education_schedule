@@ -21,7 +21,7 @@ function Sidebar() {
     };
 
     const filterButton = (
-        <Link to="/">
+        <Link to="/timetable">
             <div className="btn-filter">
                 <div className="icon"/>
                 <div className="text">Поиск</div>

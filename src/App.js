@@ -18,7 +18,7 @@ function App() {
 
     return (
         <Routes>
-            <Route index element={<Filter/>}/>
+            <Route path='/timetable' element={<Filter/>}/>
             <Route path='/group/:id' element={<Schedule mode="group"/>}/>
             <Route path='/teacher/:id' element={<Schedule mode="teacher"/>}/>
             <Route path='/cabinet/:id' element={<ScheduleByDivision mode="cabs"/>}/>
