@@ -1,16 +1,12 @@
 import React from "react";
+import {FilterParamWrapper} from "../FilterTabs.styled";
 
-const Division = ({ item, activeCourse, onClick }) => {
-  let itemClasses = "item";
-  if (item === activeCourse) {
-    itemClasses += " active";
-  }
-
-  return (
-    <div className={itemClasses} key={item} onClick={() => onClick(item)}>
-      {item} Курс
-    </div>
-  );
+const Division = ({item, activeCourse, onClick}) => {
+    return (
+        <FilterParamWrapper active={item === activeCourse} onClick={() => onClick(item)}>
+            {item} Курс
+        </FilterParamWrapper>
+    );
 };
 
 export default Division;

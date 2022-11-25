@@ -21,11 +21,11 @@ function App() {
     return (
         <Routes>
             <Route path='/timetable'>
-                <Route path='' element={<Filter/>}/>
+                <Route index element={<Filter/>}/>
                 <Route path='group/:id' element={<Schedule mode="group"/>}/>
                 <Route path='teacher/:id' element={<Schedule mode="teacher"/>}/>
                 <Route path='cabinet/:id' element={<Cabinets/>}/>
-                <Route path='tv'>
+                <Route path='divisions'>
                     <Route path='' element={<DivisionLessonsFilter/>}/>
                     <Route path=':id' element={<DivisionLessons/>}/>
                 </Route>

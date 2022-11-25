@@ -1,5 +1,4 @@
 import React from "react";
-import "./filter.scss";
 import Switch from "./Switch/Switch";
 import schedule from "../../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
@@ -8,6 +7,8 @@ import GroupsFilter from "./FillterTabs/GroupsFilter";
 import TeachersFilter from "./FillterTabs/TeachersFilter";
 import filterStore from "../../../store/filterStore";
 import CabinetsFilter from "./FillterTabs/CabinetsFilter";
+import {BlockInfo, Date, FilterWrapper, ShowAllGroupsBtn} from "./Filter.style";
+import {Link} from "react-router-dom";
 
 function Filter() {
     const currDate = DateTime.now().toISODate();
@@ -27,13 +28,18 @@ function Filter() {
     }
 
     return (
-        <div className="filter">
+        <FilterWrapper>
             <Switch/>
             {filterScreens[mode]}
-            <div className="block-info">
-                <div className="info">Расписание занятий на {currDate}</div>
-            </div>
-        </div>
+            <BlockInfo>
+                <Date>Расписание занятий на {currDate}</Date>
+                <Link to='/timetable/divisions'>
+                    <ShowAllGroupsBtn>
+                        Все группы
+                    </ShowAllGroupsBtn>
+                </Link>
+            </BlockInfo>
+        </FilterWrapper>
     );
 }
 

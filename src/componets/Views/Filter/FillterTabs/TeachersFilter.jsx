@@ -1,9 +1,10 @@
 import React from "react";
-import Division from "./FilterParams/Division";
+import FilterParam from "./FilterParams/FilterParam";
 import FilterStore from "../../../../store/filterStore";
 import {observer} from "mobx-react-lite";
 import backImg from "../../../../assets/img/arrow-left.png";
 import {Link} from "react-router-dom";
+import {BackIcon, Column, FilterItems, FilterParamWrapper, OverflowColumn} from "./FilterTabs.styled";
 
 const TeachersFilter = () => {
     const [teachers, setTeachers] = React.useState([]);
@@ -14,50 +15,42 @@ const TeachersFilter = () => {
         setTeachers(await getTeachers(item.name));
     };
 
-    const divisionComponents = (
-        <div className="column">
-            {divisions.map((item) => (
-                <Division
-                    item={item}
-                    key={item._id}
-                    activeDivision={division}
-                    onClick={() => changeDivisionHandle(item)}
-                />
-            ))}
-        </div>
-    );
+    const divisionComponents = divisions.map((item) => (
+        <FilterParam
+            item={item}
+            key={item._id}
+            activeDivision={division}
+            onClick={() => changeDivisionHandle(item)}
+        />
+    ))
+
 
     const teacherComponents = (
-        <div className="teacher-groups column">
-            <img
+        <OverflowColumn>
+            <BackIcon
                 src={backImg}
                 alt="назад"
-                className="arrow-left"
                 onClick={() => setDivision(null)}
             />
             {teachers.map((teacher) => {
                 return (
                     <Link to={`/timetable/teacher/${teacher}`} key={teacher}>
-                        <div className={"item item-teacher"}>
+                        <FilterParamWrapper>
                             {teacher}
-                        </div>
+                        </FilterParamWrapper>
                     </Link>
                 );
             })}
-        </div>
+        </OverflowColumn>
     );
 
     return (
-        <div className="items-list">
-            {divisionComponents}
-            {division && (
-                <>
-                    {teachers.length === 0
-                        ? "Преподаватели не найдены"
-                        : teacherComponents}
-                </>
-            )}
-        </div>
+        <FilterItems>
+            <Column>
+                {divisionComponents}
+            </Column>
+            {division && (teachers.length === 0 ? "Преподаватели не найдены" : teacherComponents)}
+        </FilterItems>
     );
 };
 

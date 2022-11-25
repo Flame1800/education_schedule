@@ -15,12 +15,7 @@ function DivisionLessons() {
         (async () => {
             const lessons = await getDayLessons(id)
             setDayLessons(lessons)
-            document.body.style.zoom = 0.7
         })()
-
-        return () => {
-            document.body.style.zoom = 1.0
-        }
     }, [])
 
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2)

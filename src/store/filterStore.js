@@ -3,7 +3,7 @@ import _ from "lodash";
 import sortArr from "../lib/sortArr";
 import API from "../lib/API";
 import scheduleStore from "./scheduleStore";
-import division from "../componets/Views/Filter/FillterTabs/FilterParams/Division";
+import division from "../componets/Views/Filter/FillterTabs/FilterParams/FilterParam";
 
 class FilterStore {
     division = "";

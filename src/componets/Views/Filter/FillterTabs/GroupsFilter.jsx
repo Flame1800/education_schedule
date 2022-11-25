@@ -1,11 +1,12 @@
 import React from "react";
-import Division from "./FilterParams/Division";
+import FilterParam from "./FilterParams/FilterParam";
 import Course from "./FilterParams/Course";
 import FilterStore from "../../../../store/filterStore";
 import {courses} from "../../../../assets/filterParamsData";
 import {observer} from "mobx-react-lite";
 import backImg from "../../../../assets/img/arrow-left.png";
 import {Link} from "react-router-dom";
+import {BackIcon, Column, FilterItems, FilterParamWrapper, OverflowColumn} from "./FilterTabs.styled";
 
 
 const GroupsFilter = () => {
@@ -21,7 +22,7 @@ const GroupsFilter = () => {
     };
 
     const divisionComponents = divisions.map((item) => (
-        <Division
+        <FilterParam
             key={item._id}
             item={item}
             activeDivision={division}
@@ -44,31 +45,30 @@ const GroupsFilter = () => {
         .map((group) => {
             return (
                 <Link to={`/timetable/group/${group.id_1c}`} key={group._id}>
-                    <div className={"item"}>{group.name}</div>
+                    <FilterParamWrapper>{group.name}</FilterParamWrapper>
                 </Link>
             );
         }) : null;
 
     return (
-        <div className="items-list">
-            <div className="column">
+        <FilterItems>
+            <Column>
                 {divisionComponents}
-            </div>
-            <div className="column">
+            </Column>
+            <Column>
                 {division && courseComponents}
-            </div>
+            </Column>
             {division && course && (
-                <div className="column groups">
-                    <img
+                <OverflowColumn>
+                    <BackIcon
                         src={backImg}
                         alt="назад"
-                        className="arrow-left"
                         onClick={() => setDivision(null)}
                     />
                     {groups.length === 0 ? "Группы не найдены" : groupComponents}
-                </div>
+                </OverflowColumn>
             )}
-        </div>
+        </FilterItems>
     );
 };
 
