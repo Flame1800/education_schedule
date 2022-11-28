@@ -79,7 +79,7 @@ const LessonsSlider = ({lessons, pagination}) => {
                 slidesPerView={lessons.length < 10 ? lessons.length : 10}
                 slidesPerGroup={lessons.length < 10 ? lessons.length : 10}
                 speed={1500}
-                autoplay={{delay: 12000}}
+                autoplay={{delay: 12000, disableOnInteraction: true}}
                 loop={true}
                 breakpoints={breakpoints}
                 pagination={{

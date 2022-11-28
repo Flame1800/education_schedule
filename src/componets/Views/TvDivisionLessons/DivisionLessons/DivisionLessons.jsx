@@ -5,6 +5,7 @@ import scheduleStore from "../../../../store/scheduleStore";
 import 'swiper/swiper.scss';
 import LessonsSlider from "./LessonsSlider";
 import {useParams} from "react-router-dom";
+import filterStore from "../../../../store/filterStore";
 
 function DivisionLessons() {
     const {getDayLessons, loading} = scheduleStore
@@ -13,6 +14,7 @@ function DivisionLessons() {
 
     useEffect(() => {
         (async () => {
+            filterStore.setMode('group')
             const lessons = await getDayLessons(id)
             setDayLessons(lessons)
         })()

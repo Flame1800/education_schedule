@@ -35,7 +35,7 @@ class ScheduleStore {
     };
 
     getDayLessons = async (divisionName) => {
-        const value = filterStore.mode === "allGroups" ? "group.name" : "cabinet.number";
+        const value = filterStore.mode === "group" ? "group.name" : "cabinet.number";
 
         try {
             this.loading = true;
