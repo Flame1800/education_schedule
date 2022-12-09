@@ -4,6 +4,7 @@ import {observer} from "mobx-react-lite";
 import datesStore from "../../store/datesStore";
 import _ from "lodash";
 import './nawWeek.scss'
+import {Day, NawWeekWrapper, Num, WeekDayItem} from "./NawWeek.style";
 
 function NavWeek() {
     const {datesWeek, currDay, setDay} = datesStore
@@ -18,26 +19,20 @@ function NavWeek() {
 
 
     return (
-        <div className="nav-week d-flex">
+        <NawWeekWrapper>
             {datesWeek.map((date) => {
-                let classes = "item";
-
-                if (date.toISODate() === currDay) {
-                    classes += " item-active";
-                }
-
                 return (
-                    <div
-                        className={classes}
+                    <WeekDayItem
+                        active={date.toISODate() === currDay}
                         key={_.uniqueId()}
                         onClick={() => selectDayHandle(date)}
                     >
-                        <div className="num">{date.toFormat('dd LLL')}</div>
-                        <div className="day">{date.weekdayShort}</div>
-                    </div>
+                        <Num>{date.toFormat('dd LLL')}</Num>
+                        <Day>{date.weekdayShort}</Day>
+                    </WeekDayItem>
                 );
             })}
-        </div>
+        </NawWeekWrapper>
     );
 }
 

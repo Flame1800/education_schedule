@@ -1,45 +1,33 @@
 import React from "react";
 import "./sheduleDay.scss";
 import {observer} from "mobx-react-lite";
-import scheduleStore from "../../../../store/scheduleStore";
 import NavWeek from "../../../NawWeek/NawWeek";
 import datesStore from "../../../../store/datesStore";
 import DayLesson from "../../../Lesson/DayLesson/DayLesson";
-import filterLessons from "../../../../lib/filterLessons";
-import {useParams} from "react-router-dom";
+import {Lessons, Main, ScheduleWrapper} from "./ScheduleDay.style";
+import NoLessonsTitle from "../../../Common/NoLessonsTitle";
 
-function ScheduleDay() {
+
+function ScheduleDay({lessons}) {
     const {currDay} = datesStore
-    const [dayLessons, setDayLessons] = React.useState([])
 
-    React.useEffect(() => {
-        console.log('render')
-        const newLessons = scheduleStore.currLessons.filter((lesson) => {
-            return lesson.date === currDay
-        })
-        setDayLessons(newLessons)
-    }, [currDay, scheduleStore.currLessons])
+    const filterLessonsByDay = (lessons) => lessons.filter((lesson) => lesson.date === currDay)
+    const dayLessons = filterLessonsByDay(lessons)
 
-    const isEmptyLessons = scheduleStore.currLessons.length !== 0
-
-
-    const lessons = (
-        <div className="content">
-            <div className="couples">
-                {filterLessons(dayLessons).map((lesson) => {
-                    return <DayLesson key={lesson._id} lesson={lesson}/>;
-                })}
-            </div>
-        </div>
-    );
 
     return (
-        <div className="shadow-container shedule-day col-10 p-0">
-            {isEmptyLessons && <NavWeek/>}
-            <div className="sheldue-day-cont main-cont">
-                {isEmptyLessons ? lessons : <div className="no-lessons">Нет пар</div>}
-            </div>
-        </div>
+        <ScheduleWrapper>
+            {lessons.length !== 0 && <NavWeek/>}
+            <Main>
+                <Lessons>
+                    {dayLessons.length === 0
+                        ? <NoLessonsTitle>Нет пар</NoLessonsTitle>
+                        : dayLessons.map((lesson) => {
+                            return <DayLesson key={lesson._id} lesson={lesson}/>;
+                        })}
+                </Lessons>
+            </Main>
+        </ScheduleWrapper>
     );
 }
 

@@ -1,55 +1,66 @@
-import React from "react";
+import React, {useEffect} from "react";
 import FilterParam from "./FilterParams/FilterParam";
 import FilterStore from "../../../../store/filterStore";
 import {observer} from "mobx-react-lite";
 import backImg from "../../../../assets/img/arrow-left.png";
 import {Link} from "react-router-dom";
 import {BackIcon, Column, FilterItems, FilterParamWrapper, OverflowColumn} from "./FilterTabs.styled";
+import {Skeleton} from "@mui/material";
+import scheduleStore from "../../../../store/scheduleStore";
 
 const TeachersFilter = () => {
     const [teachers, setTeachers] = React.useState([]);
-    const {division, setDivision, getTeachers, divisions} = FilterStore;
+    const {division, setDivision, getTeachers, divisions, loading} = FilterStore;
+
+    const isEmpty = teachers.length === 0 && !loading && division
 
     const changeDivisionHandle = async (item) => {
+        setTeachers([])
         setDivision(item);
         setTeachers(await getTeachers(item.name));
     };
 
-    const divisionComponents = divisions.map((item) => (
-        <FilterParam
-            item={item}
-            key={item._id}
-            activeDivision={division}
-            onClick={() => changeDivisionHandle(item)}
-        />
-    ))
+    const loader = (
+        <OverflowColumn>
+            {new Array(20).fill().map(item => {
+                return <Skeleton key={item} variant='rounded' width={200 + (50 * Math.random())} height={30}
+                                 sx={{marginTop: '10px'}}/>
+            })}
+        </OverflowColumn>
+    )
 
-
-    const teacherComponents = (
+    const teacherComponents = loading ? loader : (
         <OverflowColumn>
             <BackIcon
                 src={backImg}
                 alt="назад"
                 onClick={() => setDivision(null)}
             />
-            {teachers.map((teacher) => {
+            {!isEmpty ? teachers.map((teacher) => {
                 return (
-                    <Link to={`/timetable/teacher/${teacher}`} key={teacher}>
+                    <Link to={`/timetable/teacher/${teacher}?week=${scheduleStore.weekMode}`} key={teacher}>
                         <FilterParamWrapper>
                             {teacher}
                         </FilterParamWrapper>
                     </Link>
                 );
-            })}
+            }) : "Преподаватели не найдены"}
         </OverflowColumn>
     );
+
 
     return (
         <FilterItems>
             <Column>
-                {divisionComponents}
+                {divisions.map((item) =>
+                    <FilterParam
+                        item={item}
+                        key={item._id}
+                        activeDivision={division}
+                        onClick={() => changeDivisionHandle(item)}
+                    />)}
             </Column>
-            {division && (teachers.length === 0 ? "Преподаватели не найдены" : teacherComponents)}
+            {division && teacherComponents}
         </FilterItems>
     );
 };

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const FilterWrapper = styled.div`
   border: 1px solid #9B9B9B;
@@ -7,7 +7,7 @@ export const FilterWrapper = styled.div`
   position: relative;
   min-height: 80vh;
   padding: 20px;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
 `
@@ -39,10 +39,15 @@ export const ShowAllGroupsBtn = styled.div`
   cursor: pointer;
   border: 1px solid #cbcbcb;
   margin-right: 20px;
-  width: 150px;
+  width: fit-content;
   text-align: center;
   transition: 0.2s;
 
+  ${props => props.active && css`
+    background: #8a8a8a;
+    border: 1px solid #8a8a8a;
+    color: white;
+  `}
   &:hover {
     background: #8a8a8a;
     border: 1px solid #8a8a8a;

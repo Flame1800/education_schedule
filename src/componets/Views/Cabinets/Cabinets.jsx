@@ -1,39 +1,53 @@
-import React, {useEffect} from 'react';
-import {Link, useParams} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Link, useParams, useSearchParams} from "react-router-dom";
 import NawWeek from "../../NawWeek/NawWeek";
-import filterLessons from "../../../lib/filterLessons";
+import filterLessons from "../../../lib/fillEmptyLessons";
 import WeekLesson from "../../Lesson/WeekLesson/WeekLesson";
 import scheduleStore from "../../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
 import datesStore from "../../../store/datesStore";
-import _ from "lodash";
 
 const Cabinets = () => {
-    const {getLessonsForCabinets, currLessons} = scheduleStore
-    const [dayLessons, setDayLessons] = React.useState([])
+    const {getLessonsForCabinets, changeWeek} = scheduleStore
+    const [lessons, setLessons] = React.useState([])
+    const [loading, setLoading] = useState(false)
 
     const {currDay} = datesStore
     const {id} = useParams()
+    const [searchParams] = useSearchParams();
 
 
     useEffect(() => {
         (async () => {
-            const lessons = await getLessonsForCabinets(id)
-            const lessonsToday = _.sortBy(lessons.filter(lesson => lesson.date === datesStore.currDay), "cabinet.number")
-            const groupLessons = _.groupBy(lessonsToday, "cabinet.number")
-            setDayLessons(Object.entries(groupLessons))
+            setLoading(true)
+            try {
+                changeWeek(searchParams.get('week'))
+                const fetchLessons = await getLessonsForCabinets(id)
+                setLessons(fetchLessons)
+            } catch (e) {
+                console.error(e)
+            } finally {
+                setLoading(false)
+            }
+
         })()
-    }, [])
-
-
-    React.useEffect(() => {
-        const lessonsToday = _.sortBy(currLessons.filter(lesson => lesson.date === datesStore.currDay), "cabinet.number")
-        const groupLessons = _.groupBy(lessonsToday, "cabinet.number")
-        setDayLessons(Object.entries(groupLessons))
     }, [currDay])
 
-    const emptyLesson = dayLessons.length === 0 && <div className='empty-lesson'>Нет пар</div>
 
+    if (lessons.length === 0) {
+        return (
+            <div className='container-all'>
+                <Link to="/timetable">
+                    <div className="back-btn">Назад</div>
+                </Link>
+                <div className="schedule-all">
+                    <div className='empty-lesson'>
+                        {loading ? "Загрузка..." : "Нет пар"}
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className='container-all'>
@@ -42,13 +56,11 @@ const Cabinets = () => {
             </Link>
             <div className="schedule-all">
                 <div className="cabs">
-                    {dayLessons.length !== 0 && <NawWeek/>}
-                    {emptyLesson}
+                    <NawWeek/>
                     <div className="cab-items">
-                        {dayLessons.length > 0 && dayLessons.map(pair => {
+                        {lessons.map(pair => {
                             const [groupName, lessons] = pair
                             const groupNameMapped = groupName === "undefined" ? "***" : groupName
-
 
                             return (
                                 <div className="container-day" key={groupName}>

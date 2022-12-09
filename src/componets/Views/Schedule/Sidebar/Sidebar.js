@@ -1,55 +1,56 @@
 import React from "react";
 import "./sidebar.scss";
 import {observer} from "mobx-react-lite";
-import scheduleStore from "../../../../store/scheduleStore";
 import filterStore from "../../../../store/filterStore";
 import viewModeStore from "../../../../store/viewModeStore";
-import {DateTime} from "luxon";
 import {Link} from "react-router-dom";
+import {BtnTitle, FilterBtn, GroupTitle, Main, SidebarWrapper} from "./Sidebar.style";
+import {Item, SwitchWrapper} from "../../Filter/Switch/Switch.styled";
+import FilterIcon from '../../../../assets/img/filter-icon.png'
+import {Skeleton} from "@mui/material";
 
-function Sidebar() {
-    const {currLessons} = scheduleStore;
+function Sidebar({lessons}) {
     const {view, setView} = viewModeStore;
     const {mode} = filterStore;
 
     const changeModeHandle = () => setView(view === "day" ? "week" : "day");
 
     const currEntity = {
-        group: `${currLessons[0]?.group.name} группа`,
-        teacher: currLessons[0]?.teacher.abb_name,
-        cabinet: currLessons[0]?.cabinet?.name,
+        group: `${lessons[0]?.group.name} группа`,
+        teacher: lessons[0]?.teacher.abb_name,
+        cabinet: lessons[0]?.cabinet?.name,
     };
 
     const filterButton = (
         <Link to="/timetable">
-            <div className="btn-filter">
-                <div className="icon"/>
-                <div className="text">Поиск</div>
-            </div>
+            <FilterBtn>
+                <img alt='иконка' src={FilterIcon}/>
+                <BtnTitle>Поиск</BtnTitle>
+            </FilterBtn>
         </Link>
     );
 
-    const group = <div className="group">{currLessons.length ? currEntity[mode] : "загрузка..."}</div>;
+    const group = <GroupTitle>{lessons.length ? currEntity[mode] : <Skeleton width={150} height={40}/>}</GroupTitle>;
 
     const changeModeComponent = (
-        <div className="switch-head" onClick={changeModeHandle}>
-            <div className={view === "day" ? "active-item" : "passive-item"}>
+        <SwitchWrapper onClick={changeModeHandle}>
+            <Item active={view === "day"}>
                 День
-            </div>
-            <div className={view === "week" ? "active-item" : "passive-item"}>
+            </Item>
+            <Item active={view === "week"}>
                 Неделя
-            </div>
-        </div>
+            </Item>
+        </SwitchWrapper>
     );
 
     return (
-        <div className="sidebar">
-            <div className="main-container">
+        <SidebarWrapper>
+            <Main>
                 {filterButton}
                 {group}
                 {changeModeComponent}
-            </div>
-        </div>
+            </Main>
+        </SidebarWrapper>
     );
 }
 

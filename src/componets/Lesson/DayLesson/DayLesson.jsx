@@ -2,12 +2,13 @@ import React from 'react';
 import LessonCard from "./LessonCard";
 import getSubjectName from "../../../lib/getSubjectName";
 import EmptyLesson from "./EmptyLesson";
+import {DayLessonWrapper, LessonCardWrapper, LessonContent, NumLessons} from "./DayLesson.styled";
 
 const DayLesson = ({lesson}) => {
     const isDouble = Array.isArray(lesson)
 
 
-    const numLesson = <div className="num">{isDouble ? lesson[0].lessonNumber : lesson.lessonNumber}</div>
+    const numLesson = <NumLessons>{isDouble ? lesson[0].lessonNumber : lesson.lessonNumber}</NumLessons>
 
     const doubleCouple = (
         <>
@@ -21,12 +22,12 @@ const DayLesson = ({lesson}) => {
     }
 
     return (
-        <div className="item">
+        <LessonCardWrapper>
             {numLesson}
-            <div className="couple one-couple">
+            <LessonContent>
                 {isDouble ? doubleCouple : <LessonCard lesson={lesson}/>}
-            </div>
-        </div>
+            </LessonContent>
+        </LessonCardWrapper>
     );
 };
 

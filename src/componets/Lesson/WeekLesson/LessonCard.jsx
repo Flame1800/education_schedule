@@ -1,34 +1,32 @@
 import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
 import filterStore from "../../../store/filterStore";
+import {CabNum, LessonName, Meta, MetaText} from "./WeekLesson.style";
 
 const LessonCard = ({lesson}) => {
     const {mode} = filterStore
 
-    const name = <div className="name">{getSubjectName(lesson)}</div>
     const personalInfo = (
-        <div className="teacher">
+        <MetaText>
             {mode !== 'teacher' ? lesson.teacher.abb_name : lesson.group.name}
-        </div>
+        </MetaText>
     )
 
     const cab = (
-        <div className="cab">
+        <CabNum>
             {lesson.cabinet?.number || "***"}
-        </div>
+        </CabNum>
     )
 
     return (
         <>
-            <div className="head-card">
-                {name}
+            <div>
+                <LessonName>{getSubjectName(lesson)}</LessonName>
             </div>
-            <div className="cont">
+            <Meta>
                 {personalInfo}
-                <div className="min-cont">
-                    {cab}
-                </div>
-            </div>
+                {cab}
+            </Meta>
         </>
     );
 };

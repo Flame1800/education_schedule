@@ -1,68 +1,70 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './sheduleWeek.scss';
-import filterLessons from "../../../../lib/filterLessons";
+import filterLessons from "../../../../lib/fillEmptyLessons";
 import {observer} from "mobx-react-lite";
 import datesStore from "../../../../store/datesStore";
 import viewModeStore from "../../../../store/viewModeStore";
-import sortLessons from "../../../../lib/sortLessons";
-import scheduleStore from "../../../../store/scheduleStore";
+import sortLessons from "../../../../lib/sortLessonsByNumber";
 import WeekLesson from "../../../Lesson/WeekLesson/WeekLesson";
-import {toJS} from "mobx";
+import IconMore from "../../../../assets/img/arrows-expand-right.png"
+import {
+    Button, DayLesson,
+    DayLessonsWrapper,
+    DayMonth,
+    Header,
+    Lessons,
+    Main,
+    Meta, ScheduleWrapper
+} from "./ScheduleWeek.style";
+import StateTitle from "../../../Common/NoLessonsTitle";
 
-
-function ScheduleWeek() {
-    const {setDay, datesWeek} = datesStore
+function ScheduleWeek({lessons}) {
+    const {setDay, datesWeek, getDatesWeek} = datesStore
     const {setView} = viewModeStore
-    const {currLessons} = scheduleStore
+
+    useEffect(() => {
+        (async () => {
+            await getDatesWeek()
+        })()
+    }, [])
 
     const generateLessons = (dayLessons) => {
         const fLessons = filterLessons(dayLessons);
         return fLessons.map((lesson) => <WeekLesson key={lesson._id} lesson={lesson}/>);
     }
 
-
     const changeViewHandle = (date) => {
         setDay(date.toISODate())
         setView('day')
     }
-    const emptyLessons = <div className="no-lessons"> Пар нет </div>
 
-    if (currLessons.length === 0) {
-        return emptyLessons
-    }
 
     return (
-        <div className="shedule-week p-0">
+        <ScheduleWrapper>
             {datesWeek.map(day => {
-                const dayLessons = sortLessons(currLessons.filter(lesson => lesson.date === day.toISODate()));
-                const dayLessonsComponent = dayLessons.length === 0 ? emptyLessons : generateLessons(dayLessons)
-
-                const dayWeek = <div className="day-week">{day.toFormat('EEEE')}</div>
-                const dayMonth = <div className="day">{day.toFormat("d LLL")}</div>
-                const changeViewButton = (
-                    <div className="cont-btn-more" onClick={() => changeViewHandle(day)}>
-                        <div className="btn-more"/>
-                    </div>
-                )
+                const dayLessons = sortLessons(lessons.filter(lesson => lesson.date === day.toISODate()));
+                const dayLessonsComponent = dayLessons.length === 0
+                    ? <StateTitle>Пар нет</StateTitle>
+                    : generateLessons(dayLessons)
 
                 return (
-                    <div className="container-day" key={day.day}>
-                        <div className="row-items">
-                            <div className="head">
-                                {dayWeek}
-                                <div className="min-cont">
-                                    {dayMonth}
-                                    {changeViewButton}
-                                </div>
-                            </div>
-                            <div className="lesson-cont">
-                                {dayLessonsComponent}
-                            </div>
-                        </div>
-                    </div>
+                    <DayLessonsWrapper key={day.day}>
+                        <Main>
+                            <Header>
+                                <DayLesson>{day.toFormat('EEEE')}</DayLesson>
+                                <Meta>
+                                    <DayMonth>{day.toFormat("d LLL")}</DayMonth>
+                                    <Button onClick={(() => changeViewHandle(day))}>
+                                        <img src={IconMore} alt="раскрыть"/>
+                                    </Button>
+                                </Meta>
+                            </Header>
+                            <Lessons>{dayLessonsComponent}</Lessons>
+                        </Main>
+                    </DayLessonsWrapper>
                 )
             })}
-        </div>
+        </ScheduleWrapper>
     );
 
 }

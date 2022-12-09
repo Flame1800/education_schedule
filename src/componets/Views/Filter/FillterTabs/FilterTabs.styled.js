@@ -22,7 +22,7 @@ export const Column = styled.div`
 `
 
 export const OverflowColumn = styled.div`
-  max-height: 60vh;
+  height: 60vh;
   width: 50%;
   overflow: auto;
   display: flex;

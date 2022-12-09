@@ -1,14 +1,15 @@
 import React from 'react';
 import LessonCard from "./LessonCard";
 import getSubjectName from "../../../lib/getSubjectName";
-import EmptyLesson from "./EmptyLesson";
+import EmptyLesson from "./EmptyLesson/EmptyLesson";
 import DoubleLessonCard from './DoubleLessonCard'
 import '../lesson.scss'
+import {Content, LessonWrap, Num} from "./WeekLesson.style";
 
 const WeekLesson = ({lesson}) => {
     const isDouble = Array.isArray(lesson)
 
-    const numLesson = <div className="num-lesson">{isDouble ? lesson[0].lessonNumber : lesson.lessonNumber}</div>
+    const numLesson = <Num>{isDouble ? lesson[0].lessonNumber : lesson.lessonNumber}</Num>
 
 
     if (getSubjectName(lesson) === "Нет пары") {
@@ -16,14 +17,12 @@ const WeekLesson = ({lesson}) => {
     }
 
     return (
-        <div className='lesson'>
-            <div className="item active">
-                {numLesson}
-                <div className='couple'>
-                    {isDouble ? <DoubleLessonCard lesson={lesson}/> : <LessonCard lesson={lesson}/>}
-                </div>
-            </div>
-        </div>
+        <LessonWrap>
+            {numLesson}
+            <Content>
+                {isDouble ? <DoubleLessonCard lesson={lesson}/> : <LessonCard lesson={lesson}/>}
+            </Content>
+        </LessonWrap>
     );
 };
 

@@ -14,10 +14,14 @@ class DatesStore {
         this.currDay = day
     }
 
-    getDatesWeek = () => {
-        const {currWeek: {dateStart}} = scheduleStore
+    getDatesWeek = async () => {
+        const week = await scheduleStore.getCurrentWeek()
 
-        const date = DateTime.fromISO(dateStart).setLocale('ru')
+        if (!week) {
+            return null
+        }
+
+        const date = DateTime.fromISO(week.dateStart).setLocale('ru')
 
         this.datesWeek = Array(6).fill('').map((_, i) => {
             return date.plus({

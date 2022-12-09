@@ -1,7 +1,7 @@
 import {makeAutoObservable, toJS} from "mobx";
 import _ from "lodash";
 import sortArr from "../lib/sortArr";
-import API from "../lib/API";
+import API, {getDivisions, getDivisionWeekLessons, getGroups} from "../lib/API";
 import scheduleStore from "./scheduleStore";
 import division from "../componets/Views/Filter/FillterTabs/FilterParams/FilterParam";
 
@@ -12,18 +12,21 @@ class FilterStore {
     groups = []
     mode = "group"; // group | teacher | allGroups
     data = [];
+    loading = false
 
     constructor() {
         makeAutoObservable(this);
     }
 
     getGroups = async () => {
-        const req = await API.getGroups()
+        this.divisions = []
+        const req = await getGroups()
         this.groups = _.sortBy(req.data, ["name"]).filter(item => item.name.slice(0, 1) !== "З")
     }
 
     getDivisions = async () => {
-        const req = await API.getDivisions()
+        this.divisions = []
+        const req = await getDivisions()
 
         this.divisions = _.sortBy(req.data.map(item => {
             return {
@@ -34,11 +37,15 @@ class FilterStore {
     }
 
     getTeachers = async (divisionId) => {
-        const filteredLessons = await API.getDivisionLessonsForWeek(scheduleStore.currWeek._id, divisionId)
-
-        return _.sortedUniq(
-            sortArr(filteredLessons.data.map((lesson) => lesson.teacher.abb_name))
-        );
+        try {
+            this.loading = true
+            const filteredLessons = await getDivisionWeekLessons(scheduleStore.currWeek._id, divisionId)
+            return _.sortedUniq(sortArr(filteredLessons.data.map((lesson) => lesson.teacher.abb_name)));
+        } catch (e) {
+            console.error(e)
+        } finally {
+            this.loading = false
+        }
     };
 
     setDivision = (division) => {
@@ -47,10 +54,6 @@ class FilterStore {
 
     setCourse = (course) => {
         this.course = course;
-    };
-
-    setData = (data) => {
-        this.data = data;
     };
 
     setMode = (mode) => {

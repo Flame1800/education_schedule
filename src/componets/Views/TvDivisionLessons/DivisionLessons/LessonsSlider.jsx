@@ -1,10 +1,11 @@
 import React from 'react';
 import {Autoplay, Pagination} from "swiper";
 import {Swiper, SwiperSlide} from "swiper/react";
-import filterLessons from "../../../../lib/filterLessons";
+import filterLessons from "../../../../lib/fillEmptyLessons";
 import WeekLesson from "../../../Lesson/WeekLesson/WeekLesson";
 import 'swiper/swiper.scss';
-import {toJS} from "mobx";
+import datesStore from "../../../../store/datesStore";
+
 
 const LessonsSlider = ({lessons, pagination}) => {
     const getBreakpoint = (num) => {
@@ -23,7 +24,8 @@ const LessonsSlider = ({lessons, pagination}) => {
         1200: getBreakpoint(5),
         1600: getBreakpoint(7),
         2100: getBreakpoint(8),
-        2300: getBreakpoint(10)
+        2300: getBreakpoint(10),
+        2600: getBreakpoint(12)
     }
 
     const isNotSliderMode = window.innerWidth >= 2300 && lessons.length <= 10

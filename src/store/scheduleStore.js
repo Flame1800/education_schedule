@@ -1,16 +1,17 @@
 import {makeAutoObservable} from "mobx";
-import API, {getWeek} from "../lib/API";
 import {DateTime} from "luxon";
-import _ from "lodash";
 import datesStore from "./datesStore";
-import filterStore from "./filterStore";
+import weekModeViews from "../consts/weekModeViews";
+import filterLessonsByDate from "../lib/filterLessonsByDate";
+import sortLessonsByGroup from "../lib/sortLessonsByGroup";
 import groupLessons from "../lib/groupLessons";
+import {getDivisionWeekLessons, getGroupWeekLessons, getTeacherWeekLessons, getWeek} from "../lib/API";
+
 
 class ScheduleStore {
-    allLessons = [];
-    currLessons = [];
     currWeek = null;
     loading = false;
+    weekMode = 'curr'
 
     constructor() {
         makeAutoObservable(this);
@@ -18,13 +19,17 @@ class ScheduleStore {
 
     getCurrentWeek = async () => {
         this.loading = true;
-
         try {
-            const currDate = DateTime.now().toISODate();
+            const currDate = this.weekMode === weekModeViews.curr
+                ? DateTime.now().toISODate()
+                : DateTime.now().plus({weeks: 1}).toISODate();
+
             const currWeek = await getWeek(currDate);
+
             if (currWeek.data.length === 0) {
-                return;
+                this.currWeek = null
             }
+
             this.currWeek = currWeek.data[0]
             return currWeek.data[0]
         } catch (e) {
@@ -34,17 +39,19 @@ class ScheduleStore {
         }
     };
 
+    changeWeek = (mode) => {
+        this.weekMode = mode
+    }
+
     getDayLessons = async (divisionName) => {
-        const value = filterStore.mode === "group" ? "group.name" : "cabinet.number";
+        this.loading = true;
 
         try {
-            this.loading = true;
             const week = await this.getCurrentWeek()
-            const reqLessons = await API.getDivisionLessonsForWeek(week._id, divisionName)
-            const lessonsToday = _.sortBy(reqLessons.data.filter(lesson => lesson.date === datesStore.currDay), "group.name")
-            const groupLessons = _.groupBy(lessonsToday, value)
-
-            return Object.entries(groupLessons)
+            const reqLessons = await getDivisionWeekLessons(week._id, divisionName)
+            const dayLessons = filterLessonsByDate(reqLessons.data, datesStore.currDay)
+            const sortedDayLessons = sortLessonsByGroup(dayLessons)
+            return groupLessons(sortedDayLessons, "group.name")
         } catch (e) {
             console.error(e);
         } finally {
@@ -55,10 +62,11 @@ class ScheduleStore {
 
     setLessonsByGroup = async (groupId) => {
         this.loading = true;
+
         try {
             const week = await this.getCurrentWeek()
-            const reqLessons = await API.getGroupLessonsForWeek(week._id, groupId)
-            this.currLessons = reqLessons.data
+            const reqLessons = await getGroupWeekLessons(week._id, groupId)
+            return reqLessons.data
         } catch (e) {
             console.error(e);
         } finally {
@@ -68,10 +76,11 @@ class ScheduleStore {
 
     setLessonsByTeacher = async (teacherName) => {
         this.loading = true;
+
         try {
             const week = await this.getCurrentWeek()
-            const reqLessons = await API.getTeacherLessonsForWeek(week._id, teacherName)
-            this.currLessons = reqLessons.data
+            const reqLessons = await getTeacherWeekLessons(week._id, teacherName)
+            return reqLessons.data
         } catch (e) {
             console.error(e);
         } finally {
@@ -80,21 +89,19 @@ class ScheduleStore {
     };
 
     getLessonsForCabinets = async (divisionName) => {
+        this.loading = true;
+
         try {
-            this.loading = true;
             const week = await this.getCurrentWeek()
-            const reqLessons = await API.getDivisionLessonsForWeek(week._id, divisionName)
-            this.currLessons = reqLessons.data
-            return reqLessons.data
+            const reqLessons = await getDivisionWeekLessons(week._id, divisionName)
+            const dayLessons = filterLessonsByDate(reqLessons.data, datesStore.currDay)
+            const sortedDayLessons = sortLessonsByGroup(dayLessons)
+            return groupLessons(sortedDayLessons, "cabinet.number")
         } catch (e) {
             console.error(e);
         } finally {
             this.loading = false;
         }
-    }
-
-    setLessons = (value) => {
-        this.currLessons = value
     }
 }
 
