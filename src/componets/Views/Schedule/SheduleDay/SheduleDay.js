@@ -6,6 +6,7 @@ import datesStore from "../../../../store/datesStore";
 import DayLesson from "../../../Lesson/DayLesson/DayLesson";
 import {Lessons, Main, ScheduleWrapper} from "./ScheduleDay.style";
 import NoLessonsTitle from "../../../Common/NoLessonsTitle";
+import fillEmptyLessons from "../../../../lib/fillEmptyLessons";
 
 
 function ScheduleDay({lessons}) {
@@ -22,7 +23,7 @@ function ScheduleDay({lessons}) {
                 <Lessons>
                     {dayLessons.length === 0
                         ? <NoLessonsTitle>Нет пар</NoLessonsTitle>
-                        : dayLessons.map((lesson) => {
+                        : fillEmptyLessons(dayLessons).map((lesson) => {
                             return <DayLesson key={lesson._id} lesson={lesson}/>;
                         })}
                 </Lessons>

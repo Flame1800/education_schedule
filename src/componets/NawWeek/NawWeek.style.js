@@ -8,19 +8,28 @@ export const NawWeekWrapper = styled.div`
   height: 60px;
   user-select: none;
   z-index: 20;
-  top: 0;
   border: 1px solid #ADADAD;
   border-radius: 20px;
+  margin-top: 10px;
+
+  @media screen and (max-width: 425px) {
+    border-radius: 0;
+    position: fixed;
+    bottom: 0;
+    border: none;
+    background: #fff;
+    border-top: 1px solid #8a8a8a;
+  }
 `
 
 export const Num = styled.div`
   color: #6F6F6F;
-  font-size: 18px;
+  font-size: 16px;
 
 `
 
 export const Day = styled.div`
-  width: 50px;
+  width: 40px;
   height: 22px;
   font-size: 14px;
   top: 45px;
@@ -31,6 +40,11 @@ export const Day = styled.div`
   background: #C4C4C4;
   border-radius: 5px;
   transition: 0.2s;
+
+  @media screen and (max-width: 425px) {
+    position: absolute;
+    top: -17px;
+  }
 `
 
 
@@ -41,7 +55,7 @@ export const WeekDayItem = styled.div`
   align-items: center;
   width: 100%;
   color: #6F6F6F;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
   transition: 0.2s;
 
@@ -76,10 +90,20 @@ export const WeekDayItem = styled.div`
 
   &:first-child {
     border-radius: 15px 0 0 15px;
+
+    @media screen and (max-width: 425px) {
+      border-radius: 0;
+    }
   }
 
   &:last-child {
     border-radius: 0 15px 15px 0;
     width: 101%;
+
+    @media screen and (max-width: 425px) {
+      border-radius: 0;
+    }
   }
+
+
 `

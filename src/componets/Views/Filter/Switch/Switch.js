@@ -15,7 +15,7 @@ const Switch = () => {
     };
 
     return (
-        <SwitchWrapper>
+        <SwitchWrapper fixed>
             {mods.map((currMode, id) => (
                 <Item active={mode === currMode.value}
                       key={id}

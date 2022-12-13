@@ -10,6 +10,12 @@ export const FilterWrapper = styled.div`
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (max-width: 1100px) {
+    border: none;
+    margin: 0;
+    padding: 40px 0;
+  }
 `
 
 export const BlockInfo = styled.div`
@@ -23,6 +29,11 @@ export const BlockInfo = styled.div`
   font-size: 18px;
   color: rgb(102, 102, 102);
   bottom: 40px;
+
+  @media screen and (max-width: 500px) {
+    position: relative;
+    justify-content: center;
+  }
 `
 
 export const Date = styled.span`
@@ -32,6 +43,7 @@ export const Date = styled.span`
 `
 
 export const ShowAllGroupsBtn = styled.div`
+  margin-top: 10px;
   padding: 5px 20px;
   border-radius: 20px;
   color: #9b9b9b;

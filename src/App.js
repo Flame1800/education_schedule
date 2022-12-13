@@ -7,6 +7,7 @@ import Schedule from "./componets/Views/Schedule/Schedule";
 import DivisionLessons from "./componets/Views/TvDivisionLessons/DivisionLessons/DivisionLessons";
 import Cabinets from "./componets/Views/Cabinets/Cabinets";
 import DivisionLessonsFilter from "./componets/Views/TvDivisionLessons/DivisionLessonsFilter";
+import NotFound from "./componets/Views/NotFound/NotFound";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                     <Route path=':id' element={<DivisionLessons/>}/>
                 </Route>
             </Route>
+            <Route path="*" element={<NotFound/>}/>
         </Routes>
     );
 }

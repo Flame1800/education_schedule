@@ -18,6 +18,10 @@ export const Main = styled.main`
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    margin: 0 auto;
+  }
 `
 
 export const GroupTitle = styled.span`

@@ -19,6 +19,7 @@ export const Main = styled.div`
   flex-direction: column;
   margin-bottom: 30px;
   border-radius: 30px;
+  padding: 20px;
 `
 
 export const Lessons = styled.div`

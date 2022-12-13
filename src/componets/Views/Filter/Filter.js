@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import weekModeViews from "../../../consts/weekModeViews";
 import styled from "styled-components";
 import {Skeleton} from "@mui/material";
+import {isMobile} from "react-device-detect";
 
 function Filter() {
     const {currWeek, weekMode, changeWeek, getCurrentWeek, loading} = schedule
@@ -66,11 +67,11 @@ function Filter() {
                     >
                         {weekMode === weekModeViews.curr ? "Следующая неделя" : "Текущая неделя"}
                     </ShowAllGroupsBtn>
-                    <Link to='/timetable/divisions'>
+                    {!isMobile && <Link to='/timetable/divisions'>
                         <ShowAllGroupsBtn>
                             Все группы
                         </ShowAllGroupsBtn>
-                    </Link>
+                    </Link>}
                 </Flex>
             </BlockInfo>
         </FilterWrapper>
@@ -90,6 +91,7 @@ const Empty = styled.div`
 
 const Flex = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 
 const Loader = styled.div`

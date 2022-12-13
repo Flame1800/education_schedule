@@ -4,6 +4,7 @@ import FilterStore from "../../../../store/filterStore";
 import {observer} from "mobx-react-lite";
 import {Link} from "react-router-dom";
 import scheduleStore from "../../../../store/scheduleStore";
+import {Column, FilterItems} from "./FilterTabs.styled";
 
 
 const GroupsFilter = () => {
@@ -12,8 +13,8 @@ const GroupsFilter = () => {
 
 
     return (
-        <div className="items-list">
-            <div className="column">
+        <FilterItems>
+            <Column>
                 {divisions.map((item) => (
                     <Link to={`/timetable/cabinet/${encodeURIComponent(item.name)}?week=${weekMode}`}>
                         <FilterParam
@@ -23,8 +24,8 @@ const GroupsFilter = () => {
                         />
                     </Link>
                 ))}
-            </div>
-        </div>
+            </Column>
+        </FilterItems>
     );
 };
 

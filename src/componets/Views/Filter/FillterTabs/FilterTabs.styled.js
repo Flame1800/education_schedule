@@ -12,13 +12,18 @@ export const FilterItems = styled.div`
   @media screen and (max-width: 550px) {
     position: relative;
     flex-direction: column;
-    margin: 0;
-    height: 80vh;
+    margin: 0 auto;
+    height: 70vh;
   }
 `
 
 export const Column = styled.div`
   margin-right: 50px;
+  margin-top: 20px;
+
+  @media screen and (max-width: 550px) {
+    margin: 0 auto;
+  }
 `
 
 export const OverflowColumn = styled.div`
@@ -46,7 +51,11 @@ export const OverflowColumn = styled.div`
   @media screen and (max-width: 550px) {
     padding-top: 20px;
     position: absolute;
-    background: #f5f5f5;
+    background: none;
+    background: #fff;
+    border-bottom: 1px solid #b4b4b4;
+    border-top: 1px solid #b4b4b4;
+    border-radius: 0;
     top: 0;
     z-index: 10;
     width: 100%;
