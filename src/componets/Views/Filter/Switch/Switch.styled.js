@@ -45,7 +45,6 @@ export const Item = styled.div`
   height: 99%;
 
   @media screen and (max-width: 425px) {
-    height: 35px;
   }
 
 
