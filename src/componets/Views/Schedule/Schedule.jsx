@@ -14,6 +14,7 @@ const Schedule = ({mode}) => {
     const {id} = useParams()
     const {setLessonsByGroup, setLessonsByTeacher, changeWeek} = schedule;
     const {view} = viewModeStore
+    const [loading, setLoading] = useState(false)
     const [currLessons, setCurrLessons] = useState([])
     const [searchParams] = useSearchParams();
 
@@ -28,8 +29,15 @@ const Schedule = ({mode}) => {
         (async () => {
             setMode(mode)
             changeWeek(searchParams.get('week'))
-            const fetchLessons = await loadLessons[mode]
-            setCurrLessons(fetchLessons)
+            try {
+                setLoading(true)
+                const fetchLessons = await loadLessons[mode]
+                setCurrLessons(fetchLessons)
+            } catch (e) {
+                console.error(e)
+            } finally {
+                setLoading(false)
+            }
         })()
     }, [id])
 
@@ -46,7 +54,7 @@ const Schedule = ({mode}) => {
     return (
         <>
             {currLessons && <Sidebar lessons={currLessons}/>}
-            {currLessons.length === 0 ? loader : scheduleContainer}
+            {loading ? loader : scheduleContainer}
         </>
     )
 }

@@ -15,11 +15,11 @@ import {Skeleton} from "@mui/material";
 import {isMobile} from "react-device-detect";
 
 function Filter() {
-    const {currWeek, weekMode, changeWeek, getCurrentWeek, loading} = schedule
+    const {currWeek, currDate, weekMode, changeWeek, getCurrentWeek, loading} = schedule
     const {mode} = filterStore;
 
 
-    const currWeekView = DateTime.fromISO(currWeek?.dateStart).toISODate() ?? "..."
+    const currWeekView = currDate ?? "..."
 
     React.useEffect(() => {
         getCurrentWeek()
@@ -30,7 +30,6 @@ function Filter() {
     const changeWeekHandle = () => {
         (async () => {
             const mode = weekMode === weekModeViews.next ? weekModeViews.curr : weekModeViews.next
-            console.log(mode)
             changeWeek(mode)
             await getCurrentWeek()
         })()

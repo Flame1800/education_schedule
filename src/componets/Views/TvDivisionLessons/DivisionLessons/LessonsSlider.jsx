@@ -28,7 +28,7 @@ const LessonsSlider = ({lessons, pagination}) => {
         2600: getBreakpoint(12)
     }
 
-    const isNotSliderMode = window.innerWidth >= 2300 && lessons.length <= 10
+    const isNotSliderMode = lessons.length <= 10
 
 
     const generateLessons = (dayLessons) => {
@@ -64,7 +64,7 @@ const LessonsSlider = ({lessons, pagination}) => {
         )
     })
 
-    if (window.innerWidth >= 2300 && lessons.length <= 10) {
+    if (lessons.length <= 10) {
         return (
             <div className="schedule-all">
                 {lessonItems}

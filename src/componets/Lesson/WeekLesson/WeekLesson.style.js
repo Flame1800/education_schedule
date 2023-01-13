@@ -41,6 +41,11 @@ export const LessonName = styled.span`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  max-width: 200px;
+`
+
+export const ShortLessonName = styled(LessonName)`
+  max-width: 103px;
 `
 
 export const Meta = styled.div`

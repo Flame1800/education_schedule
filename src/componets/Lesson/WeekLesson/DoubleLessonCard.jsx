@@ -1,6 +1,6 @@
 import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
-import {CabNum, LessonName, Meta, MetaText, MinCont} from "./WeekLesson.style";
+import {CabNum, ShortLessonName, MetaText, MinCont} from "./WeekLesson.style";
 import styled from "styled-components";
 
 const DoubleLessonCard = ({lesson}) => {
@@ -19,7 +19,7 @@ const DoubleLessonCard = ({lesson}) => {
     const getHeader = (couple) => {
         return (
             <MinCont>
-                <LessonName>{getSubjectName(couple)}</LessonName>
+                <ShortLessonName>{getSubjectName(couple)}</ShortLessonName>
                 <MetaText>
                     <div className="name-min">{couple.teacher.abb_name}</div>
                 </MetaText>

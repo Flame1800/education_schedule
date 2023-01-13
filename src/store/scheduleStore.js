@@ -10,8 +10,9 @@ import {getDivisionWeekLessons, getGroupWeekLessons, getTeacherWeekLessons, getW
 
 class ScheduleStore {
     currWeek = null;
+    currDate = DateTime.now().toISODate()
     loading = false;
-    weekMode = 'curr'
+    weekMode = 'curr';
 
     constructor() {
         makeAutoObservable(this);
@@ -19,15 +20,26 @@ class ScheduleStore {
 
     getCurrentWeek = async () => {
         this.loading = true;
+
+        const currDay = DateTime.now()
+        const dateWeek = currDay.weekday
+
+        const startDay = dateWeek === 6
+            ? DateTime.now().plus({weeks: 1})
+            : DateTime.now()
+
         try {
             const currDate = this.weekMode === weekModeViews.curr
-                ? DateTime.now().toISODate()
-                : DateTime.now().plus({weeks: 1}).toISODate();
+                ? startDay.toISODate()
+                : startDay.plus({weeks: 1}).toISODate();
+
+            this.currDate = currDate
+
 
             const currWeek = await getWeek(currDate);
 
             if (currWeek.data.length === 0) {
-                this.currWeek = null
+                this.currWeek = +null
             }
 
             this.currWeek = currWeek.data[0]

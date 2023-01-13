@@ -18,6 +18,7 @@ import {
 } from "./ScheduleWeek.style";
 import StateTitle from "../../../Common/NoLessonsTitle";
 
+
 function ScheduleWeek({lessons}) {
     const {setDay, datesWeek, getDatesWeek} = datesStore
     const {setView} = viewModeStore
@@ -48,6 +49,7 @@ function ScheduleWeek({lessons}) {
                     : generateLessons(dayLessons)
 
                 return (
+                    // DayLessonsWrapper max width = 1560px
                     <DayLessonsWrapper key={day.day}>
                         <Main>
                             <Header>
@@ -59,7 +61,9 @@ function ScheduleWeek({lessons}) {
                                     </Button>
                                 </Meta>
                             </Header>
-                            <Lessons>{dayLessonsComponent}</Lessons>
+                            <Lessons>
+                                {dayLessonsComponent}
+                            </Lessons>
                         </Main>
                     </DayLessonsWrapper>
                 )

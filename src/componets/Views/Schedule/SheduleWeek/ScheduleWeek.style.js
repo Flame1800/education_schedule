@@ -7,6 +7,7 @@ export const ScheduleWrapper = styled.div`
   justify-content: center;
   user-select: none;
   padding: 0;
+  width: 100%;
 `
 
 

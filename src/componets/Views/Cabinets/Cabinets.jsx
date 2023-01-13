@@ -34,21 +34,6 @@ const Cabinets = () => {
     }, [currDay])
 
 
-    if (lessons.length === 0) {
-        return (
-            <div className='container-all'>
-                <Link to="/timetable">
-                    <div className="back-btn">Назад</div>
-                </Link>
-                <div className="schedule-all">
-                    <div className='empty-lesson'>
-                        {loading ? "Загрузка..." : "Нет пар"}
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className='container-all'>
             <Link to="/timetable">
@@ -57,7 +42,12 @@ const Cabinets = () => {
             <div className="schedule-all">
                 <div className="cabs">
                     <NawWeek/>
-                    <div className="cab-items">
+                    {lessons.length === 0 &&
+                        <div className='empty-lesson'>
+                            {loading ? "Загрузка..." : "Нет пар"}
+                        </div>
+                    }
+                    {lessons.length !== 0 && <div className="cab-items">
                         {lessons.map(pair => {
                             const [groupName, lessons] = pair
                             const groupNameMapped = groupName === "undefined" ? "***" : groupName
@@ -77,7 +67,7 @@ const Cabinets = () => {
                                 </div>
                             )
                         })}
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

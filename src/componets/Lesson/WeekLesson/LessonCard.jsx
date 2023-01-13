@@ -20,9 +20,7 @@ const LessonCard = ({lesson}) => {
 
     return (
         <>
-            <div>
-                <LessonName>{getSubjectName(lesson)}</LessonName>
-            </div>
+            <LessonName>{getSubjectName(lesson)}</LessonName>
             <Meta>
                 {personalInfo}
                 {cab}
