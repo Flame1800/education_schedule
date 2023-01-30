@@ -2,7 +2,6 @@ import React from "react";
 import Switch from "./Switch/Switch";
 import schedule from "../../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
-import {DateTime} from "luxon";
 import GroupsFilter from "./FillterTabs/GroupsFilter";
 import TeachersFilter from "./FillterTabs/TeachersFilter";
 import filterStore from "../../../store/filterStore";

@@ -54,18 +54,21 @@ function DivisionLessons() {
 
     return (
         <div className='container-all' style={{zoom: `${zoom ? zoom : 1}`}}>
-            <Date>{datesStore.currDay}</Date>
             {firstHalf.length > 0 && <LessonsSlider lessons={firstHalf}/>}
             {secondHalf.length > 0 && <LessonsSlider lessons={secondHalf} pagination={true}/>}
+            <Date>{datesStore.currDay}</Date>
         </div>
     );
 }
 
 const Date = styled.div`
-  margin: 0 auto;
+  bottom: 40px;
   font-weight: 600;
   color: #858585;
   font-size: 20px;
+  width: 100%;
+  margin-top: -40px;
+  padding-left: 5px;
 `
 
 

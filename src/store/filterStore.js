@@ -8,8 +8,8 @@ import division from "../componets/Views/Filter/FillterTabs/FilterParams/FilterP
 class FilterStore {
     division = "";
     course = "";
-    divisions = []
-    groups = []
+    divisions = [];
+    groups = [];
     mode = "group"; // group | teacher | allGroups
     data = [];
     loading = false
