@@ -65,11 +65,11 @@ function Filter() {
                     >
                         {weekMode === weekModeViews.curr ? "Следующая неделя" : "Текущая неделя"}
                     </ShowAllGroupsBtn>
-                    {!isMobile && <Link to='/timetable/divisions'>
+                    <Link to='/timetable/divisions'>
                         <ShowAllGroupsBtn>
                             Все группы
                         </ShowAllGroupsBtn>
-                    </Link>}
+                    </Link>
                 </Flex>
             </BlockInfo>
         </FilterWrapper>
