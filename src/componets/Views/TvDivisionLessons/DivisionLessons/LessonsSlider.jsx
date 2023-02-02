@@ -33,7 +33,7 @@ const LessonsSlider = ({lessons, pagination}) => {
 
     const generateLessons = (dayLessons) => {
         const fLessons = filterLessons(dayLessons);
-        return fLessons.map((lesson) => <WeekLesson key={lesson._id} lesson={lesson}/>);
+        return fLessons.map((lesson, id) => <WeekLesson key={id} lesson={lesson}/>);
     }
 
     const lessonItems = lessons.map(pair => {
