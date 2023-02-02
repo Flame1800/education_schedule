@@ -19,11 +19,12 @@ const LessonsSlider = ({lessons, pagination}) => {
     const breakpoints = {
         // when window width is >= 320px
         120: getBreakpoint(1),
-        470: getBreakpoint(2),
-        950: getBreakpoint(4),
-        1200: getBreakpoint(5),
-        1600: getBreakpoint(7),
-        2100: getBreakpoint(8),
+        460: getBreakpoint(2),
+        660: getBreakpoint(3),
+        850: getBreakpoint(4),
+        1200: getBreakpoint(6),
+        1700: getBreakpoint(7),
+        2000: getBreakpoint(9),
         2300: getBreakpoint(10),
         2600: getBreakpoint(12)
     }

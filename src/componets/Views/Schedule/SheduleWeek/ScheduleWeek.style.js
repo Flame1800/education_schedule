@@ -56,7 +56,7 @@ export const DayLesson = styled.div`
 `
 
 export const DayMonth = styled.div`
-  width: 50px;
+  width: 80px;
   height: 22px;
   font-size: 14px;
   top: 45px;
