@@ -36,8 +36,7 @@ function DivisionLessons() {
         })()
     }, [])
 
-    const zoom = searchParams.get('zoom')
-    console.log(dayLessons)
+    const tv = searchParams.get('tv')
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2)
     const secondHalf = dayLessons.filter((_, i) => i >= dayLessons.length / 2)
 
@@ -53,7 +52,7 @@ function DivisionLessons() {
     }
 
     return (
-        <div className='container-all' style={{zoom: `0.86`}}>
+        <div className='container-all' style={{zoom: tv === 'ture' ? `0.86` : '1'}}>
             {dayLessons.length > 0 && <LessonsSlider lessons={firstHalf}/>}
             {dayLessons.length > 0 && <LessonsSlider lessons={secondHalf} pagination={true}/>}
             <Date>{datesStore.currDay}</Date>
