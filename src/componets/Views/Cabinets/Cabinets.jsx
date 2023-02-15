@@ -6,6 +6,8 @@ import WeekLesson from "../../Lesson/WeekLesson/WeekLesson";
 import scheduleStore from "../../../store/scheduleStore";
 import {observer} from "mobx-react-lite";
 import datesStore from "../../../store/datesStore";
+import sortArr from "../../../lib/sortArr";
+import filterStore from "../../../store/filterStore";
 
 const Cabinets = () => {
     const {getLessonsForCabinets, changeWeek} = scheduleStore
@@ -16,9 +18,12 @@ const Cabinets = () => {
     const {id} = useParams()
     const [searchParams] = useSearchParams();
 
+    const {setMode} = filterStore
+
 
     useEffect(() => {
         (async () => {
+            setMode('cabinet')
             setLoading(true)
             try {
                 changeWeek(searchParams.get('week'))
@@ -31,7 +36,7 @@ const Cabinets = () => {
             }
 
         })()
-    }, [currDay])
+    }, [currDay, setMode, changeWeek])
 
 
     return (
@@ -48,7 +53,7 @@ const Cabinets = () => {
                         </div>
                     }
                     {lessons.length !== 0 && <div className="cab-items">
-                        {lessons.map(pair => {
+                        {sortArr(lessons).map(pair => {
                             const [groupName, lessons] = pair
                             const groupNameMapped = groupName === "undefined" ? "***" : groupName
 
@@ -59,8 +64,8 @@ const Cabinets = () => {
                                             <div className="group">{groupNameMapped}</div>
                                         </div>
                                         <div className="lesson-cont">
-                                            {filterLessons(lessons).map((lesson) => {
-                                                return <WeekLesson key={lesson._id} lesson={lesson}/>
+                                            {filterLessons(lessons).map((lesson, i) => {
+                                                return <WeekLesson key={i} lesson={lesson}/>
                                             })}
                                         </div>
                                     </div>

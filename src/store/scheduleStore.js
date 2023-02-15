@@ -24,10 +24,9 @@ class ScheduleStore {
         const currDay = DateTime.now()
         const dateWeek = currDay.weekday
 
-
         const startDay = dateWeek === 7
-            ? DateTime.now().plus({weeks: 1})
-            : DateTime.now()
+            ? currDay.plus({days: 1})
+            : currDay
 
         try {
             const currDate = this.weekMode === weekModeViews.curr

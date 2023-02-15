@@ -11,7 +11,6 @@ import {Link} from "react-router-dom";
 import weekModeViews from "../../../consts/weekModeViews";
 import styled from "styled-components";
 import {Skeleton} from "@mui/material";
-import {isMobile} from "react-device-detect";
 
 function Filter() {
     const {currWeek, currDate, weekMode, changeWeek, getCurrentWeek, loading} = schedule
@@ -24,7 +23,7 @@ function Filter() {
         getCurrentWeek()
         filterStore.getDivisions()
         filterStore.getGroups()
-    }, []);
+    }, [getCurrentWeek]);
 
     const changeWeekHandle = () => {
         (async () => {

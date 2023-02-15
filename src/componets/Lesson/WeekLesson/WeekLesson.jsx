@@ -4,7 +4,7 @@ import getSubjectName from "../../../lib/getSubjectName";
 import EmptyLesson from "./EmptyLesson/EmptyLesson";
 import DoubleLessonCard from './DoubleLessonCard'
 import '../lesson.scss'
-import {Content, LessonWrap, Num} from "./WeekLesson.style";
+import {Content, LessonWrap, Num, LessonHead, Time} from "./WeekLesson.style";
 
 const WeekLesson = ({lesson}) => {
     const isDouble = Array.isArray(lesson)
@@ -18,7 +18,10 @@ const WeekLesson = ({lesson}) => {
 
     return (
         <LessonWrap>
-            {numLesson}
+            <LessonHead>
+                {numLesson}
+                <Time>{lesson.timeStart} - {lesson.timeEnd}</Time>
+            </LessonHead>
             <Content>
                 {isDouble ? <DoubleLessonCard lesson={lesson}/> : <LessonCard lesson={lesson}/>}
             </Content>

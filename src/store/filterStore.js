@@ -1,9 +1,8 @@
-import {makeAutoObservable, toJS} from "mobx";
+import {makeAutoObservable} from "mobx";
 import _ from "lodash";
 import sortArr from "../lib/sortArr";
-import API, {getDivisions, getDivisionWeekLessons, getGroups} from "../lib/API";
+import {getDivisions, getDivisionWeekLessons, getGroups} from "../lib/API";
 import scheduleStore from "./scheduleStore";
-import division from "../componets/Views/Filter/FillterTabs/FilterParams/FilterParam";
 
 class FilterStore {
     division = "";

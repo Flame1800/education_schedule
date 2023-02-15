@@ -23,8 +23,8 @@ function ScheduleDay({lessons}) {
                 <Lessons>
                     {dayLessons.length === 0
                         ? <NoLessonsTitle>Нет пар</NoLessonsTitle>
-                        : fillEmptyLessons(dayLessons).map((lesson) => {
-                            return <DayLesson key={lesson._id} lesson={lesson}/>;
+                        : fillEmptyLessons(dayLessons).map((lesson, i) => {
+                            return <DayLesson key={i} lesson={lesson}/>;
                         })}
                 </Lessons>
             </Main>

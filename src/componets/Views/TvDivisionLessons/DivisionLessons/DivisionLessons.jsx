@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './sheduleAllGroups.scss';
 import {observer} from "mobx-react-lite";
 import scheduleStore from "../../../../store/scheduleStore";
@@ -36,7 +36,7 @@ function DivisionLessons() {
         })()
     }, [])
 
-    const tv = searchParams.get('tv')
+    const zoom = searchParams.get('zoom')
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2)
     const secondHalf = dayLessons.filter((_, i) => i >= dayLessons.length / 2)
 
@@ -52,7 +52,7 @@ function DivisionLessons() {
     }
 
     return (
-        <div className='container-all' style={{zoom: tv === 'ture' ? `0.86` : '1'}}>
+        <div className='container-all' style={{zoom: zoom ? zoom : 1}}>
             {dayLessons.length > 0 && <LessonsSlider lessons={firstHalf}/>}
             {dayLessons.length > 0 && <LessonsSlider lessons={secondHalf} pagination={true}/>}
             <Date>{datesStore.currDay}</Date>
@@ -61,12 +61,10 @@ function DivisionLessons() {
 }
 
 const Date = styled.div`
-  bottom: 40px;
   font-weight: 600;
   color: #858585;
   font-size: 20px;
   width: 100%;
-  margin-top: -40px;
   padding-left: 5px;
 `
 

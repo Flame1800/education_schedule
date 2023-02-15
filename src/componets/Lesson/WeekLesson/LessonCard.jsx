@@ -2,6 +2,7 @@ import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
 import filterStore from "../../../store/filterStore";
 import {CabNum, LessonName, Meta, MetaText} from "./WeekLesson.style";
+import {observer} from "mobx-react-lite";
 
 const LessonCard = ({lesson}) => {
     const {mode} = filterStore
@@ -14,7 +15,7 @@ const LessonCard = ({lesson}) => {
 
     const cab = (
         <CabNum>
-            {lesson.cabinet?.number || "***"}
+            {mode === 'cabinet' ? lesson.group.name : lesson.cabinet?.number || "***"}
         </CabNum>
     )
 
@@ -29,4 +30,4 @@ const LessonCard = ({lesson}) => {
     );
 };
 
-export default LessonCard;
+export default observer(LessonCard);

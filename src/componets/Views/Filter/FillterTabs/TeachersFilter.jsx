@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import FilterParam from "./FilterParams/FilterParam";
 import FilterStore from "../../../../store/filterStore";
 import {observer} from "mobx-react-lite";

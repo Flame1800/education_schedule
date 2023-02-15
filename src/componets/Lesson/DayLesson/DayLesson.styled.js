@@ -7,7 +7,7 @@ export const LessonCardWrapper = styled.div`
   max-width: 750px;
   width: 100%;
   margin-bottom: 15px;
-  
+
 `
 
 export const NumLessons = styled.span`
@@ -18,16 +18,40 @@ export const NumLessons = styled.span`
   cursor: pointer;
 `
 
+
 export const LessonContent = styled.div`
   background: #f5f5f5;
   min-height: 150px;
   width: 90%;
-  margin-bottom: 10px;
-  margin-left: 21px;
+  margin-bottom: 20px;
   border-radius: 15px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
   transition: 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+export const Time = styled.div`
+  text-align: center;
+  height: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 0;
+  border-radius: 12px;
+  margin-bottom: -10px;
+  background: #fff;
+  color: #4b4b4b;
+  border: 1px solid #d3d3d3;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 export const EmptyLessonStyle = styled(LessonContent)`
@@ -47,6 +71,7 @@ export const LessonCardContainer = styled.div`
   justify-content: space-between;
   padding-top: 12px;
   margin-bottom: 10px;
+  width: 100%;
 `
 
 export const InfoTitle = styled.div`
@@ -65,6 +90,7 @@ export const SubTitle = styled.div`
 export const Sign = styled.div`
   width: 17px;
   height: 17px;
+  margin-bottom: -10px;
   border-radius: 50%;
   background: #fac145;
   display: flex;
@@ -73,6 +99,8 @@ export const Sign = styled.div`
   font-size: 11px;
   color: #000;
   font-weight: 600;
+  position: relative;
+  z-index: 2;
 `
 
 export const Cab = styled.span`

@@ -2,15 +2,18 @@ import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
 import {CabNum, ShortLessonName, MetaText, MinCont} from "./WeekLesson.style";
 import styled from "styled-components";
+import {observer} from "mobx-react-lite";
+import filterStore from "../../../store/filterStore";
 
 const DoubleLessonCard = ({lesson}) => {
     const [firstCouple, secondCouple] = lesson
+    const {mode} = filterStore
+
 
     const getCab = (couple) => {
         return (
             <CabNum>
-                <div className="flag-icon"></div>
-                {couple.cabinet ? couple.cabinet.number : null}
+                {mode === 'cabinet' ? couple.group.name : couple.cabinet?.number || null}
             </CabNum>
         )
     }
@@ -21,7 +24,7 @@ const DoubleLessonCard = ({lesson}) => {
             <MinCont>
                 <ShortLessonName>{getSubjectName(couple)}</ShortLessonName>
                 <MetaText>
-                    <div className="name-min">{couple.teacher.abb_name}</div>
+                    <div className="name-min">{mode !== 'teacher' ? couple.teacher.abb_name : couple.group.name}</div>
                 </MetaText>
                 {getCab(couple)}
             </MinCont>
@@ -42,4 +45,4 @@ const Wrap = styled.div`
   justify-content: space-between;
 `
 
-export default DoubleLessonCard;
+export default observer(DoubleLessonCard);

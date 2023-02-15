@@ -16,7 +16,7 @@ const GroupsFilter = () => {
         <FilterItems>
             <Column>
                 {divisions.map((item) => (
-                    <Link to={`/timetable/cabinet/${encodeURIComponent(item.name)}?week=${weekMode}`}>
+                    <Link key={item.name} to={`/timetable/cabinet/${encodeURIComponent(item.name)}?week=${weekMode}`}>
                         <FilterParam
                             key={item._id}
                             item={item}

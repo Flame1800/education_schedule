@@ -20,7 +20,7 @@ const DivisionLessonsFilter = () => {
 
     useEffect(() => {
         setDay(DateTime.now().toISODate())
-    }, [])
+    }, [setDay])
 
     return (
         <FilterWrapper>

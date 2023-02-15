@@ -27,7 +27,7 @@ function ScheduleWeek({lessons}) {
         (async () => {
             await getDatesWeek()
         })()
-    }, [])
+    }, [getDatesWeek])
 
     const generateLessons = (dayLessons) => {
         const fLessons = filterLessons(dayLessons);
