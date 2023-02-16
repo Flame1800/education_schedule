@@ -4,6 +4,7 @@ import WeekLesson from "../../../Lesson/WeekLesson/WeekLesson";
 import 'swiper/swiper.scss';
 import {Splide, SplideSlide} from '@splidejs/react-splide';
 import '@splidejs/react-splide/dist/css/splide.min.css';
+import groupColors from "../../../../assets/groupColors";
 
 
 const LessonsSlider = ({lessons}) => {
@@ -18,10 +19,12 @@ const LessonsSlider = ({lessons}) => {
         const [groupName, groupLessons] = pair
         const groupNameComponent = <div className="group">{groupName}</div>
 
+        const groupLilName = groupName.split('-')[0]
+
         const lessonContainer = (
             <div className="container-day" key={groupName}>
                 <div className="row-items">
-                    <div className="head">
+                    <div className="head" style={{background: groupColors[groupLilName]}}>
                         {groupNameComponent}
                     </div>
                     <div className="lesson-cont">

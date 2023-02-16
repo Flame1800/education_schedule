@@ -26,7 +26,9 @@ function DivisionLessons() {
                 filterStore.setMode('group')
                 changeWeek(searchParams.get('week'))
                 const lessons = await getDayLessons(id)
+
                 setDayLessons(lessons ? lessons : [])
+
             } catch (e) {
                 console.error(e)
             } finally {
@@ -34,6 +36,8 @@ function DivisionLessons() {
             }
 
         })()
+
+
     }, [])
 
     const zoom = searchParams.get('zoom')

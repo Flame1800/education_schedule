@@ -24,7 +24,11 @@ const DayLesson = ({lesson}) => {
             <NumLessons>{isDouble ? lesson[0].lessonNumber : lesson.lessonNumber}</NumLessons>
             <LessonContent>
                 {isDouble ? doubleCouple : <LessonCard lesson={lesson}/>}
-                <Time>{lesson.timeStart} - {lesson.timeEnd}</Time>
+                <Time>
+                    {isDouble ? lesson[0].timeStart : lesson.timeStart}
+                    -
+                    {isDouble ? lesson[0].timeEnd : lesson.timeEnd}
+                </Time>
             </LessonContent>
         </LessonCardWrapper>
     );

@@ -20,7 +20,11 @@ const WeekLesson = ({lesson}) => {
         <LessonWrap>
             <LessonHead>
                 {numLesson}
-                <Time>{lesson.timeStart} - {lesson.timeEnd}</Time>
+                <Time>
+                    {isDouble ? lesson[0].timeStart : lesson.timeStart}
+                    -
+                    {isDouble ? lesson[0].timeEnd : lesson.timeEnd}
+                </Time>
             </LessonHead>
             <Content>
                 {isDouble ? <DoubleLessonCard lesson={lesson}/> : <LessonCard lesson={lesson}/>}

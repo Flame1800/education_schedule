@@ -61,6 +61,7 @@ class ScheduleStore {
         try {
             const week = await this.getCurrentWeek()
             const reqLessons = await getDivisionWeekLessons(week._id, divisionName)
+
             const dayLessons = filterLessonsByDate(reqLessons.data, datesStore.currDay)
             const sortedDayLessons = sortLessonsByGroup(dayLessons)
             return groupLessons(sortedDayLessons, "group.name")
