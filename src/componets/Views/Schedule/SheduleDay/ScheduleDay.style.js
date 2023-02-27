@@ -17,7 +17,7 @@ export const Main = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border-radius: 30px;
   padding: 20px;
 `

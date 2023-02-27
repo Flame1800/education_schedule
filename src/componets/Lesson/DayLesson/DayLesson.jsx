@@ -15,7 +15,8 @@ const DayLesson = ({lesson}) => {
         </>
     )
 
-    if (getSubjectName(lesson) === "Нет пары") {
+
+    if (getSubjectName(lesson) === "Нет пары" || getSubjectName(lesson) === "Разговоры о важном") {
         return <EmptyLesson lesson={lesson}/>
     }
 

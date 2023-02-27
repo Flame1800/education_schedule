@@ -28,8 +28,8 @@ export const Main = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  padding-top: 14px;
-  padding-bottom: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 10px;
   background: #414050;
   width: 100%;
@@ -90,5 +90,4 @@ export const Lessons = styled.div`
   overflow: hidden;
   margin-top: 10px;
   border: 1px solid #c2c2c2;
-  height: 541px;
 `

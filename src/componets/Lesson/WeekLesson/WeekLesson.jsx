@@ -4,22 +4,25 @@ import getSubjectName from "../../../lib/getSubjectName";
 import EmptyLesson from "./EmptyLesson/EmptyLesson";
 import DoubleLessonCard from './DoubleLessonCard'
 import '../lesson.scss'
-import {Content, LessonWrap, Num, LessonHead, Time} from "./WeekLesson.style";
+import {Content, LessonWrap, Num, LessonHead, Time, MinLessonWrap} from "./WeekLesson.style";
 
-const WeekLesson = ({lesson}) => {
+const WeekLesson = ({lesson, day}) => {
     const isDouble = Array.isArray(lesson)
 
-    const numLesson = <Num>{isDouble ? lesson[0].lessonNumber : lesson.lessonNumber}</Num>
+
+    const isMonday = day.weekday === 1
+    const lessonNum = isDouble ? lesson[0].lessonNumber : lesson.lessonNumber
 
 
-    if (getSubjectName(lesson) === "Нет пары") {
-        return <EmptyLesson lesson={lesson}/>
+    if (getSubjectName(lesson) === "Нет пары" || getSubjectName(lesson) === 'Разговоры о важном') {
+
+        return <EmptyLesson height={isMonday && '83px'} lesson={lesson}/>
     }
 
-    return (
-        <LessonWrap>
+    const lessonContent = (
+        <>
             <LessonHead>
-                {numLesson}
+                <Num>{lessonNum}</Num>
                 <Time>
                     {isDouble ? lesson[0].timeStart : lesson.timeStart}
                     -
@@ -29,8 +32,23 @@ const WeekLesson = ({lesson}) => {
             <Content>
                 {isDouble ? <DoubleLessonCard lesson={lesson}/> : <LessonCard lesson={lesson}/>}
             </Content>
+        </>
+    )
+
+    if (isMonday) {
+        return (
+            <MinLessonWrap>
+                {lessonContent}
+            </MinLessonWrap>
+        )
+    }
+
+    return (
+        <LessonWrap>
+            {lessonContent}
         </LessonWrap>
     );
 };
+
 
 export default WeekLesson;

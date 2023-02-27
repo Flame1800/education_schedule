@@ -21,9 +21,9 @@ export const NumLessons = styled.span`
 
 export const LessonContent = styled.div`
   background: #f5f5f5;
-  min-height: 150px;
+  min-height: 120px;
   width: 90%;
-  margin-bottom: 20px;
+  margin-top: 20px;
   border-radius: 15px;
   padding-left: 20px;
   padding-right: 20px;
@@ -58,6 +58,10 @@ export const EmptyLessonStyle = styled(LessonContent)`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  .active {
+    color: #2a2a2a;
+  }
 
   span {
     font-weight: 600;

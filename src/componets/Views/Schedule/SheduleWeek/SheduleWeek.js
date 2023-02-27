@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './sheduleWeek.scss';
-import filterLessons from "../../../../lib/fillEmptyLessons";
+import fillEmptyLessons from "../../../../lib/fillEmptyLessons";
 import {observer} from "mobx-react-lite";
 import datesStore from "../../../../store/datesStore";
 import viewModeStore from "../../../../store/viewModeStore";
@@ -17,6 +17,7 @@ import {
     Meta, ScheduleWrapper
 } from "./ScheduleWeek.style";
 import StateTitle from "../../../Common/NoLessonsTitle";
+import TalksPromoInfo from "../../../Lesson/WeekLesson/TalksPromoInfo";
 
 
 function ScheduleWeek({lessons}) {
@@ -29,9 +30,17 @@ function ScheduleWeek({lessons}) {
         })()
     }, [getDatesWeek])
 
-    const generateLessons = (dayLessons) => {
-        const fLessons = filterLessons(dayLessons);
-        return fLessons.map((lesson) => <WeekLesson key={lesson._id} lesson={lesson}/>);
+    const generateLessons = (dayLessons, day) => {
+        const fLessons = fillEmptyLessons(dayLessons, day);
+        return fLessons.map((lesson) => {
+            const isMonday = day.weekday === 1
+            const isTalks = lesson.lessonNumber === 1 || lesson.lessonNumber === 4
+
+            return (<>
+                {isTalks && isMonday && <TalksPromoInfo pair={lesson.lessonNumber}/>}
+                <WeekLesson key={lesson._id} day={day} lesson={lesson}/>
+            </>)
+        });
     }
 
     const changeViewHandle = (date) => {
@@ -46,7 +55,7 @@ function ScheduleWeek({lessons}) {
                 const dayLessons = sortLessons(lessons.filter(lesson => lesson.date === day.toISODate()));
                 const dayLessonsComponent = dayLessons.length === 0
                     ? <StateTitle>Пар нет</StateTitle>
-                    : generateLessons(dayLessons)
+                    : generateLessons(dayLessons, day)
 
                 return (
                     // DayLessonsWrapper max width = 1560px

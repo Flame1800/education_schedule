@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const LessonWrap = styled.div`
   height: 90px;
   overflow: hidden;
@@ -8,8 +9,14 @@ export const LessonWrap = styled.div`
   position: relative;
 `
 
+export const MinLessonWrap = styled(LessonWrap)`
+  height: 83px;
+`
+
+
 export const UnactiveLesson = styled(LessonWrap)`
   background: none;
+  height: ${({h}) => h ?? '90px'};
 `
 
 export const LessonHead = styled.div`
@@ -95,5 +102,5 @@ export const CabNum = styled.div`
   font-size: 12px;
   color: #494949;
   border-radius: 10px;
-  padding-top: 10px;
+  padding-top: 5px;
 `

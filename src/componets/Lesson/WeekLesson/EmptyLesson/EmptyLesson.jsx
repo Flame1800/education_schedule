@@ -2,9 +2,9 @@ import React from 'react';
 import {UnactiveLesson} from "../WeekLesson.style";
 import styled from "styled-components";
 
-const EmptyLesson = ({lesson}) => {
+const EmptyLesson = ({lesson, height}) => {
     return (
-        <UnactiveLesson>
+        <UnactiveLesson h={height}>
             <ItemNone>
                 <span>{lesson.lessonNumber}</span>
             </ItemNone>
@@ -13,10 +13,6 @@ const EmptyLesson = ({lesson}) => {
 };
 
 const ItemNone = styled.div`
-  height: 90px;
-  padding: 4px 0;
-  overflow: hidden;
-  border-bottom: 1px solid #cbcbcb;
 
   span {
     font-size: 48px;

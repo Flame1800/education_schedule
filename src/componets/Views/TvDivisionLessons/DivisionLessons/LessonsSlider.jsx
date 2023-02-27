@@ -5,16 +5,28 @@ import 'swiper/swiper.scss';
 import {Splide, SplideSlide} from '@splidejs/react-splide';
 import '@splidejs/react-splide/dist/css/splide.min.css';
 import groupColors from "../../../../assets/groupColors";
+import datesStore from "../../../../store/datesStore";
+import fillEmptyLessons from "../../../../lib/fillEmptyLessons";
+import TalksPromoInfo from "../../../Lesson/WeekLesson/TalksPromoInfo";
+import {DateTime} from "luxon";
 
 
 const LessonsSlider = ({lessons}) => {
+    const {currDay} = datesStore
     const isNotSliderMode = lessons.length <= 10
 
-    const generateLessons = (dayLessons) => {
-        const fLessons = filterLessons(dayLessons);
-        return fLessons.map((lesson, id) => <WeekLesson key={id} lesson={lesson}/>);
-    }
+    const generateLessons = (dayLessons, day) => {
+        const fLessons = fillEmptyLessons(dayLessons, day);
+        return fLessons.map((lesson) => {
+            const isMonday = DateTime.fromISO(currDay).weekday === 1
+            const isTalks = lesson.lessonNumber === 1 || lesson.lessonNumber === 4
 
+            return (<>
+                {isTalks && isMonday && <TalksPromoInfo pair={lesson.lessonNumber}/>}
+                <WeekLesson key={lesson._id} day={currDay} lesson={lesson}/>
+            </>)
+        });
+    }
     const lessonItems = lessons.map(pair => {
         const [groupName, groupLessons] = pair
         const groupNameComponent = <div className="group">{groupName}</div>
