@@ -4,7 +4,7 @@ import styled, {css} from "styled-components";
 const TalksPromoInfo = ({pair, rounded}) => {
     return (
             <InfoBlock rounded={rounded}>
-                Разговоры о важном. Начало в {pair === 4 ? "13:10" : "08:30"}
+                Разговоры о важном ({pair === 4 ? 2 : 1} смена)
             </InfoBlock>
     );
 };
