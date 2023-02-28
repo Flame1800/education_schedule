@@ -12,7 +12,6 @@ export const ScheduleWrapper = styled.div`
 
 
 export const DayLessonsWrapper = styled.div`
-  height: 599px;
   max-width: 241px;
   min-width: 245px;
   width: 241px;
@@ -90,4 +89,5 @@ export const Lessons = styled.div`
   overflow: hidden;
   margin-top: 10px;
   border: 1px solid #c2c2c2;
+  height: 541px;
 `

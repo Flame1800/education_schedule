@@ -25,8 +25,6 @@ export default function Lesson(props) {// TODO: Обернуть контент 
                 <div className="item active">
                     <div className="num-lesson">{lesson.lessonNumber}</div>
                     <div className="couple">
-
-
                         <div className="headers">
                             <div className="head-card head-card-first head-card-min">
                                 <div className="name">{getSubjectName(lesson)}</div>
@@ -52,8 +50,6 @@ export default function Lesson(props) {// TODO: Обернуть контент 
                                 {subLesson.cabinet ? subLesson.cabinet.number : null}
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             );

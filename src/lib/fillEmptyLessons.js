@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export default (dayLessons, currDay) => {
+export default (dayLessons) => {
 
     const newLessons = [];
     const findLesson = (num, lessons) => {

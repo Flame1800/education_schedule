@@ -65,7 +65,7 @@ const Cabinets = () => {
                                         </div>
                                         <div className="lesson-cont">
                                             {filterLessons(lessons).map((lesson, i) => {
-                                                return <WeekLesson key={i} lesson={lesson}/>
+                                                return <WeekLesson day={currDay} key={i} lesson={lesson}/>
                                             })}
                                         </div>
                                     </div>
