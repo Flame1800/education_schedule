@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 export const NawWeekWrapper = styled.div`
   width: 100%;
@@ -8,7 +8,7 @@ export const NawWeekWrapper = styled.div`
   height: 60px;
   user-select: none;
   z-index: 20;
-  border: 1px solid #ADADAD;
+  border: 1px solid #adadad;
   border-radius: 20px;
   margin-top: 10px;
 
@@ -20,13 +20,13 @@ export const NawWeekWrapper = styled.div`
     background: #fff;
     border-top: 1px solid #8a8a8a;
   }
-`
+`;
 
 export const Num = styled.div`
-  color: #6F6F6F;
+  color: #6f6f6f;
   font-size: 16px;
-
-`
+  padding: 0 16px;
+`;
 
 export const Day = styled.div`
   width: 40px;
@@ -37,7 +37,7 @@ export const Day = styled.div`
   margin-bottom: -20px;
   margin-top: 5px;
   font-weight: normal;
-  background: #C4C4C4;
+  background: #c4c4c4;
   border-radius: 5px;
   transition: 0.2s;
 
@@ -45,8 +45,7 @@ export const Day = styled.div`
     position: absolute;
     top: -17px;
   }
-`
-
+`;
 
 export const WeekDayItem = styled.div`
   display: flex;
@@ -54,38 +53,40 @@ export const WeekDayItem = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  color: #6F6F6F;
+  color: #6f6f6f;
   font-size: 16px;
   cursor: pointer;
   transition: 0.2s;
 
-  ${props => props.active && css`
-    background: #414050 !important;
-    color: #fff !important;
+  ${(props) =>
+    props.active &&
+    css`
+      background: #414050 !important;
+      color: #fff !important;
 
-    .day {
-      background: #FAC145 !important;
-    }
+      .day {
+        background: #fac145 !important;
+      }
 
-    ${Num} {
-      color: #fff;
-    }
+      ${Num} {
+        color: #fff;
+      }
 
-    ${Day} {
-      background: #FAC145 !important;
-    }
-  `}
+      ${Day} {
+        background: #fac145 !important;
+      }
+    `}
   &:hover {
     ${Num} {
       color: #ffffff;
     }
 
     ${Day} {
-      background: #FAC145 !important;
+      background: #fac145 !important;
     }
 
     background: #585867;
-    color: #A4B3CA;
+    color: #a4b3ca;
   }
 
   &:first-child {
@@ -104,6 +105,4 @@ export const WeekDayItem = styled.div`
       border-radius: 0;
     }
   }
-
-
-`
+`;
