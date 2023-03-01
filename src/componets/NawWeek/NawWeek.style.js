@@ -7,7 +7,7 @@ export const NawWeekWrapper = styled.div`
   justify-content: space-around;
   height: 60px;
   user-select: none;
-  z-index: 20;
+  z-index: 100;
   border: 1px solid #adadad;
   border-radius: 20px;
   margin-top: 10px;
@@ -25,7 +25,7 @@ export const NawWeekWrapper = styled.div`
 export const Num = styled.div`
   color: #6f6f6f;
   font-size: 16px;
-  padding: 0 16px;
+  max-width: 40px;
 `;
 
 export const Day = styled.div`
