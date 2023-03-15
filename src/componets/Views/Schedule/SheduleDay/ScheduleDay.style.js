@@ -9,9 +9,9 @@ export const ScheduleWrapper = styled.div`
   min-height: 80vh;
 
   @media screen and (max-width: 400px) {
-    border: none
+    border: none;
   }
-`
+`;
 
 export const Main = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ export const Main = styled.div`
   margin-bottom: 10px;
   border-radius: 30px;
   padding: 20px;
-`
+`;
 
 export const Lessons = styled.div`
   margin-top: 30px;
@@ -29,4 +29,5 @@ export const Lessons = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-`
+  margin-bottom: 80px;
+`;
