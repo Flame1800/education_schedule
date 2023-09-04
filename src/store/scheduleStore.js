@@ -21,8 +21,12 @@ class ScheduleStore {
     getCurrentWeek = async () => {
         this.loading = true;
 
+
         const currDay = DateTime.now()
         const dateWeek = currDay.weekday
+
+        // Тестовые данные
+        // console.log("getCurrentWeek", DateTime.fromISO("2023-05-15"));
 
         const startDay = dateWeek === 7
             ? currDay.plus({days: 1})

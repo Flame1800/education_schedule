@@ -3,7 +3,7 @@ import "./sidebar.scss";
 import {observer} from "mobx-react-lite";
 import filterStore from "../../../../store/filterStore";
 import viewModeStore from "../../../../store/viewModeStore";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {BtnTitle, FilterBtn, GroupTitle, Main, SidebarWrapper} from "./Sidebar.style";
 import {Item, SwitchWrapper} from "../../Filter/Switch/Switch.styled";
 import FilterIcon from '../../../../assets/img/filter-icon.png'
@@ -11,12 +11,13 @@ import {Skeleton} from "@mui/material";
 
 function Sidebar({lessons}) {
     const {view, setView} = viewModeStore;
-    const {mode} = filterStore;
-
+    const {mode, groups} = filterStore;
+    const {id} = useParams()
+    const currGroup = groups.find(group => group.id_1c === id);
     const changeModeHandle = () => setView(view === "day" ? "week" : "day");
 
     const currEntity = {
-        group: `${lessons[0]?.group.name} группа`,
+        group: `группа ${lessons[0]?.group.name}`,
         teacher: lessons[0]?.teacher.abb_name,
         cabinet: lessons[0]?.cabinet?.name,
     };
@@ -30,7 +31,10 @@ function Sidebar({lessons}) {
         </Link>
     );
 
-    const group = <GroupTitle>{lessons.length ? currEntity[mode] : <Skeleton width={150} height={40}/>}</GroupTitle>;
+    const groupName = currGroup ? `группа ${currGroup?.name}` : null;
+    const title = mode === 'group' ? groupName : currEntity[mode];
+
+    const group = <GroupTitle>{title ?? <Skeleton width={100}/>}</GroupTitle>;
 
     const changeModeComponent = (
         <SwitchWrapper onClick={changeModeHandle}>

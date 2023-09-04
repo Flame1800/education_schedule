@@ -4,7 +4,7 @@ import scheduleStore from "./scheduleStore";
 
 class DatesStore {
     datesWeek = [];
-    currDay = DateTime.now().toISODate()
+    currDay = DateTime.now().toISODate();
 
     constructor() {
         makeAutoObservable(this);

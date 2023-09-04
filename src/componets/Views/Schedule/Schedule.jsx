@@ -18,7 +18,7 @@ const Schedule = ({mode}) => {
     const [currLessons, setCurrLessons] = useState([])
     const [searchParams] = useSearchParams();
 
-    const {setMode} = filterStore
+    const {setMode, getGroups} = filterStore
 
     const loadLessons = {
         'group': setLessonsByGroup(id),
@@ -40,6 +40,10 @@ const Schedule = ({mode}) => {
             }
         })()
     }, [id])
+
+    useEffect(() => {
+        getGroups()
+    }, [])
 
     const loader = (
         <Wrapper>
