@@ -73,8 +73,6 @@ export default function Lesson(props) {// TODO: Обернуть контент 
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             );

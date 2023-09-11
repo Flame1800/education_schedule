@@ -11,27 +11,18 @@ import {Link} from "react-router-dom";
 import weekModeViews from "../../../consts/weekModeViews";
 import styled from "styled-components";
 import {Skeleton} from "@mui/material";
+import SwitchWeekBtn from "./SwitchWeekBtn";
 
 function Filter() {
     const {currWeek, currDate, weekMode, changeWeek, getCurrentWeek, loading} = schedule
     const {mode} = filterStore;
 
 
-    const currWeekView = currDate ?? "..."
-
     React.useEffect(() => {
         getCurrentWeek()
         filterStore.getDivisions()
         filterStore.getGroups()
     }, [getCurrentWeek]);
-
-    const changeWeekHandle = () => {
-        (async () => {
-            const mode = weekMode === weekModeViews.next ? weekModeViews.curr : weekModeViews.next
-            changeWeek(mode)
-            await getCurrentWeek()
-        })()
-    }
 
 
     const filterScreens = {
@@ -49,6 +40,7 @@ function Filter() {
     </Loader>)
 
     const fallBack = !loading ? (<Empty>На эту неделю нет пар</Empty>) : loader
+    const weekIsCurr = weekMode === weekModeViews.curr
 
     return (
         <FilterWrapper>
@@ -56,14 +48,9 @@ function Filter() {
             {!currWeek ? fallBack : filterScreens[mode]}
             <BlockInfo>
                 {loading ? <Skeleton width={250} height={30}/> :
-                    <Date>Расписание занятий на <b>{currWeekView}</b></Date>}
+                    <Date>Расписание занятий на <b>{weekIsCurr ? "текущую " : "следующую "} неделю</b></Date>}
                 <Flex>
-                    <ShowAllGroupsBtn
-                        active={weekModeViews.next === weekMode}
-                        onClick={changeWeekHandle}
-                    >
-                        {weekMode === weekModeViews.curr ? "Следующая неделя" : "Текущая неделя"}
-                    </ShowAllGroupsBtn>
+                    <SwitchWeekBtn/>
                     <Link to='/timetable/divisions'>
                         <ShowAllGroupsBtn>
                             Все группы
@@ -88,6 +75,7 @@ const Empty = styled.div`
 
 const Flex = styled.div`
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
 `
 

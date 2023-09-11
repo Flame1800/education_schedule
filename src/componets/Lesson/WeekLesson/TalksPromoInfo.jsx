@@ -2,13 +2,12 @@ import React from 'react';
 import styled, {css} from "styled-components";
 
 const TalksPromoInfo = ({pair, rounded}) => {
-    return null
 
-    // return (
-    //         <InfoBlock rounded={rounded}>
-    //             Разговоры о важном ({pair === 4 ? 2 : 1} смена)
-    //         </InfoBlock>
-    // );
+    return (
+        <InfoBlock rounded={rounded}>
+            Разговоры о важном ({pair === 4 ? 2 : 1} смена)
+        </InfoBlock>
+    );
 };
 
 const InfoBlock = styled.div`

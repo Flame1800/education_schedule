@@ -18,7 +18,8 @@ const groupColors = {
     "СА": "#bae6fd",
     "НКС": "#ddbeff",
     "ГД": "#f9a8d4",
-    "ИС": "#a3e635"
+    "ИС": "#a3e635",
+    "НАПС": "#00d664"
 }
 
 export default groupColors

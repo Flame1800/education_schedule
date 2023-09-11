@@ -43,7 +43,6 @@ export const Date = styled.span`
 `
 
 export const ShowAllGroupsBtn = styled.div`
-  margin-top: 10px;
   padding: 5px 20px;
   border-radius: 20px;
   color: #9b9b9b;

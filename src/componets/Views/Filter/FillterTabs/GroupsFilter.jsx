@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import FilterParam from "./FilterParams/FilterParam";
 import Course from "./FilterParams/Course";
 import FilterStore from "../../../../store/filterStore";
@@ -10,9 +10,31 @@ import {BackIcon, Column, FilterItems, FilterParamWrapper, OverflowColumn} from 
 import scheduleStore from "../../../../store/scheduleStore";
 
 
+const deleteDuplicates = (array, key) => {
+    let curr = array[0];
+    const result = [];
+
+    for (let i = 0; i < array.length; i++) {
+        if (array[i][key] !== curr[key]) {
+            result.push(array[i]);
+            curr = array[i];
+        }
+    }
+
+    return result;
+}
+
+
 const GroupsFilter = () => {
     const {division, course, setCourse, setDivision, divisions, groups} = FilterStore;
     const {weekMode} = scheduleStore
+
+    // useEffect(() => {
+    //     (async () => {
+    //         const {data} = await getGroups()
+    //         console.log(data.map(group => group.name).sort())
+    //     })()
+    // }, [])
 
     const changeDivisionHandle = (division) => {
         setDivision(division);
@@ -41,7 +63,7 @@ const GroupsFilter = () => {
     ))
 
 
-    const groupComponents = groups ? groups
+    const groupComponents = groups
         .filter(group => group.course === course && group.divisionId === division?.id_1c)
         .map((group) => {
             return (
@@ -49,7 +71,8 @@ const GroupsFilter = () => {
                     <FilterParamWrapper>{group.name}</FilterParamWrapper>
                 </Link>
             );
-        }) : null;
+        });
+
 
     return (
         <FilterItems>
@@ -66,7 +89,7 @@ const GroupsFilter = () => {
                         alt="назад"
                         onClick={() => setDivision(null)}
                     />
-                    {groups.length === 0 ? "Группы не найдены" : groupComponents}
+                    {groupComponents.length ? groupComponents : "Группы не найдены"}
                 </OverflowColumn>
             )}
         </FilterItems>
