@@ -23,19 +23,13 @@ class ScheduleStore {
 
 
         const currDay = DateTime.now()
-        const dateWeek = currDay.weekday
-
+        
         // Тестовые данные
         // console.log("getCurrentWeek", DateTime.fromISO("2023-05-15"));
-
-        const startDay = dateWeek === 7
-            ? currDay.plus({days: 1})
-            : currDay
-
         try {
             const currDate = this.weekMode === weekModeViews.curr
-                ? startDay.toISODate()
-                : startDay.plus({weeks: 1}).toISODate();
+                ? currDay.toISODate()
+                : currDay.plus({weeks: 1}).toISODate();
 
             this.currDate = currDate
 
