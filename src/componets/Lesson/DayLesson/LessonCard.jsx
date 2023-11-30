@@ -1,7 +1,7 @@
 import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
 import filterStore from "../../../store/filterStore";
-import {Cab, HeadCardLesson, InfoTitle, LessonCardContainer, Sign, SubTitle} from "./DayLesson.styled";
+import {Cab, InfoTitle, LessonCardContainer, Sign, SubTitle} from "./DayLesson.styled";
 
 const LessonCard = ({lesson}) => {
     const {mode} = filterStore

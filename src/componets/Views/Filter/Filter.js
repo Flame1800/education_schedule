@@ -14,7 +14,7 @@ import {Skeleton} from "@mui/material";
 import SwitchWeekBtn from "./SwitchWeekBtn";
 
 function Filter() {
-    const {currWeek, currDate, weekMode, changeWeek, getCurrentWeek, loading} = schedule
+    const {currWeek, weekMode, getCurrentWeek, loading} = schedule
     const {mode} = filterStore;
 
 
@@ -33,9 +33,9 @@ function Filter() {
 
 
     const loader = (<Loader>
-        <Skeleton sx={{marginBottom: '15px'}} width={200} height={40}/>
-        <Skeleton sx={{marginBottom: '15px'}} width={200} height={40}/>
-        <Skeleton sx={{marginBottom: '15px'}} width={200} height={40}/>
+        <Skeleton sx={{marginBottom: "15px"}} width={200} height={40}/>
+        <Skeleton sx={{marginBottom: "15px"}} width={200} height={40}/>
+        <Skeleton sx={{marginBottom: "15px"}} width={200} height={40}/>
         <Skeleton width={200} height={40}/>
     </Loader>)
 
@@ -44,13 +44,21 @@ function Filter() {
 
     return (
         <FilterWrapper>
-            <Switch/>
-            {!currWeek ? fallBack : filterScreens[mode]}
+            <Content>
+                <div className="filters">
+                    <FilterButtons>
+                        <Switch />
+                        <PDFLink className="timetable-pdf-m" href="https://sielom.ru/schedule">Расписание в PDF</PDFLink>
+                        <SwitchWeekBtn />
+                    </FilterButtons>
+                    {!currWeek ? fallBack : filterScreens[mode]}
+                </div>
+                <PDFLink className="timetable-pdf" href="https://sielom.ru/schedule">Расписание в PDF</PDFLink>
+            </Content>
             <BlockInfo>
                 {loading ? <Skeleton width={250} height={30}/> :
                     <Date>Расписание занятий на <b>{weekIsCurr ? "текущую " : "следующую "} неделю</b></Date>}
                 <Flex>
-                    <SwitchWeekBtn/>
                     <Link to='/timetable/divisions'>
                         <ShowAllGroupsBtn>
                             Все группы
@@ -61,6 +69,69 @@ function Filter() {
         </FilterWrapper>
     );
 }
+
+const Content = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+    .timetable-pdf-m {
+        display: none;
+    }
+    
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        
+        
+        .timetable-pdf {
+            display: none;
+        }
+
+        .timetable-pdf-m {
+            display: flex;
+            margin: 0 auto;
+        }
+        
+        .filters {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0 20px;
+            align-items: center;
+        }
+    }
+`
+
+const FilterButtons = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+`
+
+const PDFLink = styled.a`
+    border-radius: 10px;
+    background: #FFEBC0;
+    width: 254px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .2s;
+    color: #4b4b4b;
+
+    &:hover {
+        background: #ffcc69;
+    }
+`
 
 const Empty = styled.div`
   display: flex;
@@ -77,6 +148,10 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+    
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
 `
 
 const Loader = styled.div`

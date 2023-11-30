@@ -1,6 +1,6 @@
 import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
-import {EmptyLessonStyle, LessonCardWrapper, LessonContent, NumLessons} from "./DayLesson.styled";
+import {EmptyLessonStyle, LessonCardWrapper, NumLessons} from "./DayLesson.styled";
 
 const EmptyLesson = ({lesson}) => {
     return (

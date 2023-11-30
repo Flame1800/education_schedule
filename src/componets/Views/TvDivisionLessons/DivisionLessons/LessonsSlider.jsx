@@ -1,5 +1,4 @@
 import React from 'react';
-import filterLessons from "../../../../lib/fillEmptyLessons";
 import WeekLesson from "../../../Lesson/WeekLesson/WeekLesson";
 import 'swiper/swiper.scss';
 import {Splide, SplideSlide} from '@splidejs/react-splide';

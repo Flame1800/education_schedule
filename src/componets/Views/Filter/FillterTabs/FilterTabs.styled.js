@@ -1,19 +1,16 @@
 import styled, {css} from "styled-components";
 
 export const FilterItems = styled.div`
-  display: flex;
-  margin-left: 20px;
-  margin-top: 40px;
   color: #777777;
   font-size: 20px;
-  width: 100%;
   height: 100%;
+  display: flex;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 768px) {
     position: relative;
-    flex-direction: column;
     margin: 0 auto;
-    height: 70vh;
+    flex-direction: column;
+    height: calc(100% - 55px);
   }
 `
 
@@ -21,7 +18,7 @@ export const Column = styled.div`
   margin-right: 50px;
   margin-top: 20px;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 768px) {
     margin: 0 auto;
   }
 `
@@ -48,7 +45,7 @@ export const OverflowColumn = styled.div`
   &::-webkit-scrollbar-track {
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 768px) {
     padding-top: 20px;
     position: absolute;
     background: none;
@@ -71,6 +68,7 @@ export const FilterParamWrapper = styled.div`
   transition: 0.1s;
   padding: 10px;
   border-radius: 5px;
+  width: max-content;
 
   &:hover {
     background: #fff4d4;
@@ -89,7 +87,7 @@ export const FilterParamWrapper = styled.div`
 export const BackIcon = styled.img`
   display: none;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 425px) {
     width: 21px;
     height: 21px;
     margin-bottom: 20px;

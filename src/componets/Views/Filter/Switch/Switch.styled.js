@@ -2,20 +2,18 @@ import styled, {css} from "styled-components";
 
 export const SwitchWrapper = styled.div`
   display: flex;
-  height: 40px;
-  justify-content: center;
+  height: 45px;
   align-items: center;
   padding: 5px;
   color: #1e1e1e;
   border-radius: 35px;
-  border: 1px solid #9B9B9B;
-  min-width: 290px;
-  max-width: 330px;
   font-size: 15px;
   cursor: pointer;
+  width: fit-content;
+  gap: 20px;
 
   ${props => props.fixed && css`
-    @media screen and (max-width: 425px) {
+    @media screen and (max-width: 768px) {
       position: fixed;
       width: 100%;
       max-width: 100%;
@@ -30,6 +28,9 @@ export const SwitchWrapper = styled.div`
       box-shadow: 0 0 10px 10px #f1f1f1;
       border: none;
       z-index: 100;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
     }
   `}
 
@@ -37,22 +38,21 @@ export const SwitchWrapper = styled.div`
 `
 
 export const Item = styled.div`
-  width: 200px;
+  width: 160px;
   padding: 3px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 99%;
-
-  @media screen and (max-width: 425px) {
-  }
-
+  border-radius: 30px;
+  background: #F2F2F2;
+;
+  
 
   ${props => props.active && css`
     color: #4b4b4b;
     font-weight: 500;
     background: #EABC5D;
-    border-radius: 30px;
     padding: 10px;
   `}
 

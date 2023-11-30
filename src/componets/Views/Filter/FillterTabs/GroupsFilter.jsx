@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import FilterParam from "./FilterParams/FilterParam";
 import Course from "./FilterParams/Course";
 import FilterStore from "../../../../store/filterStore";
@@ -10,31 +10,9 @@ import {BackIcon, Column, FilterItems, FilterParamWrapper, OverflowColumn} from 
 import scheduleStore from "../../../../store/scheduleStore";
 
 
-const deleteDuplicates = (array, key) => {
-    let curr = array[0];
-    const result = [];
-
-    for (let i = 0; i < array.length; i++) {
-        if (array[i][key] !== curr[key]) {
-            result.push(array[i]);
-            curr = array[i];
-        }
-    }
-
-    return result;
-}
-
-
 const GroupsFilter = () => {
     const {division, course, setCourse, setDivision, divisions, groups} = FilterStore;
     const {weekMode} = scheduleStore
-
-    // useEffect(() => {
-    //     (async () => {
-    //         const {data} = await getGroups()
-    //         console.log(data.map(group => group.name).sort())
-    //     })()
-    // }, [])
 
     const changeDivisionHandle = (division) => {
         setDivision(division);

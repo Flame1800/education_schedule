@@ -24,8 +24,8 @@ const DivisionLessonsFilter = () => {
 
     return (
         <FilterWrapper>
-            <Title>Выберите корпус</Title>
             <FilterItems>
+                <Title>Выберите корпус</Title>
                 <Column>
                     {filterStore.divisions.map((item) => {
                         return (
@@ -53,8 +53,6 @@ const DivisionLessonsFilter = () => {
 };
 
 const Title = styled.div`
-  margin-left: 30px;
-  margin-top: 15px;
   font-size: 24px;
   color: #4b4b4b;
 `

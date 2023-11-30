@@ -31,61 +31,70 @@ const SwitchWeekBtn = () => {
 };
 
 const WrapperLabel = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 50px;
-
-  * {
-    cursor: pointer;
-  }
-
-  input {
-    display: none;
-  }
-
-  input:checked + label {
-    .inner {
-      display: flex;
+    display: flex;
+    align-items: center;
+    
+    @media screen and (max-width: 425px) {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
     }
-  }
 
-  label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 1px solid rgba(130, 130, 130, 0.18);
-    user-select: none;
-  }
+    * {
+        cursor: pointer;
+    }
 
-  .check {
-    border-radius: 7px;
-    border: 1px solid #c6c6c6;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    input {
+        display: none;
+    }
 
-  .inner {
-    width: 12px;
-    height: 12px;
-    background: #EABC5D;
-    border-radius: 3px;
-    display: none;
-  }
+    input:checked + label {
+        .inner {
+            display: flex;
+        }
 
-  .text {
-    color: #414141;
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-left: 10px;
-  }
+        background: #ffc859;
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        padding: 10px 20px;
+        border-radius: 10px;
+        background: #FFD888;
+        border: 1px solid #E5A31B;
+        user-select: none;
+    }
+
+    .check {
+        border-radius: 7px;
+        border: 1px solid #E5A31B;
+        background: white;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inner {
+        width: 12px;
+        height: 12px;
+        background: #E5A31B;
+        border-radius: 3px;
+        display: none;
+    }
+
+    .text {
+        color: #414141;
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-left: 10px;
+    }
 `
 
 export default SwitchWeekBtn;
