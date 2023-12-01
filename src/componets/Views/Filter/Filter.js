@@ -47,17 +47,18 @@ function Filter() {
             <Content>
                 <div className="filters">
                     <FilterButtons>
-                        <Switch />
-                        <PDFLink className="timetable-pdf-m" href="https://sielom.ru/schedule">Расписание в PDF</PDFLink>
-                        <SwitchWeekBtn />
+                        <Switch/>
+                        <Date mobile>Расписание занятий на <b>{weekIsCurr ? "текущую " : "следующую "} неделю</b></Date>
+                        <PDFLink className="timetable-pdf-m" href="https://sielom.ru/schedule">Расписание в
+                            PDF</PDFLink>
+                        <SwitchWeekBtn/>
                     </FilterButtons>
                     {!currWeek ? fallBack : filterScreens[mode]}
                 </div>
                 <PDFLink className="timetable-pdf" href="https://sielom.ru/schedule">Расписание в PDF</PDFLink>
             </Content>
             <BlockInfo>
-                {loading ? <Skeleton width={250} height={30}/> :
-                    <Date>Расписание занятий на <b>{weekIsCurr ? "текущую " : "следующую "} неделю</b></Date>}
+                <Date>Расписание занятий на <b>{weekIsCurr ? "текущую " : "следующую "} неделю</b></Date>
                 <Flex>
                     <Link to='/timetable/divisions'>
                         <ShowAllGroupsBtn>
@@ -74,17 +75,17 @@ const Content = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    
+
     .timetable-pdf-m {
         display: none;
     }
-    
+
     @media screen and (max-width: 768px) {
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        
-        
+
+
         .timetable-pdf {
             display: none;
         }
@@ -93,7 +94,7 @@ const Content = styled.div`
             display: flex;
             margin: 0 auto;
         }
-        
+
         .filters {
             display: flex;
             flex-direction: column;
@@ -134,28 +135,28 @@ const PDFLink = styled.a`
 `
 
 const Empty = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 400px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #7c7c7c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #7c7c7c;
 `
 
 const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-    
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
     @media screen and (max-width: 768px) {
         display: none;
     }
 `
 
 const Loader = styled.div`
-  margin: 20px;
+    margin: 20px;
 `
 
 export default observer(Filter);

@@ -24,21 +24,23 @@ const DivisionLessonsFilter = () => {
 
     return (
         <FilterWrapper>
-            <FilterItems>
+            <div>
                 <Title>Выберите корпус</Title>
-                <Column>
-                    {filterStore.divisions.map((item) => {
-                        return (
-                            <Link
-                                key={item._id}
-                                to={`/timetable/divisions/${encodeURIComponent(item.name)}?week=${scheduleStore.weekMode}`}
-                            >
-                                <FilterParam item={item}/>
-                            </Link>
-                        )
-                    })}
-                </Column>
-            </FilterItems>
+                <FilterItems>
+                    <Column>
+                        {filterStore.divisions.map((item) => {
+                            return (
+                                <Link
+                                    key={item._id}
+                                    to={`/timetable/divisions/${encodeURIComponent(item.name)}?week=${scheduleStore.weekMode}`}
+                                >
+                                    <FilterParam item={item}/>
+                                </Link>
+                            )
+                        })}
+                    </Column>
+                </FilterItems>
+            </div>
             <BlockInfo>
                 {loading ? <Skeleton width={250} height={30}/> :
                     <Date>Расписание занятий на <b>{currWeekView}</b></Date>}
@@ -53,8 +55,8 @@ const DivisionLessonsFilter = () => {
 };
 
 const Title = styled.div`
-  font-size: 24px;
-  color: #4b4b4b;
+    font-size: 24px;
+    color: #4b4b4b;
 `
 
 export default observer(DivisionLessonsFilter);

@@ -22,6 +22,11 @@ const GroupsFilter = () => {
         setCourse(course);
     };
 
+    const clearOldFilters = () => {
+        setDivision(null)
+        setCourse(null)
+    }
+
     const divisionComponents = divisions.map((item) => (
         <FilterParam
             key={item._id}
@@ -65,7 +70,7 @@ const GroupsFilter = () => {
                     <BackIcon
                         src={backImg}
                         alt="назад"
-                        onClick={() => setDivision(null)}
+                        onClick={clearOldFilters}
                     />
                     {groupComponents.length ? groupComponents : "Группы не найдены"}
                 </OverflowColumn>
