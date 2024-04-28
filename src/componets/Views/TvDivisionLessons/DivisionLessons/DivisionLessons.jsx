@@ -10,8 +10,11 @@ import {useSearchParams} from "react-router-dom";
 import {EmptyLesson, ScheduleWrapper} from "./DivisionLessons.styled";
 import datesStore from "../../../../store/datesStore";
 import styled from "styled-components";
+import { beautyDate } from '../../../../lib/beautyDate';
+import weekModeViews from '../../../../consts/weekModeViews';
 
 function DivisionLessons() {
+    console.log(datesStore)
     const {getDayLessons, changeWeek} = scheduleStore
     const [dayLessons, setDayLessons] = useState([])
     const [loading, setLoading] = useState(false)
@@ -24,7 +27,7 @@ function DivisionLessons() {
             try {
                 setLoading(true)
                 filterStore.setMode('group')
-                changeWeek(searchParams.get('week'))
+                changeWeek(weekModeViews.curr)
                 const lessons = await getDayLessons(id)
 
                 setDayLessons(lessons ? lessons : [])
@@ -36,9 +39,7 @@ function DivisionLessons() {
             }
 
         })()
-
-
-    }, [])
+    }, [changeWeek, getDayLessons, id, searchParams])
 
     const zoom = searchParams.get('zoom')
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2)
@@ -59,7 +60,7 @@ function DivisionLessons() {
         <div className='container-all' style={{zoom: zoom ? zoom : 1}}>
             {dayLessons.length > 0 && <LessonsSlider lessons={firstHalf}/>}
             {dayLessons.length > 0 && <LessonsSlider lessons={secondHalf} pagination={true}/>}
-            <Date>{datesStore.currDay}</Date>
+            <Date>{beautyDate(datesStore.currDay)}</Date>
         </div>
     );
 }

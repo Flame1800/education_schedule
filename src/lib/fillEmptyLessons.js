@@ -16,7 +16,7 @@ export default (dayLessons) => {
         return {subject: {name: "Нет пары"}, lessonNumber: num, _id: _.uniqueId()};
     }
 
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 8; i++) {
         newLessons.push(findLesson(i, dayLessons));
     }
 

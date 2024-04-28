@@ -89,5 +89,5 @@ export const Lessons = styled.div`
   overflow: hidden;
   margin-top: 10px;
   border: 1px solid #c2c2c2;
-  height: 541px;
+  min-height: 541px;
 `

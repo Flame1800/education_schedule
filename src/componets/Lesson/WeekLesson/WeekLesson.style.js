@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 
 export const LessonWrap = styled.div`
-  height: 90px;
+  min-height: 90px;
   overflow: hidden;
   border-bottom: 1px solid #cbcbcb;
   background: rgba(234, 188, 93, 0.0784313725);
   position: relative;
+
+  &:last-child {
+    border-bottom: none;
+  }
 `
 
 export const MinLessonWrap = styled(LessonWrap)`
