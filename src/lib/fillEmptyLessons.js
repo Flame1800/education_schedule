@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 export default (dayLessons) => {
-    const numberLessons = dayLessons[0].division.name === '№2, Рабочая 43/1' ? (8) : (6)
+    const numberLessons = dayLessons[0].division.name === '№2, Рабочая 43/1' ? 8 : 6
 
     const newLessons = [];
     const findLesson = (num, lessons) => {
