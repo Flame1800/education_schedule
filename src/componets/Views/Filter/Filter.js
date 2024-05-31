@@ -51,7 +51,7 @@ function Filter() {
                         <Date mobile>Расписание занятий на <b>{weekIsCurr ? "текущую " : "следующую "} неделю</b></Date>
                         <PDFLink className="timetable-pdf-m" href="https://sielom.ru/schedule">Расписание в
                             PDF</PDFLink>
-                        <SwitchWeekBtn/>
+                        {/* <SwitchWeekBtn/> */}
                     </FilterButtons>
                     {!currWeek ? fallBack : filterScreens[mode]}
                 </div>
