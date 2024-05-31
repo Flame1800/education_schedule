@@ -26,12 +26,13 @@ class ScheduleStore {
 
     // Тестовые данные
     // console.log("getCurrentWeek", DateTime.fromISO("2023-05-15"));
-    console.log("getCurrentWeek", currDay);
+    // console.log("getCurrentWeek", currDay);
+
     try {
       let currDate = currDay.toISODate()
 
       if (this.weekMode === weekModeViews.next) {
-        currDate = currDate.plus({ weeks: 1 });
+        currDate = currDay.plus({ weeks: 1 });
       }
 
       this.currDate = currDate
