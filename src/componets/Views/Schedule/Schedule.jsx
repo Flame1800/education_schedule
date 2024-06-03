@@ -56,6 +56,7 @@ const Schedule = ({mode}) => {
     // const queries = window.location.search.replace('?', '').split('&').map(v => v.split('='));
     // const talksIsNeedQuery = queries.find(v => v[0] === 'talksIsNeed')[0];
 
+    // TODO: ДОДЕЛАТЬ НА БЭКЭ
     // const talksIsNeed = searchParams.get('talksIsNeed') === 'false' ? false  : true;
     const talksIsNeed = false;
 

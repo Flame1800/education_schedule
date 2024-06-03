@@ -31,10 +31,7 @@ function ScheduleDay({ lessons, talksIsNeed }) {
                 const tempLesson = isDouble ? lesson[0] : lesson;
 
                 const isMonday = DateTime.fromISO(currDay).weekday === 1;
-                const isTalks =
-                  talksIsNeed &&
-                  (tempLesson.lessonNumber === 1 ||
-                  tempLesson.lessonNumber === 4);
+                const isTalks = talksIsNeed && (tempLesson.lessonNumber === 1 || tempLesson.lessonNumber === 4);
 
                 return (
                   <>

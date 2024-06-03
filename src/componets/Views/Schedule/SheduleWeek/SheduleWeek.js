@@ -36,9 +36,7 @@ function ScheduleWeek({ lessons, talksIsNeed }) {
     return fLessons.map((lesson) => {
       const isMonday = day.weekday === 1;
       const tempLesson = Array.isArray(lesson) ? lesson[0] : lesson;
-      const isTalks =
-        talksIsNeed &&
-        (tempLesson.lessonNumber === 1 || tempLesson.lessonNumber === 4);
+      const isTalks = talksIsNeed && (tempLesson.lessonNumber === 1 || tempLesson.lessonNumber === 4);
 
       return (
         <>
