@@ -21,7 +21,7 @@ import {
 import StateTitle from "../../../Common/NoLessonsTitle";
 import TalksPromoInfo from "../../../Lesson/WeekLesson/TalksPromoInfo";
 
-function ScheduleWeek({ lessons }) {
+function ScheduleWeek({ lessons, talksIsNeed }) {
   const { setDay, datesWeek, getDatesWeek } = datesStore;
   const { setView } = viewModeStore;
 
@@ -36,8 +36,7 @@ function ScheduleWeek({ lessons }) {
     return fLessons.map((lesson) => {
       const isMonday = day.weekday === 1;
       const tempLesson = Array.isArray(lesson) ? lesson[0] : lesson;
-      const isTalks =
-        tempLesson.lessonNumber === 1 || tempLesson.lessonNumber === 4;
+      const isTalks = talksIsNeed && (tempLesson.lessonNumber === 1 || tempLesson.lessonNumber === 4);
 
       return (
         <>

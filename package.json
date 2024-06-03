@@ -31,7 +31,8 @@
     "react-snap-carousel": "^0.2.0",
     "sass": "^1.26.10",
     "styled-components": "^5.3.6",
-    "swiper": "^8.4.2"
+    "swiper": "^8.4.2",
+    "use-query-params": "^2.2.1"
   },
   "scripts": {
     "start": "set PORT=4000 && react-scripts start",

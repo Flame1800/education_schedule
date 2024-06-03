@@ -10,7 +10,7 @@ import fillEmptyLessons from "../../../../lib/fillEmptyLessons";
 import { DateTime } from "luxon";
 import TalksPromoInfo from "../../../Lesson/WeekLesson/TalksPromoInfo";
 
-function ScheduleDay({ lessons }) {
+function ScheduleDay({ lessons, talksIsNeed }) {
   const { currDay } = datesStore;
 
   const filterLessonsByDay = (lessons) =>
@@ -31,9 +31,7 @@ function ScheduleDay({ lessons }) {
                 const tempLesson = isDouble ? lesson[0] : lesson;
 
                 const isMonday = DateTime.fromISO(currDay).weekday === 1;
-                const isTalks =
-                  tempLesson.lessonNumber === 1 ||
-                  tempLesson.lessonNumber === 4;
+                const isTalks = talksIsNeed && (tempLesson.lessonNumber === 1 || tempLesson.lessonNumber === 4);
 
                 return (
                   <>
