@@ -24,9 +24,6 @@ class ScheduleStore {
 
     const currDay = DateTime.now()
 
-    // Тестовые данные
-    // console.log("getCurrentWeek", DateTime.fromISO("2023-05-15"));
-    console.log("getCurrentWeek", currDay);
     try {
       let currDate = currDay.toISODate()
 

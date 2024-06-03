@@ -53,8 +53,11 @@ const Schedule = ({mode}) => {
         </Wrapper>
     )
 
-    // console.log(typeof )
-    const talksIsNeed = searchParams.get('talksIsNeed') === 'false' ? false  : true;
+    // const queries = window.location.search.replace('?', '').split('&').map(v => v.split('='));
+    // const talksIsNeedQuery = queries.find(v => v[0] === 'talksIsNeed')[0];
+
+    // const talksIsNeed = searchParams.get('talksIsNeed') === 'false' ? false  : true;
+    const talksIsNeed = false;
 
     const scheduleContainer = view === 'day'
         ? <ScheduleDay talksIsNeed={talksIsNeed} lessons={currLessons}/>
