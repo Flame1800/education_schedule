@@ -1,30 +1,29 @@
 {
-  "name": "sheldue",
-  "version": "0.1.0",
+  "name": "shedule",
+  "version": "1.0.0",
   "homepage": ".",
   "dependencies": {
     "@chakra-ui/react": "^2.4.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@heroicons/react": "^2.1.3",
-    "@mui/material": "^5.10.16",
     "@splidejs/react-splide": "^0.7.12",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "classnames": "^2.2.6",
-    "eslint": "^6.8.0",
-    "framer-motion": "^7.6.10",
+    "framer-motion": "7.6.10",
     "jquery": "^3.6.3",
     "lodash": "^4.17.20",
     "luxon": "2.0",
     "mobx": "^6.5.0",
     "mobx-react-lite": "^3.3.0",
-    "react": "^16.14.0",
+    "react": "^16.4.0",
     "react-device-detect": "^2.2.2",
     "react-dom": "^16.14.0",
     "react-fast-marquee": "^1.3.5",
+    "react-is": "^18.3.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "3.4.3",
     "react-service-worker": "^0.1.1",
@@ -61,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "globals": "^15.4.0",
     "prettier": "^2.8.4"
   }
 }
