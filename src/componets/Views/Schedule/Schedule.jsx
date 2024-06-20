@@ -2,26 +2,38 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import ScheduleWeek from "./SheduleWeek/SheduleWeek";
 import { observer } from "mobx-react-lite";
-import filterStore from "../../../store/filterStore";
 import { useParams, useSearchParams } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 import styled from "styled-components";
-import viewModeStore from "../../../store/viewModeStore";
 import ScheduleDay from "./SheduleDay/SheduleDay";
-import scheduleStore from "../../../store/scheduleStore";
+import { getWeek } from "../../../lib/API";
+import {
+    datesStore,
+    weekStore,
+    scheduleStore,
+    filterStore,
+    viewModeStore,
+} from "../../../store";
+import { DateTime } from "luxon";
+// import Loader from "../../Loader/Loader.jsx";
 
 const Schedule = ({ mode }) => {
+    console.log("настоящий мастер - вечный ученик");
     // #region declaration of constants
     const { id } = useParams();
     const [searchParams] = useSearchParams();
 
-    const { setLessonsByGroup, setLessonsByTeacher, changeDate } =
-        scheduleStore;
+    const { setLessonsByGroup, setLessonsByTeacher } = scheduleStore;
+    const { setDate, setWeek } = weekStore;
     const { setMode, getGroups } = filterStore;
+    const { setDay } = datesStore;
 
     const { view } = viewModeStore;
-    const [loading, setLoading] = useState(false);
     const [currLessons, setCurrLessons] = useState([]);
+
+    const controller = new AbortController();
+
+    const [isLoading, setLoading] = useState(false);
+    const [downloadProgress, setDownloadProgress] = useState(0);
     // #endregion
 
     // #region loading lessons
@@ -34,15 +46,29 @@ const Schedule = ({ mode }) => {
     // #region changing week and setting lessons
     useEffect(() => {
         (async () => {
+            setLoading(true);
+
+            const dateISO = searchParams.get("week");
+
+            let date = DateTime.fromISO(dateISO);
+
+            if (date.weekday === 7) {
+                date = date.plus({
+                    day: 1,
+                });
+            }
+
+            setDate(date);
+            date = date.toISODate();
+            setDay(date);
+
+            const week = await getWeek(date);
+            setWeek(week);
+
             // mode is group, teacher, allGroups
             setMode(mode);
 
-            const date = searchParams.get("week");
-
-            changeDate(date);
-
             try {
-                setLoading(true);
                 const fetchLessons = await loadLessons[mode];
                 setCurrLessons(fetchLessons);
             } catch (e) {
@@ -51,19 +77,24 @@ const Schedule = ({ mode }) => {
                 setLoading(false);
             }
         })();
+
+        return () => {
+            controller.abort();
+        };
     }, [id]);
     // #endregion
 
     // #region getting groups from filterStore
     useEffect(() => {
         getGroups();
-    }, []);
+    }, [getGroups]);
     // #endregion
 
     // #region declaration of loader
     const loader = (
         <Wrapper>
-            <CircularProgress color="inherit" />
+            {/* <CircularProgress color="inherit" /> */}
+            {/* <Loader progress={downloadProgress} /> */}
         </Wrapper>
     );
     // #endregion
@@ -79,8 +110,8 @@ const Schedule = ({ mode }) => {
 
     return (
         <>
-            {currLessons && <Sidebar lessons={currLessons} />}
-            {loading ? loader : scheduleContainer}
+            {currLessons.length !== 0 && <Sidebar lessons={currLessons} />}
+            {isLoading ? loader : scheduleContainer}
         </>
     );
 };
