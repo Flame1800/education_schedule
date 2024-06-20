@@ -7,12 +7,12 @@ import {observer} from "mobx-react-lite";
 import backImg from "../../../../assets/img/arrow-left.png";
 import {Link} from "react-router-dom";
 import {BackIcon, Column, FilterItems, FilterParamWrapper, OverflowColumn} from "./FilterTabs.styled";
-import scheduleStore from "../../../../store/scheduleStore";
+import weekStore from "../../../../store/weekStore";
 
 
 const GroupsFilter = () => {
     const {division, course, setCourse, setDivision, divisions, groups} = FilterStore;
-    const {weekMode} = scheduleStore
+    const {date: weekDate} = weekStore;
 
     const changeDivisionHandle = (division) => {
         setDivision(division);
@@ -46,11 +46,12 @@ const GroupsFilter = () => {
     ))
 
 
+
     const groupComponents = groups
         .filter(group => group.course === course && group.divisionId === division?.id_1c)
         .map((group) => {
             return (
-                <Link to={`/timetable/group/${group.id_1c}?week=${weekMode}`} key={group.id_1c}>
+                <Link to={`/timetable/group/${group.id_1c}?week=${weekDate.toISODate()}`} key={group.id_1c}>
                     <FilterParamWrapper>{group.name}</FilterParamWrapper>
                 </Link>
             );
