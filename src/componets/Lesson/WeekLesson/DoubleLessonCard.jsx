@@ -1,32 +1,43 @@
 import React from 'react';
 import getSubjectName from "../../../lib/getSubjectName";
-import {CabNum, ShortLessonName, MetaText, MinCont} from "./WeekLesson.style";
+import { CabNum, ShortLessonName, MetaText, MinCont } from "./WeekLesson.style";
 import styled from "styled-components";
-import {observer} from "mobx-react-lite";
+import { observer } from "mobx-react-lite";
 import filterStore from "../../../store/filterStore";
 
-const DoubleLessonCard = ({lesson}) => {
+const DoubleLessonCard = ({ lesson }) => {
     const [firstCouple, secondCouple] = lesson
-    const {mode} = filterStore
-
-
-    const getCab = (couple) => {
-        return (
-            <CabNum>
-                {mode === 'cabinet' ? couple.group.name : couple.cabinet?.number || null}
-            </CabNum>
-        )
-    }
-
+    const { mode } = filterStore
 
     const getHeader = (couple) => {
         return (
             <MinCont>
-                <ShortLessonName>{getSubjectName(couple)}</ShortLessonName>
-                <MetaText>
-                    <div className="name-min">{mode !== 'teacher' ? couple.teacher.abb_name : couple.group.name}</div>
-                </MetaText>
-                {getCab(couple)}
+                <Column>
+                    <ShortLessonName>{getSubjectName(couple)}</ShortLessonName>
+                    <div className='wrapperCircle'>
+                        <div className="oneCircle" />
+                        <MetaText>
+                            <div className='textTwoPair'>{mode !== 'teacher' ? couple.teacher.abb_name.slice(0, -1) : couple.group.name.slice(0, -1)}</div>
+                        </MetaText>
+                    </div>
+                </Column>
+            </MinCont>
+        )
+    }
+
+    const getHeaderTwo = (couple) => {
+        return (
+            <MinCont>
+                <Column>
+                    <CabAndText>
+                        <div className='wrapperCircle'>
+                            <div className="twoCircle" />
+                            <MetaText>
+                                <div className='textTwoPair'>{mode !== 'teacher' ? couple.teacher.abb_name.slice(0, -1) : couple.group.name.slice(0, -1)}</div>
+                            </MetaText>
+                        </div>
+                    </CabAndText>
+                </Column>
             </MinCont>
         )
     }
@@ -35,14 +46,25 @@ const DoubleLessonCard = ({lesson}) => {
     return (
         <Wrap>
             {getHeader(firstCouple)}
-            {getHeader(secondCouple)}
+            {getHeaderTwo(secondCouple)}
         </Wrap>
     );
 };
 
 const Wrap = styled.div`
   display: flex;
+  flex-direction: column;
+`
+const Column = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+const CabAndText = styled.div`
+  display: flex;
+  width: 100%;
   justify-content: space-between;
+  align-items: center;
 `
 
 export default observer(DoubleLessonCard);

@@ -88,6 +88,5 @@ export const Lessons = styled.div`
   border-radius: 10px;
   overflow: hidden;
   margin-top: 10px;
-  border: 1px solid #c2c2c2;
   min-height: 541px;
 `

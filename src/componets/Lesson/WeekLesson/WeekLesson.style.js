@@ -1,17 +1,23 @@
 import styled from "styled-components";
 
 
-export const LessonWrap = styled.div`
-  min-height: 90px;
-  overflow: hidden;
-  border-bottom: 1px solid #cbcbcb;
-  background: rgba(234, 188, 93, 0.0784313725);
-  position: relative;
 
-  &:last-child {
-    border-bottom: none;
+
+export const LessonWrap = styled.div`
+  position: relative;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  min-height: 122px;
+  max-height: 122px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &:first-child {
+    margin-top: 0px;
   }
 `
+
 
 export const MinLessonWrap = styled(LessonWrap)`
   height: 83px;
@@ -19,28 +25,32 @@ export const MinLessonWrap = styled(LessonWrap)`
 
 
 export const UnactiveLesson = styled(LessonWrap)`
-  background: none;
-  height: ${({h}) => h ?? '90px'};
+display: flex;
+justify-content: center;
+align-items: center;
+max-height: 98px;
+position: relative;
+background-color: #f5f5f5;
+  height: ${({ h }) => h ?? '90px'};
 `
 
-export const LessonHead = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  height: 16px;
-`
+
 
 export const Time = styled.div`
-  font-size: 11px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  padding: 0 10px;
-  background: rgb(255, 242, 211);
-  color: #1e1e1e;
+font-family: "Inter", sans-serif;
+font-size: 12px;
+color: black;
+letter-spacing: 0;
+background-color: #FFE178;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 8px;
+padding-right: 8px;
+border-radius: 32px;
+font-weight: 600;
+margin-bottom: 12px;
+margin-left: 15px;
+height: 26px;
 `
 
 export const Num = styled.div`
@@ -70,41 +80,62 @@ export const Content = styled.div`
 
 
 export const LessonName = styled.span`
-  font-size: 12px !important;
+  font-family: "Inter", sans-serif;
+  font-size: 15px !important;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 200px;
+  max-width: 190px;
+  font-weight: 600;
+  color: black;
+  margin-left: 5px;
 `
 
 export const ShortLessonName = styled(LessonName)`
-  max-width: 103px;
+  max-width: 165px;
+  margin-top: 8px;
 `
 
 export const Meta = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
+  height: 100%;
 `
 
 export const MinCont = styled(Meta)`
-  flex-direction: column;
-  align-items: start;
-  width: 50%;
+  width: 100%;
+  display: flex;
 `
 
 export const MetaText = styled.div`
+  width: 100%;
+  font-family: "Inter", sans-serif;
   display: flex;
-  font-size: 12px;
+  font-size: 13px;
   align-items: center;
-  color: #7a7a7a;
+  color: black;
+  opacity 0.8;
+  font-weight: 400;
+  justify-content: space-between;
+  margin-left: 7px;
 `
 
 export const CabNum = styled.div`
-  display: flex;
-  margin-right: 8px;
+  font-family: "Inter", sans-serif;
   font-size: 12px;
-  color: #494949;
-  border-radius: 10px;
-  padding-top: 5px;
+  color: black;
+  letter-spacing: 0;
+  border-radius: 32px;
+  background-color: #FFE178;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-left: 5px;
+  min-width: 48px;
+  display: flex;
+  justify-content: center;
 `
