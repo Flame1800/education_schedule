@@ -1,4 +1,3 @@
-
 .flag-icon {
   height: 15px;
   width: 15px;
@@ -78,7 +77,8 @@
       align-items: center;
       color: #7a7a7a;
 
-      .name, .name-min {
+      .name,
+      .name-min {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -145,5 +145,48 @@
       justify-content: center;
       align-items: center;
     }
+  }
+
+  .textTwoPair {
+    font-family: "Inter", sans-serif;
+    color: black;
+  }
+
+  .wrapperCircle {
+    display: flex;
+    align-items: center;
+  }
+
+  .oneCircle {
+    padding: 4px 4px 4px 4px;
+    background-color: #FBA0E3;
+    border-radius: 50px;
+    margin-left: 5px;
+  }
+  .twoCircle {
+    padding: 4px 4px 4px 4px;
+    background-color: #77DDE7;
+    border-radius: 50px;
+    margin-left: 5px;
+  }
+  .oneCircleCab {
+    width: 12px;
+    height: 12px;
+    background-color: #FBA0E3;
+    border-radius: 50px;
+    position: relative;
+    margin-bottom: -8px;
+    margin-left: 5px;
+    border: 2px solid #F5F5F5;
+  }
+  .twoCircleCab {
+    width: 12px;
+    height: 12px;
+    background-color: #77DDE7;
+    border-radius: 50px;
+    position: relative;
+    margin-bottom: -8px;
+    margin-left: 5px;
+    border: 2px solid #F5F5F5;
   }
 }
