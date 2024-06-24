@@ -81,27 +81,26 @@ function Filter() {
         <FilterWrapper>
             {/* header */}
             <Content>
+
                 <div className="filters">
                     {/* Группа | Преподаватель | Кабинеты */}
                     <FilterButtons>
                         <Switch />
-                        <Date mobile>
-                            Расписание занятий на <b>неделю {weekDates}</b>
-                        </Date>
+
+                        <WeekSwitcher />
+
                         <PDFLink
                             className="timetable-pdf-m"
                             href="https://sielom.ru/schedule"
                         >
                             Расписание в PDF
                         </PDFLink>
-                        {/* <SwitchWeekBtn/> */}
                     </FilterButtons>
 
                     {/* choosing division */}
                     {!week ? fallBack : filterScreens[mode]}
                 </div>
 
-                <WeekSwitcher />
 
                 {/* расписание в PDF */}
                 <PDFLink
@@ -114,9 +113,6 @@ function Filter() {
 
             {/* footer */}
             <BlockInfo>
-                <Date>
-                    Расписание занятий на <b>неделю {weekDates}</b>
-                </Date>
                 <Flex>
                     <Link to="/timetable/divisions">
                         <ShowAllGroupsBtn>Все группы</ShowAllGroupsBtn>

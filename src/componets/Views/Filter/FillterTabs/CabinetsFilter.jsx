@@ -3,14 +3,12 @@ import FilterParam from "./FilterParams/FilterParam";
 import FilterStore from "../../../../store/filterStore";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
-import scheduleStore from "../../../../store/scheduleStore";
 import { Column, FilterItems } from "./FilterTabs.styled";
+import { weekStore } from "../../../../store";
 
 const GroupsFilter = () => {
     const { division, divisions } = FilterStore;
-    const { getDate } = scheduleStore;
-
-    const currentDate = getDate();
+    const { date } = weekStore;
 
     return (
         <FilterItems>
@@ -20,7 +18,7 @@ const GroupsFilter = () => {
                         key={item.name}
                         to={`/timetable/cabinet/${encodeURIComponent(
                             item.name
-                        )}?week=${currentDate}`}
+                        )}?week=${date}`}
                     >
                         <FilterParam
                             key={item._id}

@@ -7,23 +7,23 @@ function Loader({
     height = 100,
     strokeWidth = 10,
 }) {
-    const [defaultProgress, setDefaultProgress] = useState(0);
+    // const [defaultProgress, setDefaultProgress] = useState(0);
 
-    const duration = 100;
+    // const duration = 100;
 
-    useEffect(() => {
-        const loadingTimeout = setTimeout(() => {
-            defaultProgress(defaultProgress + 1);
-        }, duration);
+    // useEffect(() => {
+    //     const loadingTimeout = setTimeout(() => {
+    //         setDefaultProgress(defaultProgress + 1);
+    //     }, duration);
 
-        if (progress === 100) {
-            defaultProgress(0);
-        }
+    //     if (progress === 100) {
+    //         setDefaultProgress(0);
+    //     }
 
-        return () => {
-            clearTimeout(loadingTimeout);
-        };
-    });
+    //     return () => {
+    //         clearTimeout(loadingTimeout);
+    //     };
+    // });
 
     return (
         <div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterParam from "./FilterParams/FilterParam";
 import FilterStore from "../../../../store/filterStore";
 import { observer } from "mobx-react-lite";
@@ -14,7 +14,7 @@ import {
 import scheduleStore from "../../../../store/scheduleStore";
 
 const TeachersFilter = () => {
-    const [teachers, setTeachers] = React.useState([]);
+    const [teachers, setTeachers] = useState([]);
     const { division, setDivision, getTeachers, divisions, loading } =
         FilterStore;
 
@@ -37,7 +37,7 @@ const TeachersFilter = () => {
                     //     height={30}
                     //     sx={{ marginTop: "10px" }}
                     // />
-                    "загрузка..."
+                    <div>...</div>
                 );
             })}
         </OverflowColumn>

@@ -24,7 +24,7 @@ const Schedule = ({ mode }) => {
 
     const { setLessonsByGroup, setLessonsByTeacher } = scheduleStore;
     const { setDate, setWeek } = weekStore;
-    const { setMode, getGroups } = filterStore;
+    const { setMode, getGroups, getDivisions } = filterStore;
     const { setDay } = datesStore;
 
     const { view } = viewModeStore;
@@ -32,21 +32,16 @@ const Schedule = ({ mode }) => {
 
     const controller = new AbortController();
 
-    const [isLoading, setLoading] = useState(false);
-    const [downloadProgress, setDownloadProgress] = useState(0);
-    // #endregion
-
-    // #region loading lessons
-    const loadLessons = {
-        group: setLessonsByGroup(id),
-        teacher: setLessonsByTeacher(id),
-    };
+    const [isLoading, setLoading] = useState(true);
     // #endregion
 
     // #region changing week and setting lessons
     useEffect(() => {
         (async () => {
-            setLoading(true);
+            setLoading(true)
+
+            await getDivisions();
+            await getGroups();
 
             const dateISO = searchParams.get("week");
 
@@ -65,11 +60,20 @@ const Schedule = ({ mode }) => {
             const week = await getWeek(date);
             setWeek(week);
 
-            // mode is group, teacher, allGroups
+            // mode is group, teacher
             setMode(mode);
 
             try {
-                const fetchLessons = await loadLessons[mode];
+                let fetchLessons = [];
+
+                switch(mode) {
+                    case 'group': 
+                        fetchLessons = await setLessonsByGroup(id);
+                        break;
+                    case 'teacher':
+                        fetchLessons = await setLessonsByTeacher(id);
+                }
+
                 setCurrLessons(fetchLessons);
             } catch (e) {
                 console.error(e);
@@ -100,7 +104,7 @@ const Schedule = ({ mode }) => {
     // #endregion
 
     // #region declaration of container by mode (day, week)
-    const scheduleContainer =
+    const scheduleContainer = 
         view === "day" ? (
             <ScheduleDay lessons={currLessons} />
         ) : (
@@ -110,7 +114,8 @@ const Schedule = ({ mode }) => {
 
     return (
         <>
-            {currLessons.length !== 0 && <Sidebar lessons={currLessons} />}
+            {!isLoading && <Sidebar lessons={currLessons} />}
+
             {isLoading ? loader : scheduleContainer}
         </>
     );

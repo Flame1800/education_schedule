@@ -41,13 +41,11 @@ class ScheduleStore {
     };
 
     setLessonsByGroup = async (groupId) => {
-        const { date } = weekStore;
+        const { week } = weekStore;
 
         try {
-            const week = await getWeek(date);
-
             const reqLessons = await getGroupWeekLessons(week._id, groupId);
-
+            
             return reqLessons.data;
         } catch (e) {
             console.error(e);
@@ -57,11 +55,9 @@ class ScheduleStore {
     };
 
     setLessonsByTeacher = async (teacherName) => {
-        const { date } = weekStore;
+        const { week } = weekStore;
 
         try {
-            const week = await getWeek(date);
-
             const reqLessons = await getTeacherWeekLessons(
                 week._id,
                 teacherName

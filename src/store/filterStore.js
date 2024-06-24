@@ -2,7 +2,7 @@ import {action, makeObservable, observable} from "mobx";
 import _ from "lodash";
 import sortArr from "../lib/sortArr";
 import {getDivisions, getDivisionWeekLessons, getGroups as getGroupsReq} from "../lib/API";
-import scheduleStore from "./scheduleStore";
+import weekStore from "./weekStore";
 
 class FilterStore {
     division = "";
@@ -53,9 +53,11 @@ class FilterStore {
     }
 
     getTeachers = async (divisionId) => {
+        const { week } = weekStore;
+
         try {
             this.loading = true
-            const filteredLessons = await getDivisionWeekLessons(scheduleStore.currWeek._id, divisionId)
+            const filteredLessons = await getDivisionWeekLessons(week._id, divisionId)
             return _.sortedUniq(sortArr(filteredLessons.data.map((lesson) => lesson.teacher.abb_name)));
         } catch (e) {
             console.error(e)
