@@ -17,6 +17,7 @@ import WeekSwitcher from "./WeekSwitcher/WeekSwitcher";
 import weekStore from "../../../store/weekStore";
 import { DateTime } from "luxon";
 import { getWeek } from "../../../lib/API";
+import { formatDate } from "../../../lib/FormatDate";
 
 function Filter() {
     console.log("В чём секрет бессмертия? Не умирать.")
@@ -51,10 +52,6 @@ function Filter() {
 
     // #region setting week dates
     useEffect(() => {
-        const formatDate = (dateISO) =>
-            dateISO.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/)?.[0]
-                ? DateTime.fromISO(dateISO).toFormat("dd.MM.yyyy")
-                : "";
 
         (async () => {
             try {

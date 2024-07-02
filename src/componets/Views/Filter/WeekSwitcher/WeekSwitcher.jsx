@@ -9,6 +9,7 @@ import datesStore from "../../../../store/datesStore";
 import { getWeek } from "../../../../lib/API";
 import weekStore from "../../../../store/weekStore";
 import Loader from "../../../Loader/Loader";
+import { formatDate } from "../../../../lib/FormatDate";
 
 const WeekSwitcher = () => {
     const { setDay } = datesStore;
@@ -18,14 +19,13 @@ const WeekSwitcher = () => {
 
     // #region setting week dates
     useEffect(() => {
-        const formatDate = (dateISO) =>
-            dateISO.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}/)?.[0]
-                ? DateTime.fromISO(dateISO).toFormat("dd.MM.yyyy")
-                : "";
 
         (async () => {
             try {
                 setIsLoading(true);
+    const settingCurrentStates = async () => {
+        try {
+            setIsLoading(true);
 
                 const week = await getWeek(weekDate);
 
