@@ -41,6 +41,7 @@ export const Date = styled.span`
     @media screen and (max-width: 768px) {
         display: ${props => props.mobile ? 'block' : 'none'};
         font-size: 13px;
+        text-align: center
     }
 `
 

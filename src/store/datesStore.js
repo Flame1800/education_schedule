@@ -1,6 +1,7 @@
-import {makeAutoObservable} from "mobx";
-import {DateTime} from "luxon";
-import scheduleStore from "./scheduleStore";
+import { makeAutoObservable } from "mobx";
+import { DateTime } from "luxon";
+import { getWeek } from "../lib/API";
+import weekStore from "./weekStore";
 
 class DatesStore {
     datesWeek = [];
@@ -11,24 +12,28 @@ class DatesStore {
     }
 
     setDay = (day) => {
-        this.currDay = day
-    }
+        this.currDay = day;
+    };
 
     getDatesWeek = async () => {
-        const week = await scheduleStore.getCurrentWeek()
+        const { date: weekDate } = weekStore;
+
+        const week = await getWeek(weekDate);
 
         if (!week) {
-            return null
+            return null;
         }
 
-        const date = DateTime.fromISO(week.dateStart).setLocale('ru')
+        const date = DateTime.fromISO(week.dateStart).setLocale("ru");
 
-        this.datesWeek = Array(6).fill('').map((_, i) => {
-            return date.plus({
-                days: i
+        this.datesWeek = Array(6)
+            .fill("")
+            .map((_, i) => {
+                return date.plus({
+                    days: i,
+                });
             });
-        })
-    }
+    };
 }
 
-export default new DatesStore()
+export default new DatesStore();
