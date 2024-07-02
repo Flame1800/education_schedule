@@ -97,8 +97,7 @@ const Schedule = ({ mode }) => {
     // #region declaration of loader
     const loader = (
         <Wrapper>
-            {/* <CircularProgress color="inherit" /> */}
-            {/* <Loader progress={downloadProgress} /> */}
+            {/* TODO: сделать лоадер */}
         </Wrapper>
     );
     // #endregion

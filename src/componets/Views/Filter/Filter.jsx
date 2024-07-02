@@ -20,7 +20,6 @@ import { getWeek } from "../../../lib/API";
 import { formatDate } from "../../../lib/FormatDate";
 
 function Filter() {
-    console.log("В чём секрет бессмертия? Не умирать.")
     const { week, date: weekDate } = weekStore;
     const { mode, getDivisions, getGroups } = filterStore;
     const [isLoading, setIsLoading] = useState(false);
@@ -40,11 +39,7 @@ function Filter() {
 
     const loader = (
         <Loader>
-            {/* <Skeleton sx={{ marginBottom: "15px" }} width={200} height={40} />
-            <Skeleton sx={{ marginBottom: "15px" }} width={200} height={40} />
-            <Skeleton sx={{ marginBottom: "15px" }} width={200} height={40} />
-            <Skeleton width={200} height={40} /> */}
-            {/* загрузка... */}
+            {/* TODO: сделать лоадер */}
         </Loader>
     );
 

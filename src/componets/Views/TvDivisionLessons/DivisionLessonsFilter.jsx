@@ -61,7 +61,7 @@ const DivisionLessonsFilter = () => {
                 </FilterItems>
             </div>
             <BlockInfo>
-                {/* <Skeleton width={250} height={30} /> */}
+                {/* TODO: сделать лоадер */}
                 {loading ? <Loader /> : renderDate()}
 
                 {renderBackButton()}

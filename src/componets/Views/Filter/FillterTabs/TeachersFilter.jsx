@@ -30,13 +30,7 @@ const TeachersFilter = () => {
         <OverflowColumn>
             {new Array(20).fill().map((item) => {
                 return (
-                    // <Skeleton
-                    //     key={item}
-                    //     variant="rounded"
-                    //     width={200 + 50 * Math.random()}
-                    //     height={30}
-                    //     sx={{ marginTop: "10px" }}
-                    // />
+                    // TODO: сделать лоадер
                     <div>...</div>
                 );
             })}

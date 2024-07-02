@@ -7,23 +7,7 @@ function Loader({
     height = 100,
     strokeWidth = 10,
 }) {
-    // const [defaultProgress, setDefaultProgress] = useState(0);
-
-    // const duration = 100;
-
-    // useEffect(() => {
-    //     const loadingTimeout = setTimeout(() => {
-    //         setDefaultProgress(defaultProgress + 1);
-    //     }, duration);
-
-    //     if (progress === 100) {
-    //         setDefaultProgress(0);
-    //     }
-
-    //     return () => {
-    //         clearTimeout(loadingTimeout);
-    //     };
-    // });
+    // TODO: сделать вращение лоадера по умолчанию
 
     return (
         <div>
@@ -64,8 +48,8 @@ function ProgressBar({ progress, width, height, strokeWidth }) {
                 cy={cy}
                 r={radius}
                 fill="none"
-                stroke="#c4c4c4" // #414050
-                strokeWidth={`${strokeWidth}px`} // indicatorWidth instead the 10
+                stroke="#c4c4c4"
+                strokeWidth={`${strokeWidth}px`}
                 strokeDasharray={circumference}
             />
 
@@ -77,8 +61,8 @@ function ProgressBar({ progress, width, height, strokeWidth }) {
                 r={radius}
                 fill="none"
                 transform={`rotate(-90)`}
-                stroke="#eabc5d" // #414050
-                strokeWidth={`${strokeWidth / 2}px`} // trackWidth instead the 5
+                stroke="#eabc5d"
+                strokeWidth={`${strokeWidth / 2}px`}
                 strokeDasharray={`${(progress * circumference) / 100} ${
                     2 * Math.PI * radius
                 }`}
