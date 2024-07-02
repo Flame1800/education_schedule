@@ -14,13 +14,13 @@ import {
     viewModeStore,
 } from "../../../store";
 import { DateTime } from "luxon";
-// import Loader from "../../Loader/Loader.jsx";
 
 const Schedule = ({ mode }) => {
     console.log("настоящий мастер - вечный ученик");
     // #region declaration of constants
     const { id } = useParams();
     const [searchParams] = useSearchParams();
+    
 
     const { setLessonsByGroup, setLessonsByTeacher } = scheduleStore;
     const { setDate, setWeek } = weekStore;
@@ -70,6 +70,9 @@ const Schedule = ({ mode }) => {
                     break;
                 case 'teacher':
                     fetchLessons = await setLessonsByTeacher(id);
+                    break;
+                default:
+                    fetchLessons = async () => [];
             }
 
             setCurrLessons(fetchLessons);
@@ -104,14 +107,16 @@ const Schedule = ({ mode }) => {
     );
     // #endregion
 
-    // #region declaration of container by mode (day, week)
-    const scheduleContainer = 
-        view === "day" ? (
-            <ScheduleDay lessons={currLessons} />
-        ) : (
-            <ScheduleWeek lessons={currLessons} />
-        );
-    //  #endregion
+    // const queries = window.location.search.replace('?', '').split('&').map(v => v.split('='));
+    // const talksIsNeedQuery = queries.find(v => v[0] === 'talksIsNeed')[0];
+
+    // TODO: ДОДЕЛАТЬ НА БЭКЭ
+    // const talksIsNeed = searchParams.get('talksIsNeed') === 'false' ? false  : true;
+    const talksIsNeed = false;
+
+    const scheduleContainer = view === 'day'
+        ? <ScheduleDay talksIsNeed={talksIsNeed} lessons={currLessons}/>
+        : <ScheduleWeek talksIsNeed={talksIsNeed} lessons={currLessons}/>
 
     return (
         <>

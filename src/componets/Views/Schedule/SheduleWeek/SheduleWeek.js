@@ -21,10 +21,9 @@ import {
 import StateTitle from "../../../Common/NoLessonsTitle";
 import TalksPromoInfo from "../../../Lesson/WeekLesson/TalksPromoInfo";
 
-function ScheduleWeek({ lessons }) {
-    console.log("Не дай гордыне ослепить тебя.");
-    const { setDay, datesWeek, getDatesWeek } = datesStore;
-    const { setView } = viewModeStore;
+function ScheduleWeek({ lessons, talksIsNeed }) {
+  const { setDay, datesWeek, getDatesWeek } = datesStore;
+  const { setView } = viewModeStore;
 
     useEffect(() => {
         (async () => {
