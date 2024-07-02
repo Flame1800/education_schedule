@@ -17,37 +17,35 @@ const WeekSwitcher = () => {
     const [dateStartEnd, setDateStartEnd] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    // #region setting week dates
-    useEffect(() => {
-
-        (async () => {
-            try {
-                setIsLoading(true);
     const settingCurrentStates = async () => {
         try {
             setIsLoading(true);
 
-                const week = await getWeek(weekDate);
+            const week = await getWeek(weekDate);
 
-                setWeek(week);
-                setDay(weekDate.toISODate());
+            setWeek(week);
+            setDay(weekDate.toISODate());
 
-                const dateString =
-                    formatDate(week?.dateStart ?? "") +
-                    " - " +
-                    formatDate(week?.dateEnd ?? "");
+            const dateString =
+                formatDate(week?.dateStart ?? "") +
+                " - " +
+                formatDate(week?.dateEnd ?? "");
 
-                setDateStartEnd(
-                    dateString.length > 3
-                        ? dateString
-                        : weekDate.toFormat("dd.MM.yyyy")
-                );
-            } catch (e) {
-                console.error(e);
-            } finally {
-                setIsLoading(false);
-            }
-        })();
+            setDateStartEnd(
+                dateString.length > 3
+                    ? dateString
+                    : weekDate.toFormat("dd.MM.yyyy")
+            );
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+    
+    // #region setting week dates
+    useEffect(() => {
+        settingCurrentStates()
     }, [weekDate, setDay, setWeek]);
     // #endregion
 

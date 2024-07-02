@@ -45,27 +45,30 @@ function Filter() {
 
     const fallBack = !isLoading ? <Empty>На эту неделю нет пар</Empty> : loader;
 
+
+
+    const gettingWeekAndSettingWeekDates = async () => {
+        try {
+            const week = await getWeek(weekDate);
+
+            const dateString =
+                formatDate(week?.dateStart ?? "") +
+                " - " +
+                formatDate(week?.dateEnd ?? "");
+
+            setWeekDates(
+                dateString.length > 3
+                    ? dateString
+                    : weekDate.toFormat("dd.MM.yyyy")
+            );
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     // #region setting week dates
     useEffect(() => {
-
-        (async () => {
-            try {
-                const week = await getWeek(weekDate);
-
-                const dateString =
-                    formatDate(week?.dateStart ?? "") +
-                    " - " +
-                    formatDate(week?.dateEnd ?? "");
-
-                setWeekDates(
-                    dateString.length > 3
-                        ? dateString
-                        : weekDate.toFormat("dd.MM.yyyy")
-                );
-            } catch (e) {
-                console.error(e);
-            }
-        })();
+        gettingWeekAndSettingWeekDates();
     }, [weekDate]);
     // #endregion
 

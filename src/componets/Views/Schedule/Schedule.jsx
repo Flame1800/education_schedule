@@ -35,52 +35,54 @@ const Schedule = ({ mode }) => {
     const [isLoading, setLoading] = useState(true);
     // #endregion
 
+    const settingStates = async () => {
+        setLoading(true)
+
+        await getDivisions();
+        await getGroups();
+
+        const dateISO = searchParams.get("week");
+
+        let date = DateTime.fromISO(dateISO);
+
+        if (date.weekday === 7) {
+            date = date.plus({
+                day: 1,
+            });
+        }
+
+        setDate(date);
+        date = date.toISODate();
+        setDay(date);
+
+        const week = await getWeek(date);
+        setWeek(week);
+
+        // mode is group, teacher
+        setMode(mode);
+
+        try {
+            let fetchLessons = [];
+
+            switch(mode) {
+                case 'group': 
+                    fetchLessons = await setLessonsByGroup(id);
+                    break;
+                case 'teacher':
+                    fetchLessons = await setLessonsByTeacher(id);
+            }
+
+            setCurrLessons(fetchLessons);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     // #region changing week and setting lessons
     useEffect(() => {
-        (async () => {
-            setLoading(true)
-
-            await getDivisions();
-            await getGroups();
-
-            const dateISO = searchParams.get("week");
-
-            let date = DateTime.fromISO(dateISO);
-
-            if (date.weekday === 7) {
-                date = date.plus({
-                    day: 1,
-                });
-            }
-
-            setDate(date);
-            date = date.toISODate();
-            setDay(date);
-
-            const week = await getWeek(date);
-            setWeek(week);
-
-            // mode is group, teacher
-            setMode(mode);
-
-            try {
-                let fetchLessons = [];
-
-                switch(mode) {
-                    case 'group': 
-                        fetchLessons = await setLessonsByGroup(id);
-                        break;
-                    case 'teacher':
-                        fetchLessons = await setLessonsByTeacher(id);
-                }
-
-                setCurrLessons(fetchLessons);
-            } catch (e) {
-                console.error(e);
-            } finally {
-                setLoading(false);
-            }
-        })();
+        settingStates();
 
         return () => {
             controller.abort();
