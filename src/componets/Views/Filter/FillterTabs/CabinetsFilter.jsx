@@ -18,7 +18,7 @@ const GroupsFilter = () => {
                         key={item.name}
                         to={`/timetable/cabinet/${encodeURIComponent(
                             item.name
-                        )}?week=${date}`}
+                        )}?week=${date.toISODate()}`}
                     >
                         <FilterParam
                             key={item._id}

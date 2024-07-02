@@ -11,12 +11,14 @@ import {
     FilterParamWrapper,
     OverflowColumn,
 } from "./FilterTabs.styled";
-import scheduleStore from "../../../../store/scheduleStore";
+import { weekStore } from "../../../../store";
 
 const TeachersFilter = () => {
     const [teachers, setTeachers] = useState([]);
     const { division, setDivision, getTeachers, divisions, loading } =
         FilterStore;
+
+    const {date} = weekStore;
 
     const isEmpty = teachers.length === 0 && !loading && division;
 
@@ -50,7 +52,7 @@ const TeachersFilter = () => {
                 ? teachers.map((teacher) => {
                       return (
                           <Link
-                              to={`/timetable/teacher/${teacher}?week=${scheduleStore.weekMode}`}
+                              to={`/timetable/teacher/${teacher}?week=${date.toISODate()}`}
                               key={teacher}
                           >
                               <FilterParamWrapper>{teacher}</FilterParamWrapper>
