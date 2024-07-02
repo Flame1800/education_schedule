@@ -120,10 +120,6 @@ const LessonsSlider = ({ lessons }) => {
                         <span className='dayOfTheWeek'>{dayOfTheWeek}</span>
                         <CurrentTime />
                         <span className='dayOfTheWeek'>{flagShift} смена</span>
-                        {/* <div className='flex heartGif'>
-                            <img src={heartGif} alt="heart" />
-                            <span>Sielom</span>
-                        </div> */}
                     </div>
                     <div className={mediaSwiperDiv}>
                         <Swiper
@@ -147,9 +143,6 @@ const LessonsSlider = ({ lessons }) => {
                     </div>
                     <div className="WrapperBar">
                         <div className='gray-line'>
-                            {/* <div className='rocketGif'>
-                                <img src={rocketGif} alt="rocket" />
-                            </div> */}
                             <div className={animateState} id='animateBar'></div>
                         </div>
                     </div>

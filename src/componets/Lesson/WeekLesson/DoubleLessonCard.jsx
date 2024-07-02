@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import filterStore from "../../../store/filterStore";
 
 const DoubleLessonCard = ({ lesson }) => {
-    const [firstCouple, secondCouple] = lesson
+    const [renderFirstCouple, renderSecondCouple] = lesson
     const { mode } = filterStore
 
     const getHeader = (couple) => {
@@ -25,7 +25,7 @@ const DoubleLessonCard = ({ lesson }) => {
         )
     }
 
-    const getHeaderTwo = (couple) => {
+    const renderSecondLesson = (couple) => {
         return (
             <MinCont>
                 <Column>
@@ -45,8 +45,8 @@ const DoubleLessonCard = ({ lesson }) => {
 
     return (
         <Wrap>
-            {getHeader(firstCouple)}
-            {getHeaderTwo(secondCouple)}
+            {getHeader(renderFirstCouple)}
+            {renderSecondLesson(renderSecondCouple)}
         </Wrap>
     );
 };
