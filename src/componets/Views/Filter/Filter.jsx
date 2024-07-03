@@ -7,7 +7,6 @@ import filterStore from "../../../store/filterStore";
 import CabinetsFilter from "./FillterTabs/CabinetsFilter";
 import {
     BlockInfo,
-    Date,
     FilterWrapper,
     ShowAllGroupsBtn,
 } from "./Filter.style";
@@ -15,16 +14,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import WeekSwitcher from "./WeekSwitcher/WeekSwitcher";
 import weekStore from "../../../store/weekStore";
-import { DateTime } from "luxon";
-import { getWeek } from "../../../lib/API";
-import { formatDate } from "../../../lib/FormatDate";
 
 function Filter() {
-    const { week, date: weekDate } = weekStore;
+    const { week } = weekStore;
     const { mode, getDivisions, getGroups } = filterStore;
     const [isLoading, setIsLoading] = useState(false);
-
-    const [weekDates, setWeekDates] = useState("");
 
     useEffect(() => {
         getDivisions();
@@ -44,33 +38,6 @@ function Filter() {
     );
 
     const fallBack = !isLoading ? <Empty>На эту неделю нет пар</Empty> : loader;
-
-
-
-    const gettingWeekAndSettingWeekDates = async () => {
-        try {
-            const week = await getWeek(weekDate);
-
-            const dateString =
-                formatDate(week?.dateStart ?? "") +
-                " - " +
-                formatDate(week?.dateEnd ?? "");
-
-            setWeekDates(
-                dateString.length > 3
-                    ? dateString
-                    : weekDate.toFormat("dd.MM.yyyy")
-            );
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    // #region setting week dates
-    useEffect(() => {
-        gettingWeekAndSettingWeekDates();
-    }, [weekDate]);
-    // #endregion
 
     return (
         <FilterWrapper>
