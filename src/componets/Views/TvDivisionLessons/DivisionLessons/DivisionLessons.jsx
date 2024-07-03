@@ -12,9 +12,13 @@ import datesStore from "../../../../store/datesStore";
 import styled from "styled-components";
 import { beautyDate } from "../../../../lib/beautyDate";
 import Loader from "../../../Loader/Loader";
+import weekStore from '../../../../store/weekStore';
 
 function DivisionLessons() {
     const { getDayLessons } = scheduleStore;
+    const { setMode } = filterStore;
+    const { currDay } = datesStore;
+
     const [dayLessons, setDayLessons] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -24,8 +28,8 @@ function DivisionLessons() {
     useEffect(() => {
         (async () => {
             try {
+                setMode("group");
 
-                filterStore.setMode("group");
                 const lessons = await getDayLessons(id);
 
                 setDayLessons(lessons ? lessons : []);
@@ -55,7 +59,7 @@ function DivisionLessons() {
             {dayLessons.length > 0 && (
                 <LessonsSlider lessons={secondHalf} pagination={true} />
             )}
-            <Date>{beautyDate(datesStore.currDay)}</Date>
+            <Date>{beautyDate(currDay)}</Date>
         </div>
     );
 }

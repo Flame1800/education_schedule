@@ -43,11 +43,9 @@ const WeekSwitcher = () => {
         }
     }
     
-    // #region setting week dates
     useEffect(() => {
         settingCurrentStates()
-    }, [weekDate, setDay, setWeek]);
-    // #endregion
+    }, [weekDate]);
 
     function decrementWeek() {
         const currDate = weekDate;
