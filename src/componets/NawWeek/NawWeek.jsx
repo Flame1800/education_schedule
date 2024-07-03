@@ -5,15 +5,18 @@ import datesStore from "../../store/datesStore";
 import _ from "lodash";
 import "./nawWeek.scss";
 import { Day, NawWeekWrapper, Num, WeekDayItem } from "./NawWeek.style";
+import { useQueryParam } from "use-query-params";
 
 function NavWeek() {
-    const { datesWeek, currDay, setDay } = datesStore;
+    const { datesWeek, getDatesWeek, currDay, setDay } = datesStore;
+    const [week, setWeek] = useQueryParam('week');
 
     useEffect(() => {
-        datesStore.getDatesWeek();
+        getDatesWeek();
     }, []);
 
     const selectDayHandle = (day) => {
+        setWeek(day.toISODate());
         setDay(day.toISODate());
     };
 
