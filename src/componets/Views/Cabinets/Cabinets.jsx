@@ -25,14 +25,15 @@ const Cabinets = () => {
 
     const { setMode } = filterStore;
 
+    const date = DateTime.fromISO(searchParams.get("week"));
+    setDate(date);
+
     useEffect(() => {
         (async () => {
             setMode("cabinet");
             setLoading(true);
 
             try {
-                const date = DateTime.fromISO(searchParams.get("week"));
-                setDate(date);
                 setDay(date.weekday === 7 ? date.plus({ day: 1 }).toISODate() : date.toISODate());
 
                 const week = await getWeek(date);
