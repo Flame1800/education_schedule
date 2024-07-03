@@ -11,8 +11,6 @@ import { EmptyLesson, ScheduleWrapper } from "./DivisionLessons.styled";
 import datesStore from "../../../../store/datesStore";
 import styled from "styled-components";
 import { beautyDate } from "../../../../lib/beautyDate";
-import Loader from "../../../Loader/Loader";
-import weekStore from '../../../../store/weekStore';
 
 function DivisionLessons() {
     const { getDayLessons } = scheduleStore;
@@ -48,7 +46,8 @@ function DivisionLessons() {
     if (dayLessons.length === 0) {
         return (
             <ScheduleWrapper>
-                <EmptyLesson>{!loading ? "Нет пар" : <Loader />}</EmptyLesson>
+                {/* TODO: сделать круглый лоадер */}
+                <EmptyLesson>{!loading ? "Нет пар" : <div />}</EmptyLesson>
             </ScheduleWrapper>
         );
     }

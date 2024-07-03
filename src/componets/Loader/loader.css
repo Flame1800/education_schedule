@@ -1,9 +1,0 @@
-.progress-bar {
-    position: relative;
-	background-color: inherit;
-}
-
-.progress-bar circle {
-    position: absolute;
-    transform-origin: center;
-}

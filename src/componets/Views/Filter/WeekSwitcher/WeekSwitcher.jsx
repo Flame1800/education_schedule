@@ -8,7 +8,6 @@ import {
 import datesStore from "../../../../store/datesStore";
 import { getWeek } from "../../../../lib/API";
 import weekStore from "../../../../store/weekStore";
-import Loader from "../../../Loader/Loader";
 import { formatDate } from "../../../../lib/FormatDate";
 
 const WeekSwitcher = () => {
@@ -63,7 +62,8 @@ const WeekSwitcher = () => {
 
     return (
         <>
-            {isLoading && <Loader />}
+            {/* TODO: сделать лоадер */}
+            {isLoading && <div></div>}
             {!isLoading && (
                 <div className="flex flex-row items-center justify-center space-x-3 py-1 px-1 h-11 flex-shrink-0">
                     {/* arrow to left */}
