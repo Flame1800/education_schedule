@@ -16,7 +16,7 @@ function NavWeek() {
     }, []);
 
     const selectDayHandle = (day) => {
-        setWeek(day.toISODate())
+        setWeek(day.toISODate());
         setDay(day.toISODate());
     };
 

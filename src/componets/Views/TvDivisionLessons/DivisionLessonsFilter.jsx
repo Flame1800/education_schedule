@@ -17,7 +17,6 @@ import { DateTime } from "luxon";
 import styled from "styled-components";
 import datesStore from "../../../store/datesStore";
 import { beautyDate } from "../../../lib/beautyDate";
-import Loader from "../../Loader/Loader";
 
 const DivisionLessonsFilter = () => {
     const { loading } = schedule;
@@ -62,7 +61,7 @@ const DivisionLessonsFilter = () => {
             </div>
             <BlockInfo>
                 {/* TODO: сделать лоадер */}
-                {loading ? <Loader /> : renderDate()}
+                {loading ? <div /> : renderDate()}
 
                 {renderBackButton()}
             </BlockInfo>
