@@ -33,7 +33,7 @@ function Filter() {
 
     const loader = (
         <Loader>
-            {/* TODO: сделать лоадер */}
+            {/* TODO: сделать лоадер круговой*/}
         </Loader>
     );
 
