@@ -12,14 +12,15 @@ import {
     ShowAllGroupsBtn,
 } from "../Filter/Filter.style";
 import { Column, FilterItems } from "../Filter/FillterTabs/FilterTabs.styled";
-import schedule from "../../../store/scheduleStore";
+import scheduleStore from "../../../store/scheduleStore";
 import { DateTime } from "luxon";
 import styled from "styled-components";
 import datesStore from "../../../store/datesStore";
 import { beautyDate } from "../../../lib/beautyDate";
+import Skeleton from "react-loading-skeleton";
 
 const DivisionLessonsFilter = () => {
-    const { loading } = schedule;
+    const { loading } = scheduleStore;
     const { setDay } = datesStore;
 
     useEffect(() => {
@@ -61,7 +62,7 @@ const DivisionLessonsFilter = () => {
             </div>
             <BlockInfo>
                 {/* TODO: сделать лоадер */}
-                {loading ? <div /> : renderDate()}
+                {loading ? <Skeleton /> : renderDate()}
 
                 {renderBackButton()}
             </BlockInfo>
