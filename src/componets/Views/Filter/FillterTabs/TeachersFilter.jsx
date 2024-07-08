@@ -12,6 +12,7 @@ import {
     OverflowColumn,
 } from "./FilterTabs.styled";
 import { weekStore } from "../../../../store";
+import Skeleton from "react-loading-skeleton";
 
 const TeachersFilter = () => {
     const [teachers, setTeachers] = useState([]);
@@ -32,8 +33,7 @@ const TeachersFilter = () => {
         <OverflowColumn>
             {new Array(20).fill().map((item) => {
                 return (
-                    // TODO: сделать лоадер
-                    <div>...</div>
+                    <Skeleton />
                 );
             })}
         </OverflowColumn>
