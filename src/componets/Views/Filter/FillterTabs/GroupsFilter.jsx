@@ -45,8 +45,6 @@ const GroupsFilter = () => {
         />
     ))
 
-
-
     const groupComponents = groups
         .filter(group => group.course === course && group.divisionId === division?.id_1c)
         .map((group) => {
@@ -56,7 +54,6 @@ const GroupsFilter = () => {
                 </Link>
             );
         });
-
 
     return (
         <FilterItems>
