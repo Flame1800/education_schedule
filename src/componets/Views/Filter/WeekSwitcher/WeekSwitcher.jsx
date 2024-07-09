@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { DateTime } from "luxon";
 import {
@@ -97,11 +97,9 @@ const WeekSwitcher = () => {
     );
 
     return (
-        <>
-            {/* TODO: сделать лоадер круговой*/}
-            {/* {!isLoading ? ( */}
-            {!true ? component : loader}
-        </>
+        <Fragment>
+            {!isLoading ? component : loader}
+        </Fragment>
     );
 };
 
