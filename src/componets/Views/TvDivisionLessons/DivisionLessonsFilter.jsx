@@ -17,7 +17,6 @@ import { beautyDate } from "../../../lib/beautyDate";
 import {
     datesStore,
     filterStore,
-    scheduleStore,
     weekStore,
 } from "../../../store";
 import CircleLoader from "../../CircularLoader/CircularLoader";
@@ -95,7 +94,6 @@ const DivisionLessonsFilter = () => {
                 )}
             </div>
             <BlockInfo>
-                {/* TODO: сделать лоадер */}
                 {loading ? dateLoader : renderDate()}
 
                 {renderBackButton()}
