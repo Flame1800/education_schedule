@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import WeekSwitcher from "./WeekSwitcher/WeekSwitcher";
 import weekStore from "../../../store/weekStore";
+import CircularLoader from "../../CircularLoader/CircularLoader";
 
 function Filter() {
     const { week } = weekStore;
@@ -32,9 +33,9 @@ function Filter() {
     };
 
     const loader = (
-        <Loader>
-            {/* TODO: сделать лоадер круговой*/}
-        </Loader>
+        <LoaderWrapper>
+            <CircularLoader className="h-24" />
+        </LoaderWrapper>
     );
 
     const fallBack = !isLoading ? <Empty>На эту неделю нет пар</Empty> : loader;
@@ -167,8 +168,16 @@ const Flex = styled.div`
     }
 `;
 
-const Loader = styled.div`
-    margin: 20px;
+const LoaderWrapper = styled.div`
+    height: 100%;
+    display: flex;
+
+    @media screen and (max-width: 768px) {
+        position: relative;
+        width: 100%;
+        flex-direction: column;
+        height: calc(100% - 55px);
+    }
 `;
 
 export default observer(Filter);
