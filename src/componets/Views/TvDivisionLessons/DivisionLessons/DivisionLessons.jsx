@@ -11,6 +11,7 @@ import { EmptyLesson, ScheduleWrapper } from "./DivisionLessons.styled";
 import datesStore from "../../../../store/datesStore";
 import styled from "styled-components";
 import { beautyDate } from "../../../../lib/beautyDate";
+import CircularLoader from "../../../CircularLoader/CircularLoader";
 
 function DivisionLessons() {
     const { getDayLessons } = scheduleStore;
@@ -25,6 +26,8 @@ function DivisionLessons() {
 
     useEffect(() => {
         (async () => {
+            setLoading(true);
+            
             try {
                 setMode("group");
 
@@ -43,24 +46,36 @@ function DivisionLessons() {
     const firstHalf = dayLessons.filter((_, i) => i <= dayLessons.length / 2);
     const secondHalf = dayLessons.filter((_, i) => i >= dayLessons.length / 2);
 
-    if (dayLessons.length === 0) {
-        return (
-            <ScheduleWrapper>
-                {/* TODO: сделать круглый лоадер */}
-                <EmptyLesson>{!loading ? "Нет пар" : <div />}</EmptyLesson>
-            </ScheduleWrapper>
-        );
-    }
-
-    return (
-        <div className="container-all" style={{ zoom: zoom ? zoom : 1 }}>
-            {dayLessons.length > 0 && <LessonsSlider lessons={firstHalf} />}
-            {dayLessons.length > 0 && (
-                <LessonsSlider lessons={secondHalf} pagination={true} />
-            )}
-            <Date>{beautyDate(currDay)}</Date>
-        </div>
+    const loader = (
+        <ScheduleWrapper>
+            <CircularLoader className="h-24" />
+        </ScheduleWrapper>
     );
+
+    const component = (
+        <>
+            {dayLessons.length !== 0 ? (
+                <div
+                    className="container-all"
+                    style={{ zoom: zoom ? zoom : 1 }}
+                >
+                    {dayLessons.length > 0 && (
+                        <LessonsSlider lessons={firstHalf} />
+                    )}
+                    {dayLessons.length > 0 && (
+                        <LessonsSlider lessons={secondHalf} pagination={true} />
+                    )}
+                    <Date>{beautyDate(currDay)}</Date>
+                </div>
+            ) : (
+                <ScheduleWrapper>
+                    <EmptyLesson>Нет пар</EmptyLesson>
+                </ScheduleWrapper>
+            )}
+        </>
+    );
+
+    return <>{loading ? loader : component}</>;
 }
 
 const Date = styled.div`

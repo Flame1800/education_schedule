@@ -11,6 +11,8 @@ import NotFound from "./componets/Views/NotFound/NotFound";
 import './assets/output.tailwind.css';
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
+import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-circular-progressbar/dist/styles.css';
 
 function App() {
     return (
