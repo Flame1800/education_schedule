@@ -14,13 +14,13 @@ import {
     viewModeStore,
 } from "../../../store";
 import { DateTime } from "luxon";
+import CircularLoader from "../../CircularLoader/CircularLoader";
 
 const Schedule = ({ mode }) => {
     console.log("настоящий мастер - вечный ученик");
     // #region declaration of constants
     const { id } = useParams();
     const [searchParams] = useSearchParams();
-    
 
     const { setLessonsByGroup, setLessonsByTeacher } = scheduleStore;
     const { setDate, setWeek } = weekStore;
@@ -32,7 +32,7 @@ const Schedule = ({ mode }) => {
 
     const controller = new AbortController();
 
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(false);
     // #endregion
 
     const settingStates = async () => {
@@ -58,7 +58,7 @@ const Schedule = ({ mode }) => {
         const week = await getWeek(date);
         setWeek(week);
 
-        // mode is group, teacher
+        // the mode can be a group and a teacher
         setMode(mode);
 
         try {
@@ -72,7 +72,7 @@ const Schedule = ({ mode }) => {
                     fetchLessons = await setLessonsByTeacher(id);
                     break;
                 default:
-                    fetchLessons = async () => [];
+                    fetchLessons = [];
             }
 
             setCurrLessons(fetchLessons);
@@ -83,7 +83,7 @@ const Schedule = ({ mode }) => {
         }
     }
 
-    // #region changing week and setting lessons
+    // changing week and setting lessons
     useEffect(() => {
         settingStates();
 
@@ -91,21 +91,18 @@ const Schedule = ({ mode }) => {
             controller.abort();
         };
     }, [id]);
-    // #endregion
 
-    // #region getting groups from filterStore
+    // getting groups from filterStore
     useEffect(() => {
         getGroups();
     }, [getGroups]);
-    // #endregion
 
-    // #region declaration of loader
+    // declaration of loader
     const loader = (
         <Wrapper>
-            {/* TODO: сделать лоадер */}
+            <CircularLoader className="h-24" />
         </Wrapper>
     );
-    // #endregion
 
     // const queries = window.location.search.replace('?', '').split('&').map(v => v.split('='));
     // const talksIsNeedQuery = queries.find(v => v[0] === 'talksIsNeed')[0];
@@ -118,11 +115,16 @@ const Schedule = ({ mode }) => {
         ? <ScheduleDay talksIsNeed={talksIsNeed} lessons={currLessons}/>
         : <ScheduleWeek talksIsNeed={talksIsNeed} lessons={currLessons}/>
 
+    const component = (
+        <>
+            <Sidebar lessons={currLessons} />
+            {scheduleContainer}
+        </>
+    )
+
     return (
         <>
-            {!isLoading && <Sidebar lessons={currLessons} />}
-
-            {isLoading ? loader : scheduleContainer}
+            {isLoading ? loader : component}
         </>
     );
 };
