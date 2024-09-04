@@ -4,7 +4,7 @@ const instance = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/schedule/api`,
 });
 
-export const getWeek = (date) => instance(`/weeks/date/${date}`);
+export const getWeek = (date) => instance(`/weeks/date/${date}`).then(res => res.data?.[0]);
 export const getWeekLessons = (weekId) => instance(`/lessons/week/${weekId}`);
 export const getGroupWeekLessons = (weekId, groupId) => instance(`/lessons/group/${groupId}?week_id=${weekId}`);
 export const getDivisionWeekLessons = (weekId, divisionName) => instance(`/lessons/division?divisionName=${divisionName}&week_id=${weekId}`);

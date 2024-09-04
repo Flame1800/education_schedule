@@ -8,77 +8,103 @@ import { observer } from "mobx-react-lite";
 import datesStore from "../../../store/datesStore";
 import sortArr from "../../../lib/sortArr";
 import filterStore from "../../../store/filterStore";
+import weekStore from "../../../store/weekStore";
+import { DateTime } from "luxon";
+import { getWeek } from "../../../lib/API";
 
 const Cabinets = () => {
-  const { getLessonsForCabinets, changeWeek } = scheduleStore;
-  const [lessons, setLessons] = React.useState([]);
-  const [loading, setLoading] = useState(false);
+    const { getLessonsForCabinets } = scheduleStore;
+    const { setDate, setWeek } = weekStore;
 
-  const { currDay } = datesStore;
-  const { id } = useParams();
-  const [searchParams] = useSearchParams();
+    const [lessons, setLessons] = React.useState([]);
+    const [loading, setLoading] = useState(false);
 
-  const { setMode } = filterStore;
+    const { currDay, setDay } = datesStore;
+    const { id } = useParams();
+    const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    (async () => {
-      setMode("cabinet");
-      setLoading(true);
-      try {
-        changeWeek(searchParams.get("week"));
-        const fetchLessons = await getLessonsForCabinets(id);
-        setLessons(fetchLessons);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [currDay, setMode, changeWeek, searchParams, getLessonsForCabinets, id]);
+    const { setMode } = filterStore;
 
-  return (
-    <div>
-      <Link to="/timetable">
-        <div className="back-btn">Назад</div>
-      </Link>
-      <div className="schedule-all">
-        <div className="cabs">
-          <NawWeek />
-          {lessons.length === 0 && (
-            <div className="empty-lesson">
-              {loading ? "Загрузка..." : "Нет пар"}
+    const date = DateTime.fromISO(searchParams.get("week"));
+    setDate(date);
+
+    useEffect(() => {
+        (async () => {
+            setMode("cabinet");
+            setLoading(true);
+
+            try {
+                setDay(date.weekday === 7 ? date.plus({ day: 1 }).toISODate() : date.toISODate());
+
+                const week = await getWeek(date);
+                setWeek(week);
+
+                const fetchLessons = await getLessonsForCabinets(id);
+                setLessons(fetchLessons);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                setLoading(false);
+            }
+        })();
+    }, [currDay, setMode, searchParams, getLessonsForCabinets, id]);
+
+    return (
+        <div>
+            <Link to="/timetable">
+                <div className="back-btn">Назад</div>
+            </Link>
+            <div className="schedule-all">
+                <div className="cabs">
+                    <NawWeek />
+                    {lessons.length === 0 && (
+                        <div className="empty-lesson">
+                            {loading ? "Загрузка..." : "Нет пар"}
+                        </div>
+                    )}
+                    {lessons.length !== 0 && (
+                        <div className="cab-items">
+                            {sortArr(lessons).map((pair) => {
+                                const [groupName, lessons] = pair;
+                                const groupNameMapped =
+                                    groupName === "undefined"
+                                        ? "***"
+                                        : groupName;
+
+                                return (
+                                    <div
+                                        className="container-day"
+                                        key={groupName}
+                                    >
+                                        <div className="row-items">
+                                            <div className="head">
+                                                <div className="group">
+                                                    {groupNameMapped}
+                                                </div>
+                                            </div>
+                                            <div className="lesson-cont">
+                                                {filterLessons(lessons).map(
+                                                    (lesson, i) => {
+                                                        return (
+                                                            <WeekLesson
+                                                                day={currDay}
+                                                                key={i}
+                                                                lesson={lesson}
+                                                            />
+                                                        );
+                                                    }
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
             </div>
-          )}
-          {lessons.length !== 0 && (
-            <div className="cab-items">
-              {sortArr(lessons).map((pair) => {
-                const [groupName, lessons] = pair;
-                const groupNameMapped =
-                  groupName === "undefined" ? "***" : groupName;
-
-                return (
-                  <div className="container-day" key={groupName}>
-                    <div className="row-items">
-                      <div className="head">
-                        <div className="group">{groupNameMapped}</div>
-                      </div>
-                      <div className="lesson-cont">
-                        {filterLessons(lessons).map((lesson, i) => {
-                          return (
-                            <WeekLesson day={currDay} key={i} lesson={lesson} />
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default observer(Cabinets);

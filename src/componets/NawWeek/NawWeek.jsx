@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./nawWeek.scss";
-import {observer} from "mobx-react-lite";
+import { observer } from "mobx-react-lite";
 import datesStore from "../../store/datesStore";
 import _ from "lodash";
-import './nawWeek.scss'
-import {Day, NawWeekWrapper, Num, WeekDayItem} from "./NawWeek.style";
+import "./nawWeek.scss";
+import { Day, NawWeekWrapper, Num, WeekDayItem } from "./NawWeek.style";
+import { useQueryParam } from "use-query-params";
 
 function NavWeek() {
-    const {datesWeek, currDay, setDay} = datesStore
+    const { datesWeek, getDatesWeek, currDay, setDay } = datesStore;
+    const [week, setWeek] = useQueryParam('week');
 
-    React.useEffect(() => {
-        datesStore.getDatesWeek()
-    }, [])
+    useEffect(() => {
+        getDatesWeek();
+    }, []);
 
     const selectDayHandle = (day) => {
-        setDay(day.toISODate())
+        setWeek(day.toISODate());
+        setDay(day.toISODate());
     };
-
 
     return (
         <NawWeekWrapper>
@@ -27,7 +29,7 @@ function NavWeek() {
                         key={_.uniqueId()}
                         onClick={() => selectDayHandle(date)}
                     >
-                        <Num>{date.toFormat('dd LLL')}</Num>
+                        <Num>{date.toFormat("dd LLL")}</Num>
                         <Day>{date.weekdayShort}</Day>
                     </WeekDayItem>
                 );

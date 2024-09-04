@@ -1,57 +1,111 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import ScheduleWeek from "./SheduleWeek/SheduleWeek";
-import {observer} from "mobx-react-lite";
-import filterStore from "../../../store/filterStore";
-import {useParams, useSearchParams} from "react-router-dom";
-import schedule from "../../../store/scheduleStore";
-import {CircularProgress} from "@mui/material";
+import { observer } from "mobx-react-lite";
+import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import viewModeStore from "../../../store/viewModeStore";
 import ScheduleDay from "./SheduleDay/SheduleDay";
-import { QueryParams } from "use-query-params";
+import { getWeek } from "../../../lib/API";
+import {
+    datesStore,
+    weekStore,
+    scheduleStore,
+    filterStore,
+    viewModeStore,
+} from "../../../store";
+import { DateTime } from "luxon";
 
-const Schedule = ({mode}) => {
-    const {id} = useParams()
-    const {setLessonsByGroup, setLessonsByTeacher, changeWeek} = schedule;
-    const {view} = viewModeStore
-    const [loading, setLoading] = useState(false)
-    const [currLessons, setCurrLessons] = useState([])
+const Schedule = ({ mode }) => {
+    console.log("настоящий мастер - вечный ученик");
+    // #region declaration of constants
+    const { id } = useParams();
     const [searchParams] = useSearchParams();
     
 
-    const {setMode, getGroups} = filterStore
+    const { setLessonsByGroup, setLessonsByTeacher } = scheduleStore;
+    const { setDate, setWeek } = weekStore;
+    const { setMode, getGroups, getDivisions } = filterStore;
+    const { setDay } = datesStore;
 
-    const loadLessons = {
-        'group': setLessonsByGroup(id),
-        'teacher': setLessonsByTeacher(id)
+    const { view } = viewModeStore;
+    const [currLessons, setCurrLessons] = useState([]);
+
+    const controller = new AbortController();
+
+    const [isLoading, setLoading] = useState(true);
+    // #endregion
+
+    const settingStates = async () => {
+        setLoading(true)
+
+        await getDivisions();
+        await getGroups();
+
+        const dateISO = searchParams.get("week");
+
+        let date = DateTime.fromISO(dateISO);
+
+        if (date.weekday === 7) {
+            date = date.plus({
+                day: 1,
+            });
+        }
+
+        setDate(date);
+        date = date.toISODate();
+        setDay(date);
+
+        const week = await getWeek(date);
+        setWeek(week);
+
+        // mode is group, teacher
+        setMode(mode);
+
+        try {
+            let fetchLessons = [];
+
+            switch(mode) {
+                case 'group': 
+                    fetchLessons = await setLessonsByGroup(id);
+                    break;
+                case 'teacher':
+                    fetchLessons = await setLessonsByTeacher(id);
+                    break;
+                default:
+                    fetchLessons = async () => [];
+            }
+
+            setCurrLessons(fetchLessons);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
     }
 
+    // #region changing week and setting lessons
     useEffect(() => {
-        (async () => {
-            setMode(mode)
-            changeWeek(searchParams.get('week'))
-            try {
-                setLoading(true)
-                const fetchLessons = await loadLessons[mode]
-                setCurrLessons(fetchLessons)
-            } catch (e) {
-                console.error(e)
-            } finally {
-                setLoading(false)
-            }
-        })()
-    }, [id])
+        settingStates();
 
+        return () => {
+            controller.abort();
+        };
+    }, [id]);
+    // #endregion
+
+    // #region getting groups from filterStore
     useEffect(() => {
-        getGroups()
-    }, [])
+        getGroups();
+    }, [getGroups]);
+    // #endregion
 
+    // #region declaration of loader
     const loader = (
         <Wrapper>
-            <CircularProgress color="inherit"/>
+            {/* TODO: сделать лоадер */}
         </Wrapper>
-    )
+    );
+    // #endregion
 
     // const queries = window.location.search.replace('?', '').split('&').map(v => v.split('='));
     // const talksIsNeedQuery = queries.find(v => v[0] === 'talksIsNeed')[0];
@@ -66,19 +120,19 @@ const Schedule = ({mode}) => {
 
     return (
         <>
-            {currLessons && <Sidebar lessons={currLessons}/>}
-            {loading ? loader : scheduleContainer}
+            {!isLoading && <Sidebar lessons={currLessons} />}
+
+            {isLoading ? loader : scheduleContainer}
         </>
-    )
-}
+    );
+};
 
 const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40vh;
-`
-
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+`;
 
 export default observer(Schedule);

@@ -1,118 +1,97 @@
 import { makeAutoObservable } from "mobx";
-import { DateTime } from "luxon";
 import datesStore from "./datesStore";
-import weekModeViews from "../consts/weekModeViews";
 import filterLessonsByDate from "../lib/filterLessonsByDate";
 import sortLessonsByGroup from "../lib/sortLessonsByGroup";
 import groupLessons from "../lib/groupLessons";
-import { getDivisionWeekLessons, getGroupWeekLessons, getTeacherWeekLessons, getWeek } from "../lib/API";
-
+import {
+    getDivisionWeekLessons,
+    getGroupWeekLessons,
+    getTeacherWeekLessons,
+    getWeek,
+} from "../lib/API";
+import weekStore from "./weekStore";
 
 class ScheduleStore {
-  currWeek = null;
-  currDate = DateTime.now().toISODate()
-  loading = false;
-  weekMode = weekModeViews.curr;
-
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  getCurrentWeek = async () => {
-    this.loading = true;
-
-
-    const currDay = DateTime.now()
-
-    try {
-      let currDate = currDay.toISODate()
-
-      if (this.weekMode === weekModeViews.next) {
-        currDate = currDate.plus({ weeks: 1 });
-      }
-
-      this.currDate = currDate
-
-      const currWeek = await getWeek(currDate);
-
-      if (currWeek.data.length === 0) {
-        this.currWeek = +null
-      }
-
-      this.currWeek = currWeek.data[0]
-      return currWeek.data[0]
-    } catch (e) {
-      console.error(e);
-    } finally {
-      this.loading = false;
+    constructor() {
+        makeAutoObservable(this);
     }
-  };
+    loading = false;
 
-  changeWeek = (mode) => {
-    this.weekMode = mode
-  }
+    getDayLessons = async (divisionName) => {
+        const { date } = weekStore;
 
-  getDayLessons = async (divisionName) => {
-    this.loading = true;
+        try {
+            const week = await getWeek(date);
 
-    try {
-      const week = await this.getCurrentWeek()
-      const reqLessons = await getDivisionWeekLessons(week._id, divisionName)
+            const reqLessons = await getDivisionWeekLessons(
+                week._id,
+                divisionName
+            );
 
-      const dayLessons = filterLessonsByDate(reqLessons.data, datesStore.currDay)
-      const sortedDayLessons = sortLessonsByGroup(dayLessons)
-      return groupLessons(sortedDayLessons, "group.name")
-    } catch (e) {
-      console.error(e);
-    } finally {
-      this.loading = false;
-    }
-  }
+            const dayLessons = filterLessonsByDate(
+                reqLessons.data,
+                datesStore.currDay
+            );
 
+            const sortedDayLessons = sortLessonsByGroup(dayLessons);
+            return groupLessons(sortedDayLessons, "group.name");
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
-  setLessonsByGroup = async (groupId) => {
-    this.loading = true;
+    setLessonsByGroup = async (groupId) => {
+        const { week } = weekStore;
 
-    try {
-      const week = await this.getCurrentWeek()
-      const reqLessons = await getGroupWeekLessons(week._id, groupId)
-      return reqLessons.data
-    } catch (e) {
-      console.error(e);
-    } finally {
-      this.loading = false;
-    }
-  };
+        try {
+            const reqLessons = await getGroupWeekLessons(week._id, groupId);
+            
+            return reqLessons.data;
+        } catch (e) {
+            console.error(e);
+        } finally {
+            this.loading = false;
+        }
+    };
 
-  setLessonsByTeacher = async (teacherName) => {
-    this.loading = true;
+    setLessonsByTeacher = async (teacherName) => {
+        const { week } = weekStore;
 
-    try {
-      const week = await this.getCurrentWeek()
-      const reqLessons = await getTeacherWeekLessons(week._id, teacherName)
-      return reqLessons.data
-    } catch (e) {
-      console.error(e);
-    } finally {
-      this.loading = false;
-    }
-  };
+        try {
+            const reqLessons = await getTeacherWeekLessons(
+                week._id,
+                teacherName
+            );
 
-  getLessonsForCabinets = async (divisionName) => {
-    this.loading = true;
+            return reqLessons.data;
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
-    try {
-      const week = await this.getCurrentWeek()
-      const reqLessons = await getDivisionWeekLessons(week._id, divisionName)
-      const dayLessons = filterLessonsByDate(reqLessons.data, datesStore.currDay)
-      const sortedDayLessons = sortLessonsByGroup(dayLessons)
-      return groupLessons(sortedDayLessons, "cabinet.number")
-    } catch (e) {
-      console.error(e);
-    } finally {
-      this.loading = false;
-    }
-  }
+    getLessonsForCabinets = async (divisionName) => {
+        const { date } = weekStore;
+
+        try {
+            const week = await getWeek(date);
+
+            const reqLessons = await getDivisionWeekLessons(
+                week._id,
+                divisionName
+            );
+
+            const dayLessons = filterLessonsByDate(
+                reqLessons.data,
+                datesStore.currDay
+            );
+
+            const sortedDayLessons = sortLessonsByGroup(dayLessons);
+
+            return groupLessons(sortedDayLessons, "cabinet.number");
+        } catch (e) {
+            console.error(e);
+        }
+    };
 }
 
 export default new ScheduleStore();

@@ -8,6 +8,7 @@ import DivisionLessons from "./componets/Views/TvDivisionLessons/DivisionLessons
 import Cabinets from "./componets/Views/Cabinets/Cabinets";
 import DivisionLessonsFilter from "./componets/Views/TvDivisionLessons/DivisionLessonsFilter";
 import NotFound from "./componets/Views/NotFound/NotFound";
+import './assets/output.tailwind.css';
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import WeekLesson from "../../../Lesson/WeekLesson/WeekLesson";
 import 'swiper/swiper.scss';
 import { Autoplay, Pagination, Navigation } from 'swiper';
@@ -17,7 +17,6 @@ import { beautyDate } from '../../../../lib/beautyDate';
 import styled from 'styled-components';
 import CurrentTime from './CurrentTime'
 
-
 const LessonsSlider = ({ lessons }) => {
     const dateUpper = beautyDate(datesStore.currDay);
     const timeInHours = CurrentTime();
@@ -27,28 +26,34 @@ const LessonsSlider = ({ lessons }) => {
     const isNotSliderMode = lessons.length <= 6
     const flagShift = (timeInHours.props.children > '13:00') ? 2 : 1;
 
+    const generateLessons = (dayLessons, day) => {
+        const fLessons = fillEmptyLessons(dayLessons, day);
 
-    const generateLessons = (dayLessons , day) => {
-        const fLessons = fillEmptyLessons(dayLessons , day);
+        return fLessons.map((lesson, i) => {
+            const isMonday = DateTime.fromISO(currDay).weekday === 1;
 
-        return fLessons.map((lesson) => {
-            const isMonday = DateTime.fromISO(currDay).weekday === 1
-            const isTalks = lesson.lessonNumber === 1 || lesson.lessonNumber === 4
-            return (<>
-                {isTalks && isMonday && <TalksPromoInfo pair={lesson.lessonNumber} />}
-                <WeekLesson key={lesson._id} day={currDay} lesson={lesson} />
-            </>)
+            const isTalks = lesson.lessonNumber === 1 || lesson.lessonNumber === 4;
+
+            return (
+                <Fragment key={lesson._id + " generatedLessons " + i}>
+                    {isTalks && isMonday && (
+                        <TalksPromoInfo pair={lesson.lessonNumber} />
+                    )}
+                    <WeekLesson day={currDay} lesson={lesson} />
+                </Fragment>
+            );
         });
-    }
+    };
+
     const mediaDayClass = lessons[0][1][0].division.name === '№2, Рабочая 43/1' ? 'container-day-eightPairs' : 'container-day';
     const mediaSwiperDiv = lessons[0][1][0].division.name === '№2, Рабочая 43/1' ? 'swiper-div-eightPairs' : 'swiper-div';
 
-    const lessonItems = lessons.map(pair => {
+    const lessonItems = lessons.map((pair) => {
+        const [groupName, groupLessons] = pair;
 
-        const [groupName, groupLessons] = pair
+        const groupNameComponent = <div className="group">{groupName}</div>;
 
-        const groupNameComponent = <div className="group">{groupName}</div>
-        const groupLilName = groupName.split('-')[0]
+        const groupLilName = groupName.split("-")[0];
 
         const lessonContainer = (
             <div className={mediaDayClass} key={groupName}>
@@ -56,19 +61,19 @@ const LessonsSlider = ({ lessons }) => {
                     <div className="head" style={{ background: groupColors[groupLilName] }}>
                         {groupNameComponent}
                     </div>
-                    <div className="lesson-cont">
+                    <div key={groupName + "lesson-count"} className="lesson-cont">
                         {generateLessons(groupLessons)}
                     </div>
                 </div>
             </div>
-        )
+        );
 
         if (isNotSliderMode) {
-            return lessonContainer
+            return lessonContainer;
         }
 
         return (
-            <SplideSlide>
+            <SplideSlide key={groupName + "splideSlide"}>
                 {lessonContainer}
             </SplideSlide>
         )
