@@ -23,7 +23,7 @@ const WeekLesson = ({ lesson, day }) => {
 
     const cab = (
         <CabNum>
-            {mode === 'cabinet' ? lesson.group.name.toLowerCase() : lesson.cabinet?.number.toLowerCase() || "***"}
+            {mode === 'cabinet' ? lesson.group?.name.toLowerCase() : lesson.cabinet?.number.toLowerCase() || "***"}
         </CabNum>
     )
 
